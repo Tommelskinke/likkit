@@ -19,11 +19,11 @@ jobs:
 
     - name: Install dependencies server
       run: npm install
-      working-directory: whiteboard-service-2/server
+      working-directory: LickIT-Project/server
 
     - name: Install dependencies client
       run: npm install
-      working-directory: whiteboard-service-2/client
+      working-directory: LickIT-Project/client
 
 
   test:
@@ -39,16 +39,16 @@ jobs:
 
     - name: Install dependencies server
       run: npm install
-      working-directory: whiteboard-service-2/server
+      working-directory: LickIT-Project/server
 
     - name: Prettier
       run: ./node_modules/.bin/prettier --check .
-      working-directory: whiteboard-service-2/server
+      working-directory: LickIT-Project/server
 
     - name: TypeScript
       run: ./node_modules/.bin/tsc --noEmit --skipLibCheck
-      working-directory: whiteboard-service-2/server
+      working-directory: LickIT-Project/server
       
     - name: Run Tests
       run: npm test
-      working-directory: whiteboard-service-2/server
+      working-directory: LickIT-Project/server
