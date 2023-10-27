@@ -1,0 +1,32 @@
+name: CI test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4.0.0
+
+    - name: Install dependencies
+      run: npm install
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Prettier
+      run: ./node_modules/.bin/prettier --check "**/*"
+
+    - name: TypeScript
+      run: ./node_modules/.bin/tsc --noEmit --skipLibCheck --rootDir ./src --outDir ./dist
+
+    - name: Run Tests
+      run: npm test
