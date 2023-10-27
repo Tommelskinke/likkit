@@ -14,8 +14,13 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v4.0.0
 
-    - name: Install dependencies
+    - name: Install dependencies server
       run: npm install
+      working-directory: server
+
+    - name: Install dependencies client
+      run: npm install
+      working-directory: client
 
 
   test:
