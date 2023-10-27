@@ -16,11 +16,11 @@ jobs:
 
     - name: Install dependencies server
       run: npm install
-      working-directory: server
+      working-directory: DCST2002-group-project/whiteboard-service-2/server
 
     - name: Install dependencies client
       run: npm install
-      working-directory: client
+      working-directory: DCST2002-group-project/whiteboard-service-2/client
 
 
   test:
