@@ -41,14 +41,14 @@ jobs:
       run: npm install
       working-directory: whiteboard-service-2/server
 
+    - name: Prettier
+      run: ./node_modules/.bin/prettier --check .
+      working-directory: whiteboard-service-2/server
+
     - name: TypeScript
       run: ./node_modules/.bin/tsc --noEmit --skipLibCheck
       working-directory: whiteboard-service-2/server
       
     - name: Run Tests
       run: npm test
-      working-directory: whiteboard-service-2/server
-
-    - name: Prettier
-      run: ./node_modules/.bin/prettier --check .
       working-directory: whiteboard-service-2/server
