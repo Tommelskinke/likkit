@@ -21,6 +21,10 @@ jobs:
       run: npm install
       working-directory: whiteboard-service-2/server
 
+    - name: Install dependencies server
+      run: npm install
+      working-directory: whiteboard-service-2/server
+
     - name: Install dependencies client
       run: npm install
       working-directory: whiteboard-service-2/client
