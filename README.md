@@ -1,16 +1,16 @@
 # likkit - DCST2002 Webutviklingsprosjekt
-
+Velkommen til vårt prosjekt
 ## Førstegangsoppsett
 Tar utgangspunkt man er i ./LickIT-prosjekt
 ### Server
-
-cd server<br>
-npm install<br>
-npm start<br>
-`
-
+```
+cd server
+npm install
+npm start
+```
 ### Klient
-
-cd client<br>
-npm install<br>
-npm start<br>
+```
+cd client
+npm install
+npm start
+```
