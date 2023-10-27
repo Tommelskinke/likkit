@@ -16,7 +16,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-           cd DCST2002-group-project/whiteboard-service-2/client 
+           pwd
+           ls
            npm install
            cd DCST2002-group-project/whiteboard-service-2/server
            npm install
