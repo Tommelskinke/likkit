@@ -31,6 +31,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out repo
+      uses: actions/checkout@v3
+      
     - name: Prettier
       run: ./node_modules/.bin/prettier --check .
       working-directory: whiteboard-service-2/server
