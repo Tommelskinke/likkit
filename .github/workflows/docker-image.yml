@@ -33,6 +33,9 @@ jobs:
     steps:
     - name: Check out repo
       uses: actions/checkout@v3
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4.0.0
       
     - name: Prettier
       run: ./node_modules/.bin/prettier --check .
@@ -40,7 +43,8 @@ jobs:
 
     - name: TypeScript
       run: ./node_modules/.bin/tsc --noEmit --skipLibCheck
-      working-directory: whiteboard-service-2/client
+      working-directory: whiteboard-service-2/server
       
     - name: Run Tests
       run: npm test
+      working-directory: whiteboard-service-2/server
