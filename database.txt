@@ -46,7 +46,7 @@ INSERT INTO users VALUES(DEFAULT, 'Vegard', 'Password1!');
 INSERT INTO users VALUES(DEFAULT, 'Elias', 'Password1!');
 INSERT INTO users VALUES(DEFAULT, 'Trygve', 'Password1!');
 
-INSERT INTO question VALUES(DEFAULT, 1, ('3','4'), 'Hjelp', 'Jeg trenger hjelp med noe.', DEFAULT, 0, 0, 0);
+INSERT INTO question VALUES(DEFAULT, 1, ('3,4'), 'Hjelp, igjen', 'Jeg trenger hjelp med noe, igjen.', DEFAULT, 0, 0, 0);
 
 INSERT INTO answer VALUES(DEFAULT, 1, 2, 0, 'Her er svaret', DEFAULT, 0, 0, 0);
 
