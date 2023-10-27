@@ -1,0 +1,57 @@
+CREATE TABLE users( 
+	user_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+	username VARCHAR(20),
+	password VARCHAR(20));
+
+CREATE TABLE tag( 
+	tag_id INTEGER, 
+	tag_name VARCHAR(20));
+
+CREATE TABLE question( 
+	question_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	user_id INTEGER,
+	tag_id SET('1', '2', '3', '4'), 
+	title TINYTEXT,
+	content TINYTEXT,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	upvotes INTEGER,
+	downvotes INTEGER,
+	karma INTEGER);
+
+CREATE TABLE answer( 
+	answer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	question_id INTEGER,
+	user_id INTEGER,
+	best_answer BOOLEAN,
+	content TINYTEXT,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	upvotes INTEGER,
+	downvotes INTEGER,
+	karma INTEGER);
+
+ALTER TABLE question ADD CONSTRAINT question_fk1 FOREIGN KEY(tag_id) REFERENCES tag (tag_id);
+ALTER TABLE question ADD CONSTRAINT question_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id); 
+
+ALTER TABLE answer ADD CONSTRAINT answer_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
+ALTER TABLE answer ADD CONSTRAINT answer_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id);
+ 
+
+INSERT INTO tag VALUES(1, 'solved');
+INSERT INTO tag VALUES(2, 'JS');
+INSERT INTO tag VALUES(3, 'Rust');
+INSERT INTO tag VALUES(4, 'Linux');
+
+INSERT INTO users VALUES(DEFAULT, 'Oscar', 'Password1!');
+INSERT INTO users VALUES(DEFAULT, 'Vegard', 'Password1!');
+INSERT INTO users VALUES(DEFAULT, 'Elias', 'Password1!');
+INSERT INTO users VALUES(DEFAULT, 'Trygve', 'Password1!');
+
+INSERT INTO question VALUES(DEFAULT, 1, ('3','4'), 'Hjelp', 'Jeg trenger hjelp med noe.', DEFAULT, 0, 0, 0);
+
+INSERT INTO answer VALUES(DEFAULT, 1, 2, 0, 'Her er svaret', DEFAULT, 0, 0, 0);
+
+
+
+
+
+
