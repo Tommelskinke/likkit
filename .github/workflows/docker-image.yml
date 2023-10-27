@@ -15,7 +15,10 @@ jobs:
       uses: actions/setup-node@v4.0.0
 
     - name: Install dependencies
-      run: npm install
+      run: cd ./whiteboard-service-2/client 
+           npm install
+           cd ./whiteboard-service-2/server
+           npm install
 
   test:
     name: Tests
