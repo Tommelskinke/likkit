@@ -20,19 +20,19 @@ jobs:
 
       - name: Install dependencies server
         run: npm install
-        working-directory: LickIT-Project/server
+        working-directory: likkit-project/server
 
       - name: Prettier Check
         run: ./node_modules/.bin/prettier --check .
-        working-directory: LickIT-Project/server
+        working-directory: likkit-project/server
 
       - name: TypeScript Check
         run: ./node_modules/.bin/tsc --noEmit --skipLibCheck
-        working-directory: LickIT-Project/server
+        working-directory: likkit-project/server
 
       - name: Run Server Tests
         run: npm test
-        working-directory: LickIT-Project/server
+        working-directory: likkit-project/server
 
   Client_Tests:
     name: Client Tests
@@ -47,16 +47,16 @@ jobs:
 
       - name: Install dependencies client
         run: npm install
-        working-directory: LickIT-Project/client
+        working-directory: likkit-project/client
 
       - name: Prettier Check
         run: ./node_modules/.bin/prettier --check .
-        working-directory: LickIT-Project/client
+        working-directory: likkit-project/client
 
       - name: TypeScript Check
         run: ./node_modules/.bin/tsc --noEmit --skipLibCheck
-        working-directory: LickIT-Project/client
+        working-directory: likkit-project/client
 
       - name: Run Client Tests
         run: npm test
-        working-directory: LickIT-Project/client
+        working-directory: likkit-project/client
