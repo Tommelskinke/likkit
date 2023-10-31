@@ -1,0 +1,3 @@
+Karma points -> likks
+Spill animasjon når man upvoter
+Spill animasjon når man oppnår x antall likks
