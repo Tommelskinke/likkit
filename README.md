@@ -1,7 +1,7 @@
 # likkit - DCST2002 Webutviklingsprosjekt
 Velkommen til vårt prosjekt
 ## Førstegangsoppsett
-Tar utgangspunkt man er i ./LickIT-prosjekt
+Tar utgangspunkt man er i ./likkit-project
 ### Server
 ```
 cd server
