@@ -73,9 +73,30 @@ export class Home extends Component {
   render() {
     return (
       <div>
-        <
-        <h1>Home</h1>
-        
+        <Card>
+          <Row>
+            <Column width={1}>
+              <img
+                src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
+                alt="Picture of likkit logo"
+              />
+            </Column>
+            <Column width={8}>
+              <Form.Input
+                type="text"
+                //value={this.task.title}
+                //onChange={(event) => (this.task.title = event.currentTarget.value)}
+                placeholder="Søk..."
+              />
+            </Column>
+            <Column width={1}>
+              <img
+                src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
+                alt="Picture of likkit logo"
+              />
+            </Column>
+          </Row>
+        </Card>
       </div>
     );
   }
@@ -136,6 +157,16 @@ export class Post extends Component {
     return (
       <div>
         <h1>Post</h1>
+      </div>
+    );
+  }
+}
+
+export class CreatePost extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Create Post</h1>
       </div>
     );
   }

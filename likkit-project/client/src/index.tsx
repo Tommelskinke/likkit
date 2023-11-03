@@ -21,6 +21,7 @@ if (root)
         <Alert />
         <Route exact path="/" component={Home} />
         <Route exact path="/tags" component={TagList} />
+        <Route exact path="createPost" component={Post} />
         <Route exact path="/favorites" component={FavoriteList} />
         <Route exact path="/user" component={UserProfile} />
         <Route exact path="/posts" component={Posts} />
