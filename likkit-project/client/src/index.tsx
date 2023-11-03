@@ -11,17 +11,7 @@ import {
 } from './whiteboard-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
-import { NavBar, Card, Alert } from './widgets';
-
-class Menu extends Component {
-  render() {
-    return (
-      <NavBar brand="Todo App">
-        <NavBar.Link to="/">Tasks</NavBar.Link>
-      </NavBar>
-    );
-  }
-}
+import { Alert } from './widgets';
 
 let root = document.getElementById('root');
 if (root)
@@ -29,7 +19,6 @@ if (root)
     <HashRouter>
       <div>
         <Alert />
-        <Menu />
         <Route exact path="/" component={Home} />
         <Route exact path="/tags" component={TagList} />
         <Route exact path="/favorites" component={FavoriteList} />
