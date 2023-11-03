@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Whiteboard } from '../src/whiteboard-component';
+import { Whiteboard } from '../src/Components/whiteboard-component';
 import { shallow } from 'enzyme';
 
 jest.mock('../src/whiteboard-service', () => {

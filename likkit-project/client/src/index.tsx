@@ -8,7 +8,7 @@ import {
   Posts,
   TagPosts,
   Post,
-} from './whiteboard-component';
+} from './Components/whiteboard-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { Alert } from './widgets';

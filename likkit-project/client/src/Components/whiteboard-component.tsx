@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import whiteboardService, { Subscription } from './whiteboard-service';
-import { Alert, Card, Row, Column, Form, Button } from './widgets';
+import whiteboardService, { Subscription } from '../whiteboard-service';
+import { Alert, Card, Row, Column, Form, Button } from '../widgets';
 
 export class Whiteboard extends Component {
   canvas: HTMLCanvasElement | null = null;
