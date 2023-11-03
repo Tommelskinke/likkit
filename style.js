@@ -1,0 +1,1 @@
+backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))' // bakgrunnsfarge med fade
