@@ -15,7 +15,7 @@ if (root)
         <Route exact path="/" component={Home} />
         <Route exact path="/tags" component={TagList} />
         <Route exact path="/favorites" component={FavoriteList} />
-        <Route exact path="/user" component={UserProfile} /> 
+        <Route exact path="/user" component={UserProfile} />
         <Route exact path="/posts" component={Posts} />
         <Route exact path="/posts/tag/:id" component={TagPosts} />
         <Route exact path="/posts/tag/:id/post/:id" component={Post} />
