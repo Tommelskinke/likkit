@@ -68,3 +68,74 @@ export class Whiteboard extends Component {
     if (this.subscription) whiteboardService.unsubscribe(this.subscription);
   }
 }
+
+export class Home extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Home</h1>
+        <Whiteboard />
+      </div>
+    );
+  }
+}
+
+export class TagList extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Tags</h1>
+      </div>
+    );
+  }
+}
+
+export class FavoriteList extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Favorites</h1>
+      </div>
+    );
+  }
+}
+
+export class UserProfile extends Component {
+  render() {
+    return (
+      <div>
+        <h1>User</h1>
+      </div>
+    );
+  }
+}
+
+export class Posts extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Posts</h1>
+      </div>
+    );
+  }
+}
+
+export class TagPosts extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Posts</h1>
+      </div>
+    );
+  }
+}
+
+export class Post extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Post</h1>
+      </div>
+    );
+  }
+}

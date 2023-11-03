@@ -1,9 +1,27 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Whiteboard } from './whiteboard-component';
+import {
+  Home,
+  TagList,
+  FavoriteList,
+  UserProfile,
+  Posts,
+  TagPosts,
+  Post,
+} from './whiteboard-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
-import { Alert } from './widgets';
+import { NavBar, Card, Alert } from './widgets';
+
+class Menu extends Component {
+  render() {
+    return (
+      <NavBar brand="Todo App">
+        <NavBar.Link to="/">Tasks</NavBar.Link>
+      </NavBar>
+    );
+  }
+}
 
 let root = document.getElementById('root');
 if (root)
