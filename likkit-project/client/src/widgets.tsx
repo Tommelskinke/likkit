@@ -6,15 +6,23 @@ import { NavLink } from 'react-router-dom';
 /**
  * Renders an information card using Bootstrap classes.
  *
- * Properties: title
+ * Properties: title, marginTop, marginBottom
  */
-export class Card extends Component<{ title: ReactNode }> {
+export class Card extends Component<{
+  title: ReactNode;
+  marginTop?: number;
+  marginBottom?: number;
+}> {
   render() {
     return (
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">{this.props.title}</h5>
-          <div className="card-text">{this.props.children}</div>
+      <div className={'mt' + (this.props.marginTop ? '-' + this.props.marginTop : '')}>
+        <div className={'mb' + (this.props.marginBottom ? '-' + this.props.marginBottom : '')}>
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">{this.props.title}</h5>
+              <div className="card-text">{this.props.children}</div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -23,19 +31,34 @@ export class Card extends Component<{ title: ReactNode }> {
 
 /**
  * Renders a row using Bootstrap classes.
+ *
+ * Properties: marginTop, marginBottom
  */
-export class Row extends Component {
+export class Row extends Component<{
+  marginTop?: number;
+  marginBottom?: number;
+}> {
   render() {
-    return <div className="row">{this.props.children}</div>;
+    return (
+      <div className={'mt' + (this.props.marginTop ? '-' + this.props.marginTop : '')}>
+        <div className={'mb' + (this.props.marginBottom ? '-' + this.props.marginBottom : '')}>
+          <div className="row">{this.props.children}</div>
+        </div>
+      </div>
+    );
   }
 }
 
 /**
  * Renders a column with specified width using Bootstrap classes.
  *
- * Properties: width, right
+ * Properties: width, right/none
  */
-export class Column extends Component<{ width?: number; none?: boolean; right?: boolean }> {
+export class Column extends Component<{
+  width?: number;
+  none?: boolean;
+  right?: boolean;
+}> {
   render() {
     return (
       <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
