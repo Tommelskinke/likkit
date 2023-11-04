@@ -71,18 +71,19 @@ export class Whiteboard extends Component {
 
 export class Home extends Component {
   search: string = '';
+  posts: string[] = ['Post1', 'post2']; //Denne må endres te rett type seinere
   render() {
     return (
       <div>
         <Card>
-          <Row>
-            <Column width={1}>
+          <Row marginBottom={1}>
+            <Column width={3}>
               <img
                 src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
                 alt="Picture of likkit logo"
               />
             </Column>
-            <Column width={8} none>
+            <Column width={6} none>
               <Form.Input
                 type="text"
                 value={this.search}
@@ -90,17 +91,16 @@ export class Home extends Component {
                 placeholder="Søk..."
               />
             </Column>
-            <Column width={1} right>
+            <Column width={3} right>
               <img
                 src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
                 alt="Picture of likkit logo"
               />
             </Column>
           </Row>
-        </Card>
-        <Card>
+
           <Row>
-            <Column width={1}></Column>
+            <Column width={2}></Column>
             <Column width={8} none>
               <div id="createPost" onClick={() => console.log('alooo')}>
                 <Form.Input
@@ -112,6 +112,19 @@ export class Home extends Component {
               </div>
             </Column>
           </Row>
+          <Row marginBottom={5}>
+            <Column>Sort by: popular [placeholder]</Column>
+            <Column right>Filters: none [placeholder]</Column>
+          </Row>
+          <Card>
+            <Row>
+              {this.posts.map((post, i) => (
+                <Card marginBottom={3}>
+                  <div key={i}>{post}</div>
+                </Card>
+              ))}
+            </Row>
+          </Card>
         </Card>
       </div>
     );
