@@ -74,8 +74,18 @@ export class Home extends Component {
   posts: string[] = ['Post1', 'post2']; //Denne må endres te rett type seinere
   render() {
     return (
-      <div>
-        <Card>
+      <div
+        style={{
+          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+        }}
+      >
+        
+        <Card title="likkIT" width="100%" backgroundColor="rgb(90,90,90)">
           <Row marginBottom={1}>
             <Column width={3}>
               <img
@@ -92,12 +102,19 @@ export class Home extends Component {
               />
             </Column>
             <Column width={3} right>
+              
               <img
-                src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
-                alt="Picture of likkit logo"
+                src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
+                alt="Green profile picture"
               />
             </Column>
           </Row>
+          <Row>
+            <Column width={12} right>
+Navn
+            
+            </Column></Row>
+          
 
           <Row>
             <Column width={2}></Column>
