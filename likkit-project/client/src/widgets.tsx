@@ -12,14 +12,29 @@ export class Card extends Component<{
   title: ReactNode;
   marginTop?: number;
   marginBottom?: number;
+  width?: string; // Add a width prop
+  backgroundColor?: string;
+  backgroundImage?: string;
 }> {
   render() {
+    const cardStyle = {
+      width: this.props.width || 'auto', // Use the provided width or 'auto' as the default
+      backgroundColor: this.props.backgroundColor,
+    };
+
+    const cardTitleStyle = {
+      fontWeight: 'bold', // Make the text bold
+      color: 'white', // Change the text color to blue
+    };
+
     return (
       <div className={'mt' + (this.props.marginTop ? '-' + this.props.marginTop : '')}>
         <div className={'mb' + (this.props.marginBottom ? '-' + this.props.marginBottom : '')}>
-          <div className="card">
+          <div className="card" style={cardStyle}> {/* Apply the width style here */}
             <div className="card-body">
-              <h5 className="card-title">{this.props.title}</h5>
+            <h5 className="card-title" style={cardTitleStyle}>
+            {this.props.title}
+          </h5>
               <div className="card-text">{this.props.children}</div>
             </div>
           </div>
@@ -28,6 +43,7 @@ export class Card extends Component<{
     );
   }
 }
+
 
 /**
  * Renders a row using Bootstrap classes.
