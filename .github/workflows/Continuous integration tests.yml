@@ -50,7 +50,7 @@ jobs:
         working-directory: likkit-project/client
 
       - name: Prettier Check
-        run: ./node_modules/.bin/prettier --check . --ignore-style.css
+        run: ./node_modules/.bin/prettier --check . --ignore-public/style.css
         working-directory: likkit-project/client
 
       - name: TypeScript Check
