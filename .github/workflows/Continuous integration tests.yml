@@ -49,6 +49,10 @@ jobs:
         run: npm install
         working-directory: likkit-project/client
 
+      - name: Prettier update
+        run: ./node_modules/.bin/prettier . --write
+        working-directory: likkit-project/client/public/style.css
+
       - name: Prettier Check
         run: ./node_modules/.bin/prettier --check . --ignore-public/style.css
         working-directory: likkit-project/client
