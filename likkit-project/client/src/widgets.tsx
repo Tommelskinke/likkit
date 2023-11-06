@@ -202,7 +202,7 @@ class NavBarLink extends Component<{ to: string }> {
  *
  * Properties: brand
  */
-export class NavBar extends Component<{ brand: ReactNode }> {
+export class NavBar extends Component<{ brand: ReactNode; id: string }> {
   static Link = NavBarLink;
 
   render() {
@@ -212,7 +212,9 @@ export class NavBar extends Component<{ brand: ReactNode }> {
           <NavLink className="navbar-brand" activeClassName="active" exact to="/">
             {this.props.brand}
           </NavLink>
-          <div className="navbar-nav">{this.props.children}</div>
+          <div className="navbar-nav" id={this.props.id}>
+            {this.props.children}
+          </div>
         </div>
       </nav>
     );
