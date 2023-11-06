@@ -50,11 +50,11 @@ jobs:
         working-directory: likkit-project/client
 
       - name: Prettier update
-        run: ./node_modules/.bin/prettier . --write
-        working-directory: likkit-project/client/public
+        run: ./node_modules/.bin/prettier --write .
+        working-directory: likkit-project/client
 
       - name: Prettier Check
-        run: ./node_modules/.bin/prettier . --check
+        run: ./node_modules/.bin/prettier --check .
         working-directory: likkit-project/client
 
       - name: TypeScript Check
