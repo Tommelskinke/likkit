@@ -8,6 +8,7 @@ import {
   Posts,
   TagPosts,
   Post,
+  Menu,
 } from './Components/whiteboard-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
@@ -19,6 +20,7 @@ if (root)
     <HashRouter>
       <div>
         <Alert />
+        <Menu />
         <Route exact path="/" component={Home} />
         <Route exact path="/tags" component={TagList} />
         <Route exact path="createPost" component={Post} />
