@@ -131,3 +131,4 @@ dist
 
 # Bundel stuff
 public/
+!public/style.css
