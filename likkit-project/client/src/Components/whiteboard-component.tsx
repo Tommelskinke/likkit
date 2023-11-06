@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import whiteboardService, { Subscription } from '../whiteboard-service';
-import { Alert, Card, Row, Column, Form, ButtonSuccess } from '../widgets';
+import { Alert, Card, Row, Column, Form, Button } from '../widgets';
 
 export class Whiteboard extends Component {
   canvas: HTMLCanvasElement | null = null;
@@ -9,7 +9,6 @@ export class Whiteboard extends Component {
   subscription: Subscription | null = null;
   connected = false;
 
-  
   render() {
     return (
       <>
@@ -90,11 +89,9 @@ export class Home extends Component {
           height: '100vh',
         }}
       >
-        
         <Card title="likkIT" width="100%" backgroundColor="rgb(90,90,90)">
           <Row marginBottom={1}>
             <Column width={3}>
-              
               <img
                 src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
                 alt="Picture of likkit logo"
@@ -107,10 +104,8 @@ export class Home extends Component {
                 onChange={(event) => (this.search = event.currentTarget.value)}
                 placeholder="Søk..."
               />
-              
             </Column>
             <Column width={3} right>
-              
               <img
                 src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
                 alt="Green profile picture"
@@ -119,10 +114,9 @@ export class Home extends Component {
           </Row>
           <Row>
             <Column width={12} right>
-Navn
-            
-            </Column></Row>
-          
+              Navn
+            </Column>
+          </Row>
 
           <Row>
             <Column width={2}></Column>
@@ -141,15 +135,14 @@ Navn
             <Column>Sort by: popular [placeholder]</Column>
             <Column right>Filters: none [placeholder]</Column>
           </Row>
-          <Card title='' width='100%' backgroundColor='rgb(70,70,70)'>
+          <Card title="" width="100%" backgroundColor="rgb(70,70,70)">
             <Row>
-            
               {this.posts.map((post, i) => (
-                <Card title='' width='100%' backgroundColor='rgb(60,60,60)' marginBottom={3}>
-                  <ButtonSuccess onClick={this.alerttest}><div key={i}>{post}</div></ButtonSuccess>
-                  
+                <Card title="" width="100%" backgroundColor="rgb(60,60,60)" marginBottom={3}>
+                  <Button.Success onClick={this.alerttest}>
+                    <div key={i}>{post}</div>
+                  </Button.Success>
                 </Card>
-                
               ))}
             </Row>
           </Card>

@@ -30,11 +30,13 @@ export class Card extends Component<{
     return (
       <div className={'mt' + (this.props.marginTop ? '-' + this.props.marginTop : '')}>
         <div className={'mb' + (this.props.marginBottom ? '-' + this.props.marginBottom : '')}>
-          <div className="card" style={cardStyle}> {/* Apply the width style here */}
+          <div className="card" style={cardStyle}>
+            {' '}
+            {/* Apply the width style here */}
             <div className="card-body">
-            <h5 className="card-title" style={cardTitleStyle}>
-            {this.props.title}
-          </h5>
+              <h5 className="card-title" style={cardTitleStyle}>
+                {this.props.title}
+              </h5>
               <div className="card-text">{this.props.children}</div>
             </div>
           </div>
@@ -43,7 +45,6 @@ export class Card extends Component<{
     );
   }
 }
-
 
 /**
  * Renders a row using Bootstrap classes.
@@ -91,7 +92,7 @@ export class Column extends Component<{
  *
  * Properties: small, onClick
  */
-export class ButtonSuccess extends Component<{ small?: boolean; onClick: () => void }> {
+class ButtonSuccess extends Component<{ small?: boolean; onClick: () => void }> {
   render() {
     return (
       <button
@@ -397,4 +398,3 @@ export class Alert extends Component {
     });
   }
 }
-  
