@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import whiteboardService, { Subscription } from '../whiteboard-service';
-import { Alert, Card, Row, Column, Form, Button } from '../widgets';
+import { Alert, Card, Row, Column, Form, ButtonSuccess } from '../widgets';
 
 export class Whiteboard extends Component {
   canvas: HTMLCanvasElement | null = null;
@@ -9,6 +9,7 @@ export class Whiteboard extends Component {
   subscription: Subscription | null = null;
   connected = false;
 
+  
   render() {
     return (
       <>
@@ -72,6 +73,11 @@ export class Whiteboard extends Component {
 export class Home extends Component {
   search: string = '';
   posts: string[] = ['Post1', 'post2']; //Denne må endres te rett type seinere
+
+  alerttest = () => {
+    alert('SHREK');
+  };
+
   render() {
     return (
       <div
@@ -88,6 +94,7 @@ export class Home extends Component {
         <Card title="likkIT" width="100%" backgroundColor="rgb(90,90,90)">
           <Row marginBottom={1}>
             <Column width={3}>
+              
               <img
                 src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
                 alt="Picture of likkit logo"
@@ -100,6 +107,7 @@ export class Home extends Component {
                 onChange={(event) => (this.search = event.currentTarget.value)}
                 placeholder="Søk..."
               />
+              
             </Column>
             <Column width={3} right>
               
@@ -133,12 +141,15 @@ Navn
             <Column>Sort by: popular [placeholder]</Column>
             <Column right>Filters: none [placeholder]</Column>
           </Row>
-          <Card>
+          <Card title='' width='100%' backgroundColor='rgb(70,70,70)'>
             <Row>
+            
               {this.posts.map((post, i) => (
-                <Card marginBottom={3}>
-                  <div key={i}>{post}</div>
+                <Card title='' width='100%' backgroundColor='rgb(60,60,60)' marginBottom={3}>
+                  <ButtonSuccess onClick={this.alerttest}><div key={i}>{post}</div></ButtonSuccess>
+                  
                 </Card>
+                
               ))}
             </Row>
           </Card>
