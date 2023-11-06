@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import whiteboardService, { Subscription } from '../whiteboard-service';
-import { Alert, Card, Row, Column, Form, Button } from '../widgets';
+import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
 
 export class Whiteboard extends Component {
   canvas: HTMLCanvasElement | null = null;
@@ -69,6 +69,47 @@ export class Whiteboard extends Component {
   }
 }
 
+export class Menu extends Component {
+  search: string = '';
+  render() {
+    return (
+      <NavBar
+        brand={
+          <img
+            src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
+            alt="Picture of likkit logo"
+          />
+        }
+        id="test"
+      >
+        <Column width={3}>
+          <h1>likkit</h1>
+        </Column>
+        <Column width={6} none>
+          <Form.Input
+            type="text"
+            value={this.search}
+            onChange={(event) => (this.search = event.currentTarget.value)}
+            placeholder="Søk..."
+          />
+        </Column>
+        <Column width={2} right>
+          <NavBar.Link to="/">
+            <img
+              src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
+              alt="Green profile picture"
+            />
+          </NavBar.Link>
+        </Column>
+        <Column width={1} none>
+          <Row>Navn</Row>
+          <Row>Karma</Row>
+        </Column>
+      </NavBar>
+    );
+  }
+}
+
 export class Home extends Component {
   search: string = '';
   posts: string[] = ['Post1', 'post2']; //Denne må endres te rett type seinere
@@ -90,34 +131,6 @@ export class Home extends Component {
         }}
       >
         <Card title="likkIT" width="100%" backgroundColor="rgb(90,90,90)">
-          <Row marginBottom={1}>
-            <Column width={3}>
-              <img
-                src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
-                alt="Picture of likkit logo"
-              />
-            </Column>
-            <Column width={6} none>
-              <Form.Input
-                type="text"
-                value={this.search}
-                onChange={(event) => (this.search = event.currentTarget.value)}
-                placeholder="Søk..."
-              />
-            </Column>
-            <Column width={3} right>
-              <img
-                src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
-                alt="Green profile picture"
-              />
-            </Column>
-          </Row>
-          <Row>
-            <Column width={12} right>
-              Navn
-            </Column>
-          </Row>
-
           <Row>
             <Column width={2}></Column>
             <Column width={8} none>
