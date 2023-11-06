@@ -91,7 +91,7 @@ export class Column extends Component<{
  *
  * Properties: small, onClick
  */
-class ButtonSuccess extends Component<{ small?: boolean; onClick: () => void }> {
+export class ButtonSuccess extends Component<{ small?: boolean; onClick: () => void }> {
   render() {
     return (
       <button
@@ -397,3 +397,4 @@ export class Alert extends Component {
     });
   }
 }
+  
