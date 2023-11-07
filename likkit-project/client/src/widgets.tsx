@@ -87,6 +87,25 @@ export class Column extends Component<{
   }
 }
 
+class ButtonPost extends Component<{ small?: boolean; onClick: () => void }> {
+  render() {
+    return (
+      <button
+        type="button"
+        className="btn custom-gray" // Apply the custom-gray class or other desired styling
+        style={{
+          width: '100%', // Set the button width to 100% to expand it to the full width of its parent
+          // Add any other styling you need for the button
+        }}
+        onClick={this.props.onClick}
+      >
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
+
 /**
  * Renders a success button using Bootstrap styles.
  *
@@ -180,6 +199,7 @@ export class Button {
   static Success = ButtonSuccess;
   static Danger = ButtonDanger;
   static Light = ButtonLight;
+  static Post = ButtonPost;
 }
 
 /**
