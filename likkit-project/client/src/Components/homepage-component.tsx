@@ -19,16 +19,13 @@ export class Menu extends Component {
           <h1>likkit</h1>
         </Column>
         <Column width={6} none>
-          <NavBar.Link to="/createPost">
-            <Form.Input
-              type="text"
-              value={this.search}
-              onChange={(event) => (this.search = event.currentTarget.value)}
-              placeholder="Søk..."
-            />
-          </NavBar.Link>
+          <Form.Input
+            type="text"
+            value={this.search}
+            onChange={(event) => (this.search = event.currentTarget.value)}
+            placeholder="Søk..."
+          />
         </Column>
-
         <Column width={2} right>
           <NavBar.Link to="/user">
             <img
@@ -92,14 +89,16 @@ export class Home extends Component {
             <Row marginBottom={5}>
               <Column width={2}></Column>
               <Column width={8} none>
-                <div id="createPost" onClick={() => console.log('alooo')}>
-                  <Form.Input
-                    type="text"
-                    value={this.search}
-                    onChange={(event) => (this.search = event.currentTarget.value)}
-                    placeholder="Create a post..."
-                  />
-                </div>
+                <NavBar.Link to="createPost">
+                  <div id="createPost" onClick={() => console.log('alooo')}>
+                    <Form.Input
+                      type="text"
+                      value={this.search}
+                      onChange={(event) => (this.search = event.currentTarget.value)}
+                      placeholder="Create a post..."
+                    />
+                  </div>
+                </NavBar.Link>
               </Column>
             </Row>
             <Row marginBottom={5}>
