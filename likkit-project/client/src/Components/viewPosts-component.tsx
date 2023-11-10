@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import taskService, { Question } from '../../../server/src/task-service';
+import taskService, { Question } from '../question-service';
 import { Alert, Card, Row, Column, Form } from '../widgets';
 
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
