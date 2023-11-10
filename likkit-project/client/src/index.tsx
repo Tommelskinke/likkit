@@ -10,8 +10,8 @@ import {
   Menu,
 } from './Components/homepage-component';
 import { UserProfile } from './Components/userpage-components';
-
 import { CreatePost } from './Components/createPosts-component';
+
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { Alert } from './widgets';

@@ -19,13 +19,16 @@ export class Menu extends Component {
           <h1>likkit</h1>
         </Column>
         <Column width={6} none>
-          <Form.Input
-            type="text"
-            value={this.search}
-            onChange={(event) => (this.search = event.currentTarget.value)}
-            placeholder="Søk..."
-          />
+          <NavBar.Link to="/createPost">
+            <Form.Input
+              type="text"
+              value={this.search}
+              onChange={(event) => (this.search = event.currentTarget.value)}
+              placeholder="Søk..."
+            />
+          </NavBar.Link>
         </Column>
+
         <Column width={2} right>
           <NavBar.Link to="/user">
             <img
