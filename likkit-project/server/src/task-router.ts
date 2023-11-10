@@ -14,5 +14,4 @@ router.get('/posts/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-
 export default router;
