@@ -17,7 +17,7 @@ class TaskService {
   /**
    * Get question with given id.
    */
-  get(question_id: number) {
+  questionGet(question_id: number) {
     return new Promise<Question | undefined>((resolve, reject) => {
       pool.query('SELECT * FROM question WHERE id = ?', [question_id], (error, results: RowDataPacket[]) => {
         if (error) return reject(error);
