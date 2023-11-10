@@ -9,7 +9,7 @@ import {
   TagPosts,
   Post,
   Menu,
-} from './Components/whiteboard-component';
+} from './Components/homepage-component';
 import { CreatePost } from './Components/createPosts-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
@@ -33,3 +33,5 @@ if (root)
       </div>
     </HashRouter>,
   );
+
+// må bare ha en endring for prettier
