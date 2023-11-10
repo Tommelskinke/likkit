@@ -202,26 +202,6 @@ export class TagList extends Component {
   }
 }
 
-export class FavoriteList extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Favorites</h1>
-      </div>
-    );
-  }
-}
-
-export class UserProfile extends Component {
-  render() {
-    return (
-      <div>
-        <h1>User</h1>
-      </div>
-    );
-  }
-}
-
 export class Posts extends Component {
   render() {
     return (
