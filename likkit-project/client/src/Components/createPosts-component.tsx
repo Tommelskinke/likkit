@@ -15,18 +15,10 @@ export class CreatePost extends Component {
           backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'stretch',
           height: '150vh',
         }}
       >
-        <div
-          style={{
-            margin: '1%',
-            display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
-          }}
-        >
           <Card title="" backgroundColor="rgb(90,90,90)">
             <Row marginBottom={2}>
               <Column width={2}>
