@@ -1,3 +1,7 @@
+import * as React from 'react';
+import { Component } from 'react-simplified';
+import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
+
 export class UserProfile extends Component {
   user: string = 'banan';
   userType: string = 'adminierinios';
