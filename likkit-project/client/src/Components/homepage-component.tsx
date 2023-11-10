@@ -76,7 +76,6 @@ export class Home extends Component {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
           height: '150vh', //bør få denne til å scale
         }}
       >
