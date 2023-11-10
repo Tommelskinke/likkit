@@ -135,7 +135,11 @@ export class Home extends Component {
                       }}
                     >
                       <option value="none">None</option>
-                      <option value="tag1">Javascript</option>
+                      <option value="tagBesvart">Besvarte spørsmål</option>
+                      <option value="tagUbesvart">Ubesvarte spørsmål</option>
+                      <option value="tagMine">Mine spørsmål</option>
+                      <option value="tagJS">Javascript</option>
+                      <option value="tagC">C</option>
                     </select>
                   </div>
                 </Column>
