@@ -18,14 +18,14 @@ export class UserProfile extends Component {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'stretch',
-          height: '100vh', //bør få denne til å scale
+          height: '100vh',
         }}
       >
         <div style={{ margin: '1%' }}>
           <Card title="User profile" backgroundColor="rgb(90,90,90)">
             <div
               style={{
-                margin: '1%',
+                margin: '10%',
                 color: 'white',
                 fontWeight: 'bold',
                 fontSize: '20px',
@@ -68,4 +68,3 @@ export class UserProfile extends Component {
     );
   }
 }
-// må bare ha en endring for prettier
