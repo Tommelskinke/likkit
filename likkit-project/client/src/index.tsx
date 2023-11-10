@@ -9,8 +9,8 @@ import {
   TagPosts,
   Post,
   Menu,
-  CreatePost,
 } from './Components/whiteboard-component';
+import { CreatePost } from './Components/createPosts-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { Alert } from './widgets';
