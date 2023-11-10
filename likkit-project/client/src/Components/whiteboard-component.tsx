@@ -3,6 +3,7 @@ import { Component } from 'react-simplified';
 import whiteboardService, { Subscription } from '../whiteboard-service';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
 
+/*
 export class Whiteboard extends Component {
   canvas: HTMLCanvasElement | null = null;
   lastPos: { x: number; y: number } | null = null;
@@ -13,7 +14,7 @@ export class Whiteboard extends Component {
     return (
       <>
         <canvas
-          ref={(e) => (this.canvas = e) /* Store canvas element */}
+          ref={(e) => (this.canvas = e)}
           onMouseMove={(event) => {
             // Send lines to Whiteboard server
             const pos = { x: event.clientX, y: event.clientY };
@@ -68,7 +69,7 @@ export class Whiteboard extends Component {
     if (this.subscription) whiteboardService.unsubscribe(this.subscription);
   }
 }
-
+*/
 export class Menu extends Component {
   search: string = '';
   render() {
@@ -125,6 +126,10 @@ export class Home extends Component {
       imageLink: 'https://i.ytimg.com/vi/H8ZnIAama1A/maxresdefault.jpg',
       likks: '15',
     },
+    {
+      text: 'Fool me once, strike one. But fool me twice... strike three.',
+      likks: '45',
+    },
   ];
 
   alerttest = () => {
@@ -132,10 +137,6 @@ export class Home extends Component {
   };
 
   render() {
-    const largerImageStyle = {
-      width: '300px',
-      height: '200px',
-    };
     return (
       <div
         style={{
@@ -147,83 +148,92 @@ export class Home extends Component {
           height: '150vh', //bør få denne til å scale
         }}
       >
-        <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
-          <Row marginBottom={5}>
-            <Column width={2}></Column>
-            <Column width={8} none>
-              <div id="createPost" onClick={() => console.log('alooo')}>
-                <Form.Input
-                  type="text"
-                  value={this.search}
-                  onChange={(event) => (this.search = event.currentTarget.value)}
-                  placeholder="Create a post..."
-                />
-              </div>
-            </Column>
-          </Row>
-          <Row marginBottom={5}>
-            <div style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>
-              <Column>Sort by:</Column>
-              <Column>
-                <div style={{ marginLeft: '10px' }}>
-                  <select id="dropdown"
-                    id="filterdropdown"
-                    style={{
-                      appearance: 'none',
-                      border: '#5A5A5A',
-                      background: '#5A5A5A',
-                      color: '#ffffff',
-                      cursor: 'pointer',
-                    }}>
-                    <option value="">Popular</option>
-                    <option value="op1">Best</option>
-                  </select>
+        <div
+          style={{
+            padding: '30px',
+          }}
+        >
+          <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
+            <Row marginBottom={5}>
+              <Column width={2}></Column>
+              <Column width={8} none>
+                <div id="createPost" onClick={() => console.log('alooo')}>
+                  <Form.Input
+                    type="text"
+                    value={this.search}
+                    onChange={(event) => (this.search = event.currentTarget.value)}
+                    placeholder="Create a post..."
+                  />
                 </div>
               </Column>
-              <Column right>
-                <div style={{ marginRight: '10px' }}>
-                  <select id="filterdropdown"
-                    id="filterdropdown"
-                    style={{
-                      appearance: 'none',
-                      border: '#5A5A5A',
-                      background: '#5A5A5A',
-                      color: '#ffffff',
-                      cursor: 'pointer',
-                    }}>
-                    <option value="none">None</option>
-                    <option value="tag1">Javascript</option>
-                  </select>
-                </div>
-              </Column>
-              <Column right>
-                <div style={{ marginRight: '30px' }}>Filters:</div>
-              </Column>
-            </div>
-          </Row>
-
-          <Card title="" width="100%" backgroundColor="rgb(70,70,70)">
-            <Row>
-              {this.posts.map((post, i) => (
-                <Card
-                  title=""
-                  width="100%"
-                  backgroundColor="rgb(60,60,60)"
-                  marginBottom={3}
-                  key={i}
-                >
-                  <Button.Post onClick={this.alerttest}>
-                    <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
-                      <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.likks}</p>
-                      <p>{post.text}</p>
-                      <img src={post.imageLink} alt={post.text} style={largerImageStyle} />
-                    </div>
-                  </Button.Post>
-                </Card>
-              ))}
             </Row>
+            <Row marginBottom={5}>
+              <div
+                style={{ color: 'white', fontWeight: 'bold', fontSize: '20px', marginLeft: '5px' }}
+              >
+                <Column>Sort by:</Column>
+                <Column>
+                  <div style={{ marginLeft: '10px' }}>
+                    <select
+                      id="dropdown"
+                      style={{
+                        appearance: 'none',
+                        border: '#5A5A5A',
+                        background: '#5A5A5A',
+                        color: '#ffffff',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <option value="">Popular</option>
+                      <option value="op1">Best</option>
+                    </select>
+                  </div>
+                </Column>
+                <Column right>
+                  <div style={{ marginRight: '5px' }}>
+                    <select
+                      id="filterdropdown"
+                      style={{
+                        appearance: 'none',
+                        border: '#5A5A5A',
+                        background: '#5A5A5A',
+                        color: '#ffffff',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <option value="none">None</option>
+                      <option value="tag1">Javascript</option>
+                    </select>
+                  </div>
+                </Column>
+                <Column right>
+                  <div style={{ marginRight: '5px' }}>Filters:</div>
+                </Column>
+              </div>
+            </Row>
+
+            <Card title="" width="100%" backgroundColor="rgb(70,70,70)" marginBottom={-3}>
+              <Row>
+                {this.posts.map((post, i) => (
+                  <Card
+                    title=""
+                    width="100%"
+                    backgroundColor="rgb(60,60,60)"
+                    marginBottom={3}
+                    key={i}
+                  >
+                    <Button.Post onClick={this.alerttest}>
+                      <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
+                        <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.likks}</p>
+                        <p>{post.text}</p>
+                      </div>
+                    </Button.Post>
+                  </Card>
+                ))}
+              </Row>
+            </Card>
           </Card>
-        </Card>
+        </div>
       </div>
     );
   }
