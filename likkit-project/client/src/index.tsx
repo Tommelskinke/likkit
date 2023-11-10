@@ -4,12 +4,12 @@ import {
   Home,
   TagList,
   FavoriteList,
-  UserProfile,
   Posts,
   TagPosts,
   Post,
   Menu,
 } from './Components/homepage-component';
+import { UserProfile } from './Components/userpage-components';
 
 import { CreatePost } from './Components/createPosts-component';
 import { Component } from 'react-simplified';
