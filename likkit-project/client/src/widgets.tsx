@@ -105,7 +105,6 @@ class ButtonPost extends Component<{ small?: boolean; onClick: () => void }> {
   }
 }
 
-
 /**
  * Renders a success button using Bootstrap styles.
  *

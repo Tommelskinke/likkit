@@ -33,3 +33,5 @@ if (root)
       </div>
     </HashRouter>,
   );
+
+// må bare ha en endring for prettier

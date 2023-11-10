@@ -19,14 +19,17 @@ class TaskService {
    */
   questionGet(question_id: number) {
     return new Promise<Question | undefined>((resolve, reject) => {
-      pool.query('SELECT * FROM question WHERE id = ?', [question_id], (error, results: RowDataPacket[]) => {
-        if (error) return reject(error);
+      pool.query(
+        'SELECT * FROM question WHERE id = ?',
+        [question_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
 
-        resolve(results[0] as Question);
-      });
+          resolve(results[0] as Question);
+        },
+      );
     });
   }
-
 }
 
 const taskService = new TaskService();
