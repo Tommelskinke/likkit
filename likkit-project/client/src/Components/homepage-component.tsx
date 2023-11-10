@@ -16,7 +16,9 @@ export class Menu extends Component {
         id="test"
       >
         <Column width={3}>
-          <h1>likkit</h1>
+          <NavBar.Link to="/">
+            <h1>likkit</h1>
+          </NavBar.Link>
         </Column>
         <Column width={6} none>
           <Form.Input
