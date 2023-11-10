@@ -115,6 +115,9 @@ export class Home extends Component {
                         background: '#5A5A5A',
                         color: '#ffffff',
                         cursor: 'pointer',
+                        border: '1px solid #ffffff',
+                        borderRadius: '10px',
+                        padding: '5px',
                       }}
                     >
                       <option value="">Popular</option>
@@ -123,7 +126,18 @@ export class Home extends Component {
                   </div>
                 </Column>
                 <Column right>
-                  <div style={{ marginRight: '5px' }}>
+                  <div
+                    style={{
+                      appearance: 'none',
+                      border: '#5A5A5A',
+                      background: '#5A5A5A',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                      border: '1px solid #ffffff',
+                      borderRadius: '10px',
+                      padding: '5px',
+                    }}
+                  >
                     <select
                       id="filterdropdown"
                       style={{
