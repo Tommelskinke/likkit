@@ -7,7 +7,7 @@ export type Question = {
   tag_id: [];
   title: string;
   content: string;
-  created_at: Date;
+  created_at: string;
   upvotes: number;
   downvotes: number;
   karma: number;
