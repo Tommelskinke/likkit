@@ -61,6 +61,7 @@ export class CreatePost extends Component {
                   value={this.text}
                   onChange={(event) => (this.text = event.currentTarget.value)}
                   placeholder="Write your post here..."
+                  style={{ height: '55vh' }}
                 />
               </Column>
             </Row>
