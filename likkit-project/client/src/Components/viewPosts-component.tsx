@@ -1,10 +1,20 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question } from '../../../server/src/task-service';
-import {Alert, Card, Row, Column, Form} from '../widgets';
+import { Alert, Card, Row, Column, Form } from '../widgets';
 
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
-question: Question = { question_id: 0, user_id: 0, tag_id: [], title: '', content: '', created_at: '', upvotes: 0, downvotes: 0, karma: 0 };
+  question: Question = {
+    question_id: 0,
+    user_id: 0,
+    tag_id: [],
+    title: '',
+    content: '',
+    created_at: '',
+    upvotes: 0,
+    downvotes: 0,
+    karma: 0,
+  };
 
   render() {
     return (
@@ -26,12 +36,10 @@ question: Question = { question_id: 0, user_id: 0, tag_id: [], title: '', conten
             fontSize: '20px',
           }}
         >
-          <Card title='Question' width="100%" backgroundColor="rgb(90,90,90)">
+          <Card title="Question" width="100%" backgroundColor="rgb(90,90,90)">
             <Row marginBottom={5}>
               <Column width={2}>{this.question.title}</Column>
-              <Column width={8}>
-               
-              </Column>
+              <Column width={8}></Column>
             </Row>
             <Row marginBottom={5}>{this.question.content}</Row>
           </Card>
