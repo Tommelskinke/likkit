@@ -59,7 +59,7 @@ export class Home extends Component {
       likks: '15',
     },
     {
-      text: 'Fool me once, strike one. But fool me twice... strike three.',
+      text: 'Fo.',
       likks: '45',
     },
   ];
@@ -75,7 +75,7 @@ export class Home extends Component {
           backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'stretch',
           height: '150vh', //bør få denne til å scale
         }}
       >
@@ -249,7 +249,7 @@ export class CreatePost extends Component {
           backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'stretch',
           justifyContent: 'center',
           height: '150vh',
         }}

@@ -22,9 +22,12 @@ export class CreatePost extends Component {
         <div
           style={{
             margin: '1%',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
           }}
         >
-          <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
+          <Card title="" backgroundColor="rgb(90,90,90)">
             <Row marginBottom={2}>
               <Column width={2}>
                 <div style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>Title </div>
