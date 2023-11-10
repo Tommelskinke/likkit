@@ -14,24 +14,24 @@ export class UserProfile extends Component {
     return (
       <>
         <Card title="User profile">
-          <Column width={3}>
-            <Row>Username: {this.user}</Row>
-            <Row>Usertype: {this.userType}</Row>
+          <Row>
+            <Column>Usertype: {this.userType}</Column>
+            <Column>Licks: {this.likkAmount}</Column>
+            <Column right>Comments: {this.commentAmount}</Column>
+          </Row>
+          <Row>
+            <Column>Username: {this.user}</Column>
+            <Column>Upvotes: {this.upvoteAmount}</Column>
+            <Column right>Best comments: {this.bestCommentAmount}</Column>
+          </Row>
+          <Column width={12}>
+            <Button.Light>Favorite Posts</Button.Light>
+            <Button.Light>Best Post</Button.Light>
+            <Button.Light>Best Comment</Button.Light>
+            <Button.Light>Favorite Comments</Button.Light>
+            <Button.Light>All Posts</Button.Light>
+            <Button.Light>All Comments</Button.Light>
           </Column>
-          <Column width={3}>
-            <Row>Licks: {this.likkAmount}</Row>
-            <Row>Upvotes: {this.upvoteAmount}</Row>
-          </Column>
-          <Column right width={3}>
-            <Row>Comments: {this.commentAmount}</Row>
-            <Row>Best comments: {this.bestCommentAmount}</Row>
-          </Column>
-          <Button.Light>Favorite Posts</Button.Light>
-          <Button.Light>Best Post</Button.Light>
-          <Button.Light>Best Comment</Button.Light>
-          <Button.Light>Favorite Comments</Button.Light>
-          <Button.Light>All Posts</Button.Light>
-          <Button.Light>All Comments</Button.Light>
         </Card>
       </>
     );
