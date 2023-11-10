@@ -11,6 +11,7 @@ import {
   Menu,
 } from './Components/homepage-component';
 import { CreatePost } from './Components/createPosts-component';
+import { ViewPost } from './Components/viewPosts-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { Alert } from './widgets';
@@ -28,6 +29,7 @@ if (root)
         <Route exact path="/favorites" component={FavoriteList} />
         <Route exact path="/user" component={UserProfile} />
         <Route exact path="/posts" component={Posts} />
+        <Route exact path="/posts" component={ViewPost} />
         <Route exact path="/posts/tag/:id" component={TagPosts} />
         <Route exact path="/posts/tag/:id/post/:id" component={Post} />
       </div>
