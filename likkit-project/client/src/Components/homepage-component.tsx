@@ -27,7 +27,7 @@ export class Menu extends Component {
           />
         </Column>
         <Column width={2} right>
-          <NavBar.Link to="/">
+          <NavBar.Link to="/user">
             <img
               src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
               alt="Green profile picture"
