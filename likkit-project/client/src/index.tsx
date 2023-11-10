@@ -4,12 +4,12 @@ import {
   Home,
   TagList,
   FavoriteList,
-  UserProfile,
   Posts,
   TagPosts,
   Post,
   Menu,
 } from './Components/homepage-component';
+import { UserProfile } from './Components/userpage-components';
 import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
 import { Component } from 'react-simplified';
@@ -35,5 +35,3 @@ if (root)
       </div>
     </HashRouter>,
   );
-
-// må bare ha en endring for prettier

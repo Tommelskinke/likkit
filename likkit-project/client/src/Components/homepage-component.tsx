@@ -27,7 +27,7 @@ export class Menu extends Component {
           />
         </Column>
         <Column width={2} right>
-          <NavBar.Link to="/">
+          <NavBar.Link to="/user">
             <img
               src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
               alt="Green profile picture"
@@ -59,7 +59,7 @@ export class Home extends Component {
       likks: '15',
     },
     {
-      text: 'Fool me once, strike one. But fool me twice... strike three.',
+      text: 'Fo.',
       likks: '45',
     },
   ];
@@ -75,8 +75,7 @@ export class Home extends Component {
           backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: 'stretch',
           height: '150vh', //bør få denne til å scale
         }}
       >
@@ -89,14 +88,16 @@ export class Home extends Component {
             <Row marginBottom={5}>
               <Column width={2}></Column>
               <Column width={8} none>
-                <div id="createPost" onClick={() => console.log('alooo')}>
-                  <Form.Input
-                    type="text"
-                    value={this.search}
-                    onChange={(event) => (this.search = event.currentTarget.value)}
-                    placeholder="Create a post..."
-                  />
-                </div>
+                <NavBar.Link to="createPost">
+                  <div id="createPost" onClick={() => console.log('alooo')}>
+                    <Form.Input
+                      type="text"
+                      value={this.search}
+                      onChange={(event) => (this.search = event.currentTarget.value)}
+                      placeholder="Create a post..."
+                    />
+                  </div>
+                </NavBar.Link>
               </Column>
             </Row>
             <Row marginBottom={5}>
@@ -134,7 +135,11 @@ export class Home extends Component {
                       }}
                     >
                       <option value="none">None</option>
-                      <option value="tag1">Javascript</option>
+                      <option value="tagBesvart">Besvarte spørsmål</option>
+                      <option value="tagUbesvart">Ubesvarte spørsmål</option>
+                      <option value="tagMine">Mine spørsmål</option>
+                      <option value="tagJS">Javascript</option>
+                      <option value="tagC">C</option>
                     </select>
                   </div>
                 </Column>
@@ -244,7 +249,7 @@ export class CreatePost extends Component {
           backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'stretch',
           justifyContent: 'center',
           height: '150vh',
         }}
