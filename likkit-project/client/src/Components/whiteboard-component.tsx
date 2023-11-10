@@ -166,7 +166,15 @@ export class Home extends Component {
               <Column>Sort by:</Column>
               <Column>
                 <div style={{ marginLeft: '10px' }}>
-                  <select id="dropdown">
+                  <select id="dropdown"
+                    id="filterdropdown"
+                    style={{
+                      appearance: 'none',
+                      border: '#5A5A5A',
+                      background: '#5A5A5A',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                    }}>
                     <option value="">Popular</option>
                     <option value="op1">Best</option>
                   </select>
@@ -174,7 +182,15 @@ export class Home extends Component {
               </Column>
               <Column right>
                 <div style={{ marginRight: '10px' }}>
-                  <select id="filterdropdown">
+                  <select id="filterdropdown"
+                    id="filterdropdown"
+                    style={{
+                      appearance: 'none',
+                      border: '#5A5A5A',
+                      background: '#5A5A5A',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                    }}>
                     <option value="none">None</option>
                     <option value="tag1">Javascript</option>
                   </select>
