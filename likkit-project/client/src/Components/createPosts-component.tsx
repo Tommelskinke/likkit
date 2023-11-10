@@ -19,13 +19,17 @@ export class CreatePost extends Component {
           height: '150vh',
         }}
       >
-        <div style={{ margin: '2%' }}>
+        <div
+          style={{
+            margin: '1%',
+          }}
+        >
           <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
             <Row marginBottom={2}>
               <Column width={2}>
                 <div style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>Title </div>
               </Column>
-              <Column width={8}>
+              <Column width={8} none>
                 <Form.Input
                   type="text"
                   value={this.title}
