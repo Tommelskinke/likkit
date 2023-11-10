@@ -1,75 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import whiteboardService, { Subscription } from '../whiteboard-service';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
 
-/*
-export class Whiteboard extends Component {
-  canvas: HTMLCanvasElement | null = null;
-  lastPos: { x: number; y: number } | null = null;
-  subscription: Subscription | null = null;
-  connected = false;
-
-  render() {
-    return (
-      <>
-        <canvas
-          ref={(e) => (this.canvas = e)}
-          onMouseMove={(event) => {
-            // Send lines to Whiteboard server
-            const pos = { x: event.clientX, y: event.clientY };
-            if (this.lastPos && this.connected) {
-              whiteboardService.send({ line: { from: this.lastPos, to: pos } });
-            }
-            this.lastPos = pos;
-          }}
-          width={400}
-          height={400}
-          style={{ border: '2px solid black' }}
-        />
-        <div>{this.connected ? 'Connected' : 'Not connected'}</div>
-      </>
-    );
-  }
-
-  mounted() {
-    // Subscribe to whiteboardService to receive events from Whiteboard server in this component
-    this.subscription = whiteboardService.subscribe();
-
-    // Called when the subscription is ready
-    this.subscription.onopen = () => {
-      this.connected = true;
-    };
-
-    // Called on incoming message
-    this.subscription.onmessage = (message) => {
-      const context = this.canvas?.getContext('2d');
-      context?.beginPath();
-      context?.moveTo(message.line.from.x, message.line.from.y);
-      context?.lineTo(message.line.to.x, message.line.to.y);
-      context?.closePath();
-      context?.stroke();
-    };
-
-    // Called if connection is closed
-    this.subscription.onclose = (code, reason) => {
-      this.connected = false;
-      Alert.danger('Connection closed with code ' + code + ' and reason: ' + reason);
-    };
-
-    // Called on connection error
-    this.subscription.onerror = (error) => {
-      this.connected = false;
-      Alert.danger('Connection error: ' + error.message);
-    };
-  }
-
-  // Unsubscribe from whiteboardService when component is no longer in use
-  beforeUnmount() {
-    if (this.subscription) whiteboardService.unsubscribe(this.subscription);
-  }
-}
-*/
 export class Menu extends Component {
   search: string = '';
   render() {
@@ -150,7 +82,7 @@ export class Home extends Component {
       >
         <div
           style={{
-            padding: '30px',
+            margin: '2%',
           }}
         >
           <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
@@ -300,10 +232,46 @@ export class Post extends Component {
 }
 
 export class CreatePost extends Component {
+  title: string = '';
+  text: string = '';
+  tags: string = '';
+  imageLink: string = '';
+
   render() {
     return (
-      <div>
-        <h1>Create Post</h1>
+      <div
+        style={{
+          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '150vh',
+        }}
+      >
+        <div
+          style={{
+            margin: '1%',
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '20px',
+          }}
+        >
+          <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
+            <Row marginBottom={5}>
+              <Column width={2}>Title</Column>
+              <Column width={8}>
+                <Form.Input
+                  type="text"
+                  value={this.title}
+                  onChange={(event) => (this.title = event.currentTarget.value)}
+                  placeholder="Title..."
+                />
+              </Column>
+            </Row>
+            <Row marginBottom={5}></Row>
+          </Card>
+        </div>
       </div>
     );
   }
