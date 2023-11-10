@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
+import taskService, { Question } from '../question-service';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
 
 export class CreatePost extends Component {
   title: string = '';
-  text: string = '';
+  content: string = '';
   tags: string = '';
   questionSolved: boolean = false;
 
@@ -58,8 +59,8 @@ export class CreatePost extends Component {
               <Column width={9} none>
                 <Form.Textarea
                   type="text"
-                  value={this.text}
-                  onChange={(event) => (this.text = event.currentTarget.value)}
+                  value={this.content}
+                  onChange={(event) => (this.content = event.currentTarget.value)}
                   placeholder="Write your post here..."
                   style={{ height: '55vh' }}
                 />
@@ -67,7 +68,14 @@ export class CreatePost extends Component {
             </Row>
             <Row marginBottom={2}>
               <Column right>
-                <Button.Success onClick={() => console.log('aaaa')}>Post</Button.Success>
+                <Button.Success onClick={() => {
+            taskService.questionCreate(this.title, this.content).then(() => {
+              // Reloads the tasks in the Tasks component
+              // CreatePost.instance()?.mounted(); // .? meaning: call TaskList.instance().mounted() if TaskList.instance() does not return null
+              this.title = '';
+              this.content = '';
+            });
+          }}>Post</Button.Success>
               </Column>
             </Row>
           </Card>

@@ -30,6 +30,20 @@ class TaskService {
       );
     });
   }
+
+  questionCreate(title: string, content: string) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO question SET title=?, content=?',
+        [title, content],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
 }
 
 const taskService = new TaskService();
