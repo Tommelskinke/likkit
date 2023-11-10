@@ -42,22 +42,22 @@ export class UserProfile extends Component {
                 <Column right>Best comments: {this.bestCommentAmount}</Column>
               </Row>
               <Column>
-                <Button.Light>
+                <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">Favorite Posts</NavBar.Link>
                 </Button.Light>
-                <Button.Light>
+                <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">Best Post</NavBar.Link>
                 </Button.Light>
-                <Button.Light>
+                <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">Best Comment</NavBar.Link>
                 </Button.Light>
-                <Button.Light>
+                <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">Favorite Comments</NavBar.Link>
                 </Button.Light>
-                <Button.Light>
+                <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">All Posts</NavBar.Link>
                 </Button.Light>
-                <Button.Light>
+                <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">All Comments</NavBar.Link>
                 </Button.Light>
               </Column>
