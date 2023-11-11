@@ -21,6 +21,12 @@ class TaskService {
   questionGet(question_id: number) {
     return axios.get<Question>('/posts/' + question_id).then((response) => response.data);
   }
+
+  questionCreate(title: string, content: string) {
+    return axios
+      .post<{ id: number }>('/createPost', { title: title, content: content })
+      .then((response) => response.data.id);
+  }
 }
 
 const taskService = new TaskService();

@@ -14,4 +14,14 @@ router.get('/posts/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+router.post('/createPost', (request, response) => {
+  const data = request.body;
+  if (data && data.title && data.title.length != 0)
+    taskService
+      .questionCreate(data.title, data.content)
+      .then((id) => response.send({ id: id }))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing question title');
+});
+
 export default router;
