@@ -3,6 +3,10 @@ import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
 import taskService, { Question } from '../question-service';
 import SearchBar from './search-component';
+import { createHashHistory } from 'history';
+
+const history = createHashHistory();
+
 export class Menu extends Component {
   search: string = '';
   render() {
@@ -45,9 +49,6 @@ export class Home extends Component {
   search: string = '';
   posts: Question[] = [];
 
-  alerttest = () => {
-    alert('SHREK');
-  };
 
   render() {
     return (
@@ -152,7 +153,7 @@ export class Home extends Component {
                     marginBottom={3}
                     key={i}
                   >
-                    <Button.Post onClick={this.alerttest}>
+                    <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
                         <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.karma}</p>
                         <p>{post.title}</p>
