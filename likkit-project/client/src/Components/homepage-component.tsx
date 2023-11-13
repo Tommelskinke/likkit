@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
-
+import SearchBar from './search-component';
 export class Menu extends Component {
   search: string = '';
   render() {
@@ -21,12 +21,7 @@ export class Menu extends Component {
           </NavBar.Link>
         </Column>
         <Column width={6} none>
-          <Form.Input
-            type="text"
-            value={this.search}
-            onChange={(event) => (this.search = event.currentTarget.value)}
-            placeholder="Søk..."
-          />
+          <SearchBar />
         </Column>
         <Column width={2} right>
           <NavBar.Link to="/user">
