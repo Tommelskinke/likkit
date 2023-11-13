@@ -1,19 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import taskService, { Question } from '../question-service';
+import taskService, { Question, Comment } from '../question-service';
 import { Alert, Card, Row, Column, Form, Button } from '../widgets';
-
-type Comment = {
-  answer_id: number;
-  question_id: number;
-  user: string;
-  best_answer: boolean;
-  content: string;
-  created_at: string;
-  upvotes: number;
-  downvotes: number;
-  karma: number;
-};
 
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
@@ -31,8 +19,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   comment1: Comment = {
     answer_id: 1,
     question_id: 1,
-    user: 'testperson1',
-    best_answer: true,
+    user_id: 1,
+    best_answer: 1,
     content:
       ' afa aotfyg osuvg ousg fuiogads uigvo iudsg osgighih fiuy ioh ily asoifiuyi ug oruyuiyerg fygerwqo8f geruyfv luerg vkerqvfiuerwhq fgpiqegrfo8 7er yfo qergoqegfierglifbvhbf,kgu qre09uyoqlihv aføuvhlufavoayv ladvladfyv bliuyelbvy dlobyeragh k',
     created_at: '2023-11-10 10:56:20',
@@ -43,8 +31,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   comment2: Comment = {
     answer_id: 2,
     question_id: 2,
-    user: 'testperson2',
-    best_answer: false,
+    user_id: 2,
+    best_answer: 0,
     content: 'test2',
     created_at: '2022-1-16 12:32:19',
     upvotes: 1,
@@ -139,6 +127,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     color: 'white',
                     fontSize: '14px',
                   }}
+                  key={i}
                 >
                   <Row marginBottom={4}>
                     <Row marginBottom={1}>
@@ -148,7 +137,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                           alt="Green profile picture"
                         />
                       </Column>
-                      <Column width={2}>{comment.user}</Column>
+                      <Column width={2}>{comment.user_id}</Column>
                       <Column width={3}>{comment.created_at}</Column>
                     </Row>
                     <Row>
@@ -166,10 +155,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       </div>
     );
   }
-  /*mounted() {
+  mounted() {
     taskService
       .questionGet(this.props.match.params.id)
-      .then((question) => (this.question = question))
-      .catch((error) => Alert.danger('Error getting task: ' + error.message));
-  }*/
+      .then((question) => (this.question = question));
+    /*taskService.commentsGet(this.props.match.params.id).then((getComments) => {
+      console.log(getComments);
+      this.comments = getComments;
+    });*/
+  }
 }

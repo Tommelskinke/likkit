@@ -31,4 +31,11 @@ router.post('/createPost', (request, response) => {
   else response.status(400).send('Missing question title');
 });
 
+router.get('/posts/:id', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .commentsGet(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
 export default router;

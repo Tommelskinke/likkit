@@ -11,6 +11,17 @@ export type Question = {
   downvotes: number;
   karma: number;
 };
+export type Comment = {
+  answer_id: number;
+  question_id: number;
+  user: string;
+  best_answer: number;
+  content: string;
+  created_at: string;
+  upvotes: number;
+  downvotes: number;
+  karma: number;
+};
 
 class TaskService {
   /**
@@ -32,14 +43,11 @@ class TaskService {
 
   questionGetThree() {
     return new Promise<Question[]>((resolve, reject) => {
-      pool.query(
-        'SELECT * FROM question LIMIT 3',
-        (error, results: RowDataPacket[]) => {
-          if (error) return reject(error);
+      pool.query('SELECT * FROM question LIMIT 3', (error, results: RowDataPacket[]) => {
+        if (error) return reject(error);
 
-          resolve(results as Question[]);
-        },
-      );
+        resolve(results as Question[]);
+      });
     });
   }
 
@@ -52,6 +60,18 @@ class TaskService {
           if (error) return reject(error);
 
           resolve(results.insertId);
+        },
+      );
+    });
+  }
+  commentsGet(question_id: number) {
+    return new Promise<Comment[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM answer WHERE question_id=?',
+        [question_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as Comment[]);
         },
       );
     });

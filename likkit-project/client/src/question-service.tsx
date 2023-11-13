@@ -12,6 +12,17 @@ export type Question = {
   downvotes: number;
   karma: number;
 };
+export type Comment = {
+  answer_id: number;
+  question_id: number;
+  user_id: number;
+  best_answer: number;
+  content: string;
+  created_at: string;
+  upvotes: number;
+  downvotes: number;
+  karma: number;
+};
 
 class TaskService {
   /**
@@ -29,6 +40,9 @@ class TaskService {
     return axios
       .post<{ id: number }>('/createPost', { title: title, content: content })
       .then((response) => response.data.id);
+  }
+  commentsGet(question_id: number) {
+    return axios.get<Comment[]>('/posts/' + question_id).then((response) => response.data);
   }
 }
 
