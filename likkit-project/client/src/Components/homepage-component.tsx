@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
+import taskService, { Question } from '../question-service';
 import SearchBar from './search-component';
 export class Menu extends Component {
   search: string = '';
@@ -42,27 +43,7 @@ export class Menu extends Component {
 
 export class Home extends Component {
   search: string = '';
-  //posts: string[] = ['Post1', 'post2']; //Denne må endres te rett type seinere
-
-  posts = [
-    {
-      text: 'Se på kjeksene mine!!!!',
-      imageLink: 'https://i.scdn.co/image/ab6761610000e5eba3a7cba23d68a4e73c3b8155',
-      likks: '30',
-      question_id: '1',
-    },
-    {
-      text: 'anyways... COYS',
-      imageLink: 'https://i.ytimg.com/vi/H8ZnIAama1A/maxresdefault.jpg',
-      likks: '15',
-      question_id: '29',
-    },
-    {
-      text: 'Fool me once, strike one. Fool me twice... strike three.',
-      likks: '45',
-      question_id: '30',
-    },
-  ];
+  posts: Question[] = [];
 
   alerttest = () => {
     alert('SHREK');
@@ -111,7 +92,6 @@ export class Home extends Component {
                       id="dropdown"
                       style={{
                         appearance: 'none',
-                        border: '#5A5A5A',
                         background: '#5A5A5A',
                         color: '#ffffff',
                         cursor: 'pointer',
@@ -129,7 +109,6 @@ export class Home extends Component {
                   <div
                     style={{
                       appearance: 'none',
-                      border: '#5A5A5A',
                       background: '#5A5A5A',
                       color: '#ffffff',
                       cursor: 'pointer',
@@ -175,8 +154,9 @@ export class Home extends Component {
                   >
                     <Button.Post onClick={this.alerttest}>
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
-                        <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.likks}</p>
-                        <p>{post.text}</p>
+                        <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.karma}</p>
+                        <p>{post.title}</p>
+                        <p style={{fontSize: '14px'}}>{post.content}</p>
                       </div>
                     </Button.Post>
                   </Card>
@@ -187,6 +167,9 @@ export class Home extends Component {
         </div>
       </div>
     );
+  }
+  mounted() {
+    taskService.questionGetThree().then((posts) => (this.posts = posts));
   }
 }
 

@@ -30,6 +30,19 @@ class TaskService {
     });
   }
 
+  questionGetThree() {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question LIMIT 3',
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as Question[]);
+        },
+      );
+    });
+  }
+
   questionCreate(title: string, content: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(

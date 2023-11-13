@@ -21,6 +21,10 @@ class TaskService {
     return axios.get<Question>('/posts/' + question_id).then((response) => response.data);
   }
 
+  questionGetThree() {
+    return axios.get<Question[]>('/').then((response) => response.data);
+  }
+
   questionCreate(title: string, content: string) {
     return axios
       .post<{ id: number }>('/createPost', { title: title, content: content })

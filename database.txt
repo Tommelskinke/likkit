@@ -5,10 +5,10 @@ CREATE TABLE users(
 	password VARCHAR(20));
 
 CREATE TABLE tag( 
-	tag_id INTEGER, 
+	tag_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
 	tag_name VARCHAR(20));
 
-CREATE TABLE tag( 
+CREATE TABLE question_tag( 
 	question_id INTEGER, 
 	tag_id INTEGER);
 

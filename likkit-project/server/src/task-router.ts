@@ -14,6 +14,13 @@ router.get('/posts/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+router.get('/', (_request, response) => {
+  taskService
+    .questionGetThree()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
 router.post('/createPost', (request, response) => {
   const data = request.body;
   if (data && data.title && data.title.length != 0)
