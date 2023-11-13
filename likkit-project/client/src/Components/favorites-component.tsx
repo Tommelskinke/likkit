@@ -55,7 +55,6 @@ export class FavoriteList extends Component {
                       id="dropdown"
                       style={{
                         appearance: 'none',
-                        border: '#5A5A5A',
                         background: '#5A5A5A',
                         color: '#ffffff',
                         cursor: 'pointer',
@@ -73,7 +72,6 @@ export class FavoriteList extends Component {
                   <div
                     style={{
                       appearance: 'none',
-                      border: '#5A5A5A',
                       background: '#5A5A5A',
                       color: '#ffffff',
                       cursor: 'pointer',
