@@ -54,15 +54,18 @@ export class Home extends Component {
       text: 'Se på kjeksene mine!!!!',
       imageLink: 'https://i.scdn.co/image/ab6761610000e5eba3a7cba23d68a4e73c3b8155',
       likks: '30',
+      question_id: '1',
     },
     {
       text: 'anyways... COYS',
       imageLink: 'https://i.ytimg.com/vi/H8ZnIAama1A/maxresdefault.jpg',
       likks: '15',
+      question_id: '29',
     },
     {
-      text: 'Fo.',
+      text: 'Fool me once, strike one. Fool me twice... strike three.',
       likks: '45',
+      question_id: '30',
     },
   ];
 
@@ -78,7 +81,7 @@ export class Home extends Component {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'stretch',
-          height: '150vh', //bør få denne til å scale
+          height: '150vh',
         }}
       >
         <div
