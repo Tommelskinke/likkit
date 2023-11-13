@@ -16,7 +16,7 @@ export type Comment = {
   answer_id: number;
   question_id: number;
   user_id: number;
-  best_answer: number;
+  best_answer: boolean;
   content: string;
   created_at: string;
   upvotes: number;
@@ -42,7 +42,7 @@ class TaskService {
       .then((response) => response.data.id);
   }
   commentsGet(question_id: number) {
-    return axios.get<Comment[]>('/posts/' + question_id).then((response) => response.data);
+    return axios.get<Comment[]>('/posts/' + question_id + '/comments/').then((response) => response.data);
   }
 }
 

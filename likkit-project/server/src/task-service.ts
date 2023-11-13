@@ -15,7 +15,7 @@ export type Comment = {
   answer_id: number;
   question_id: number;
   user: string;
-  best_answer: number;
+  best_answer: boolean;
   content: string;
   created_at: string;
   upvotes: number;

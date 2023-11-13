@@ -7,39 +7,16 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
     question_id: 1,
     user_id: 0,
-    title: 'Hjelp, igjen',
-    content:
-      'Jeg trenger hjelp med noe, igjen. eqpuoy piuypiuwgy iyri gy orieytgo uer gouyreo uftr eouy uretgo ureg uerygf oeqrgfouerg oerg  iupø9u reqøoyeigy eriluy l iqert lyerg iliuher øoy lierqgl iertygu ru goøhl iuegyure ulbiuev uirvuøhrewp dfhbjdfwvhlue vladf.vlou dfboiru-b reoiufwe uew pgyp98w',
-    created_at: '2023-11-10 10:56:20',
+    title: "",
+    content: "",
+    created_at: "",
     upvotes: 2,
     downvotes: 1,
     karma: 1,
   };
   writeComment: string = '';
-  comment1: Comment = {
-    answer_id: 1,
-    question_id: 1,
-    user_id: 1,
-    best_answer: 1,
-    content:
-      ' afa aotfyg osuvg ousg fuiogads uigvo iudsg osgighih fiuy ioh ily asoifiuyi ug oruyuiyerg fygerwqo8f geruyfv luerg vkerqvfiuerwhq fgpiqegrfo8 7er yfo qergoqegfierglifbvhbf,kgu qre09uyoqlihv aføuvhlufavoayv ladvladfyv bliuyelbvy dlobyeragh k',
-    created_at: '2023-11-10 10:56:20',
-    upvotes: 1,
-    downvotes: 1,
-    karma: 1,
-  };
-  comment2: Comment = {
-    answer_id: 2,
-    question_id: 2,
-    user_id: 2,
-    best_answer: 0,
-    content: 'test2',
-    created_at: '2022-1-16 12:32:19',
-    upvotes: 1,
-    downvotes: 1,
-    karma: 1,
-  };
-  comments: Comment[] = [this.comment1, this.comment2];
+
+  comments: Comment[] = []
 
   render() {
     return (
@@ -159,9 +136,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     taskService
       .questionGet(this.props.match.params.id)
       .then((question) => (this.question = question));
-    /*taskService.commentsGet(this.props.match.params.id).then((getComments) => {
-      console.log(getComments);
-      this.comments = getComments;
-    });*/
+
+    taskService
+      .commentsGet(this.props.match.params.id)
+      .then((getComments) => (this.comments = getComments));
   }
 }

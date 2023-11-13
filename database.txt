@@ -18,9 +18,9 @@ CREATE TABLE question(
 	title TINYTEXT,
 	content TINYTEXT,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-	upvotes INTEGER,
-	downvotes INTEGER,
-	karma INTEGER);
+	upvotes INTEGER DEFAULT 0,
+	downvotes INTEGER DEFAULT 0,
+	karma INTEGER DEFAULT 0);
 
 CREATE TABLE answer( 
 	answer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -29,9 +29,9 @@ CREATE TABLE answer(
 	best_answer BOOLEAN,
 	content TINYTEXT,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-	upvotes INTEGER,
-	downvotes INTEGER,
-	karma INTEGER);
+	upvotes INTEGER DEFAULT 0,
+	downvotes INTEGER DEFAULT 0,
+	karma INTEGER DEFAULT 0);
 
 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
