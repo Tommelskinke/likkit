@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Home, TagList, Posts, TagPosts, Post, Menu } from './Components/homepage-component';
+import { Home, Posts, TagPosts, Post, Menu } from './Components/homepage-component';
 import { FavoriteList } from './Components/favorites-component';
+import { TagList } from './Components/tag-component';
 import { UserProfile } from './Components/userpage-components';
 import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';

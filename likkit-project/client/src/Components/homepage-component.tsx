@@ -173,16 +173,6 @@ export class Home extends Component {
   }
 }
 
-export class TagList extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Tags</h1>
-      </div>
-    );
-  }
-}
-
 export class Posts extends Component {
   render() {
     return (
