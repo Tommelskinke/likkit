@@ -49,7 +49,6 @@ export class Home extends Component {
   search: string = '';
   posts: Question[] = [];
 
-
   render() {
     return (
       <div
@@ -157,7 +156,7 @@ export class Home extends Component {
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
                         <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.karma}</p>
                         <p>{post.title}</p>
-                        <p style={{fontSize: '14px'}}>{post.content}</p>
+                        <p style={{ fontSize: '14px' }}>{post.content}</p>
                       </div>
                     </Button.Post>
                   </Card>
