@@ -4,7 +4,6 @@ import type { RowDataPacket, ResultSetHeader } from 'mysql2';
 export type Question = {
   question_id: number;
   user_id: number;
-  tag_id: [];
   title: string;
   content: string;
   created_at: string;

@@ -7,7 +7,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
     question_id: 0,
     user_id: 0,
-    tag_id: [],
     title: '',
     content: '',
     created_at: '',

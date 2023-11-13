@@ -5,7 +5,6 @@ axios.defaults.baseURL = 'http://localhost:3000/api/v2';
 export type Question = {
   question_id: number;
   user_id: number;
-  tag_id: [];
   title: string;
   content: string;
   created_at: string;

@@ -8,10 +8,13 @@ CREATE TABLE tag(
 	tag_id INTEGER, 
 	tag_name VARCHAR(20));
 
+CREATE TABLE tag( 
+	question_id INTEGER, 
+	tag_id INTEGER);
+
 CREATE TABLE question( 
 	question_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	user_id INTEGER,
-	tag_id SET('1', '2', '3', '4'), 
 	title TINYTEXT,
 	content TINYTEXT,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -30,6 +33,9 @@ CREATE TABLE answer(
 	downvotes INTEGER,
 	karma INTEGER);
 
+
+ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
+ALTER TABLE question_tag ADD CONSTRAINT question_id_fk2 FOREIGN KEY(tag_id) REFERENCES tag (tag_id); 
 
 ALTER TABLE question ADD CONSTRAINT question_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id); 
 
