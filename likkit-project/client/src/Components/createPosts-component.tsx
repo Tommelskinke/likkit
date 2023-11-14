@@ -68,14 +68,18 @@ export class CreatePost extends Component {
             </Row>
             <Row marginBottom={2}>
               <Column right>
-                <Button.Success onClick={() => {
-            taskService.questionCreate(this.title, this.content).then(() => {
-              // Reloads the tasks in the Tasks component
-              // CreatePost.instance()?.mounted(); // .? meaning: call TaskList.instance().mounted() if TaskList.instance() does not return null
-              this.title = '';
-              this.content = '';
-            });
-          }}>Post</Button.Success>
+                <Button.Success
+                  onClick={() => {
+                    taskService.questionCreate(this.title, this.content).then(() => {
+                      // Reloads the tasks in the Tasks component
+                      // CreatePost.instance()?.mounted(); // .? meaning: call TaskList.instance().mounted() if TaskList.instance() does not return null
+                      this.title = '';
+                      this.content = '';
+                    });
+                  }}
+                >
+                  Post
+                </Button.Success>
               </Column>
             </Row>
           </Card>

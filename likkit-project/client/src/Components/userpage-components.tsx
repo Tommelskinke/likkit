@@ -60,7 +60,6 @@ export class UserProfile extends Component {
                 <Button.Light onClick={() => console.log('yep)')}>
                   <NavBar.Link to="/">All Comments</NavBar.Link>
                 </Button.Light>
-                <Button.Success onClick={() => console.log('yep')}>HEI</Button.Success>
               </Column>
             </div>
           </Card>

@@ -6,6 +6,19 @@ import SearchBar from './search-component';
 import { createHashHistory } from 'history';
 
 const history = createHashHistory();
+const upLikk = (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eo_circle_blue_arrow-up.svg/2048px-Eo_circle_blue_arrow-up.svg.png"
+    alt="Oppoverpil"
+  />
+);
+
+const downLikk = (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Eo_circle_yellow_arrow-down.svg/800px-Eo_circle_yellow_arrow-down.svg.png"
+    alt="nedoverpil"
+  />
+);
 
 export class Menu extends Component {
   search: string = '';
@@ -154,7 +167,11 @@ export class Home extends Component {
                   >
                     <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
-                        <p style={{ position: 'absolute', top: '0', left: '10' }}>{post.karma}</p>
+                        <p style={{ position: 'absolute', top: '0', left: '10' }}>
+                          {upLikk}
+                          {post.karma}
+                          {downLikk}
+                        </p>
                         <p>{post.title}</p>
                         <p style={{ fontSize: '14px' }}>{post.content}</p>
                       </div>
