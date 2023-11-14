@@ -3,6 +3,10 @@ import { Component } from 'react-simplified';
 import taskService, { Question, Comment } from '../question-service';
 import { Alert, Card, Row, Column, Form, Button, upLikk, downLikk } from '../widgets';
 
+function shrek() {
+  alert('SHREK');
+}
+
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
     question_id: 1,
@@ -108,20 +112,46 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 >
                   <Row marginBottom={4}>
                     <Row marginBottom={1}>
-                      <Column width={1}>
+                      <Column>
                         <img
                           src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
                           alt="Green profile picture"
                         />
                       </Column>
-                      <Column width={2}>{comment.user_id}</Column>
+                      <div
+                        style={{
+                          color: 'white',
+                          fontWeight: 'bold',
+                          fontSize: '25px',
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Column width={2}>{comment.user_id}</Column>
+                      </div>
                       <Column width={3}>{comment.created_at}</Column>
                     </Row>
                     <Row>
-                      <Column width={1}>↑</Column>
-                      <Column width={1}>{comment.karma}</Column>
-                      <Column width={1}>↓</Column>
-                      <Column none>{comment.content}</Column>
+                      <div
+                        style={{
+                          color: 'white',
+                          fontWeight: 'bold',
+                          fontSize: '25px',
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Column width={1}>
+                          <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                        </Column>
+                        <Column width={1}>{comment.karma}</Column>
+                        <Column width={1}>
+                          <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                        </Column>
+                        <Column none>{comment.content}</Column>
+                      </div>
                     </Row>
                   </Row>
                 </div>
