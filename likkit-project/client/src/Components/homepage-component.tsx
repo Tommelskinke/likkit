@@ -15,7 +15,7 @@ const upLikk = (
 
 const downLikk = (
   <img
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Eo_circle_yellow_arrow-down.svg/800px-Eo_circle_yellow_arrow-down.svg.png"
+    src="https://cdn.discordapp.com/attachments/1009402721864003636/1174087028477009921/oransje_ned.png?ex=656650c1&is=6553dbc1&hm=1f43c6a51f2a422996eafe2ec038f6700e79bc762c4a5e9041e2460cca9c5429&"
     alt="nedoverpil"
   />
 );
