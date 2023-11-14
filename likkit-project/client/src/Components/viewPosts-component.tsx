@@ -102,60 +102,76 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   <Button.Success onClick={() => {}}>Post</Button.Success>
                 </Column>
               </Row>
-              {this.comments.map((comment, i) => (
-                <div
-                  style={{
-                    color: 'white',
-                    fontSize: '14px',
-                  }}
-                  key={i}
-                >
-                  <Row marginBottom={4}>
-                    <Row marginBottom={1}>
-                      <Column>
-                        <img
-                          src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
-                          alt="Green profile picture"
-                        />
-                      </Column>
-                      <div
-                        style={{
-                          color: 'white',
-                          fontWeight: 'bold',
-                          fontSize: '25px',
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <Column width={2}>{comment.user_id}</Column>
-                      </div>
-                      <Column width={3}>{comment.created_at}</Column>
-                    </Row>
-                    <Row>
-                      <div
-                        style={{
-                          color: 'white',
-                          fontWeight: 'bold',
-                          fontSize: '25px',
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <Column width={1}>
-                          <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+              <Card title="" width="100%" backgroundColor="rgb(70,70,70)">
+                {this.comments.map((comment, i) => (
+                  <div
+                    style={{
+                      color: 'white',
+                      fontSize: '14px',
+                    }}
+                    key={i}
+                  >
+                    <Row marginBottom={4}>
+                      <Row marginBottom={1}>
+                        <Column>
+                          <img
+                            src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
+                            alt="Green profile picture"
+                          />
                         </Column>
-                        <Column width={1}>{comment.karma}</Column>
-                        <Column width={1}>
-                          <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                        <div
+                          style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '25px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
+                        ></div>
+
+                        <Column width={4}>
+                          Posted by {comment.user_id} at {comment.created_at}
                         </Column>
-                        <Column none>{comment.content}</Column>
-                      </div>
+                      </Row>
+                      <Row>
+                        <div
+                          style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '25px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Column width={1}>
+                            <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                          </Column>
+                          <Column width={1}>{comment.karma}</Column>
+                          <Column width={1}>
+                            <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                          </Column>
+                          <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
+                            <div
+                              style={{
+                                color: 'white',
+                                fontSize: '20px',
+                                fontWeight: 'normal',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <Column>{comment.content}</Column>
+                            </div>
+                          </Card>
+                        </div>
+                      </Row>
                     </Row>
-                  </Row>
-                </div>
-              ))}
+                  </div>
+                ))}
+              </Card>
             </Card>
           </Card>
         </div>

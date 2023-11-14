@@ -105,7 +105,7 @@ export class Home extends Component {
                       }}
                     >
                       <option value="">Popular</option>
-                      <option value="op1">Best</option>
+                      <option value="best">Best</option>
                     </select>
                   </div>
                 </Column>
@@ -175,7 +175,7 @@ export class Home extends Component {
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
                         <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
                         <p>{post.title}</p>
-                        <p style={{ fontSize: '14px' }}>{post.content}</p>
+                        <p style={{ fontSize: '14px', fontWeight: 'normal' }}>{post.content}</p>
                       </div>
                     </Button.Post>
                   </Card>
