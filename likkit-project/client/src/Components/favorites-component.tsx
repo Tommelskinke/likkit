@@ -18,7 +18,7 @@ export class FavoriteList extends Component {
       likks: '15',
     },
     {
-      text: 'Fo.',
+      text: 'Fool me once, strike one. Fool me twice... strike three.',
       likks: '45',
     },
   ];
