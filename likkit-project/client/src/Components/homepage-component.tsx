@@ -20,6 +20,10 @@ const downLikk = (
   />
 );
 
+function shrek() {
+  alert('SHREK');
+}
+
 export class Menu extends Component {
   search: string = '';
   render() {
@@ -165,13 +169,24 @@ export class Home extends Component {
                     marginBottom={3}
                     key={i}
                   >
+                    <div
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '25px',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                      <p style={{ margin: '0 10px' }}>{post.karma}</p>
+                      <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                    </div>
+
                     <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
-                        <p style={{ position: 'absolute', top: '0', left: '10' }}>
-                          {upLikk}
-                          {post.karma}
-                          {downLikk}
-                        </p>
+                        <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
                         <p>{post.title}</p>
                         <p style={{ fontSize: '14px' }}>{post.content}</p>
                       </div>
