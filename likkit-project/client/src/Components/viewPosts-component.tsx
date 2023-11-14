@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Comment } from '../question-service';
-import { Alert, Card, Row, Column, Form, Button } from '../widgets';
+import { Alert, Card, Row, Column, Form, Button, upLikk, downLikk } from '../widgets';
 
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
     question_id: 1,
     user_id: 0,
-    title: "",
-    content: "",
-    created_at: "",
+    title: '',
+    content: '',
+    created_at: '',
     upvotes: 2,
     downvotes: 1,
     karma: 1,
   };
   writeComment: string = '';
 
-  comments: Comment[] = []
+  comments: Comment[] = [];
 
   render() {
     return (

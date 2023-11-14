@@ -1,24 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
+import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question } from '../question-service';
 import SearchBar from './search-component';
 import { createHashHistory } from 'history';
 
 const history = createHashHistory();
-const upLikk = (
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eo_circle_blue_arrow-up.svg/2048px-Eo_circle_blue_arrow-up.svg.png"
-    alt="Oppoverpil"
-  />
-);
-
-const downLikk = (
-  <img
-    src="https://cdn.discordapp.com/attachments/1009402721864003636/1174087028477009921/oransje_ned.png?ex=656650c1&is=6553dbc1&hm=1f43c6a51f2a422996eafe2ec038f6700e79bc762c4a5e9041e2460cca9c5429&"
-    alt="nedoverpil"
-  />
-);
 
 function shrek() {
   alert('SHREK');

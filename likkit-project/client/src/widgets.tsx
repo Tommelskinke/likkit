@@ -3,6 +3,20 @@ import { ReactNode, ChangeEvent } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
 
+export const upLikk = (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eo_circle_blue_arrow-up.svg/2048px-Eo_circle_blue_arrow-up.svg.png"
+    alt="Oppoverpil"
+  />
+);
+
+export const downLikk = (
+  <img
+    src="https://cdn.discordapp.com/attachments/1009402721864003636/1174087028477009921/oransje_ned.png?ex=656650c1&is=6553dbc1&hm=1f43c6a51f2a422996eafe2ec038f6700e79bc762c4a5e9041e2460cca9c5429&"
+    alt="nedoverpil"
+  />
+);
+
 /**
  * Renders an information card using Bootstrap classes.
  *
