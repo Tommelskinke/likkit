@@ -42,13 +42,13 @@ export class UserProfile extends Component {
                   alt="Green profile picture"
                 />
               </Column>
-              <Column width={8}>
+              <Column width={9}>
                 <Card title="Bio" backgroundColor="rgb(80,80,80)">
                   <div
                     style={{
                       color: 'white',
                       fontSize: '14px',
-                      height: '25vh',
+                      height: '17vh',
                     }}
                   >
                     {this.bio}
