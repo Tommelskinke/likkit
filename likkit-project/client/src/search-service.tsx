@@ -14,9 +14,9 @@ class SearchService {
   /**
    * Search questions by a query string.
    */
-  searchQuestions(query: string) {
+  searchQuestions(input: string) {
     return axios
-      .get<QuestionSummary[]>('/search', { params: { query: query } })
+      .get<QuestionSummary[]>('/search', { params: { term: input } })
       .then((response) => response.data);
   }
 }
