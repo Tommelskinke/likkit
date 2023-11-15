@@ -75,7 +75,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 }}
               >
                 <Row marginBottom={5}>
-                  <Column width={1}>a</Column>
+                  <Column width={1}>
+                    <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                    <p style={{ marginLeft: '30px', marginTop: '10px' }}>{this.question.karma}</p>
+                    <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                  </Column>
                   <Column>{this.question.content}</Column>
                   <Column width={1}></Column>
                 </Row>
