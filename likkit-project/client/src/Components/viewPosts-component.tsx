@@ -128,6 +128,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                           )
                           .then(() => {
                             this.writeComment = '';
+                            taskService
+                              .commentsGet(this.props.match.params.id)
+                              .then((getComments) => (this.comments = getComments));
                           });
                       }}
                     >
