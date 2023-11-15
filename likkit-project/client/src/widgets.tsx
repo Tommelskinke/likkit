@@ -40,6 +40,16 @@ export function SoMeRedditLink() {
   window.location.href = target;
 }
 
+export function SoMeInstaLink() {
+  let target = 'https://www.instagram.com';
+  window.location.href = target;
+}
+
+export function SoMeXLink() {
+  let target = 'https://www.x.com';
+  window.location.href = target;
+}
+
 /**
  * Renders an information card using Bootstrap classes.
  *

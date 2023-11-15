@@ -14,6 +14,8 @@ import {
   SoMeInsta,
   SoMeReddit,
   SoMeRedditLink,
+  SoMeInstaLink,
+  SoMeXLink,
 } from '../widgets';
 
 function shrek() {
@@ -112,8 +114,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 <Row marginBottom={5}>
                   <Column right>
                     <Button.Success onClick={() => {}}>Post</Button.Success>
-                    <Button.Vote onClick={shrek}>{SoMeX} </Button.Vote>
-                    <Button.Vote onClick={shrek}>{SoMeInsta}</Button.Vote>
+                    <Button.Vote onClick={SoMeXLink}>{SoMeX} </Button.Vote>
+                    <Button.Vote onClick={SoMeInstaLink}>{SoMeInsta}</Button.Vote>
                     <Button.Vote onClick={SoMeRedditLink}>{SoMeReddit}</Button.Vote>
                   </Column>
                 </Row>
@@ -185,8 +187,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                           <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
                           <p style={{ margin: '0 10px' }}>{comment.karma}</p>
                           <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
-                          <Button.Vote onClick={shrek}>{SoMeX}</Button.Vote>
-                          <Button.Vote onClick={shrek}>{SoMeInsta}</Button.Vote>
+                          <Button.Vote onClick={SoMeXLink}>{SoMeX}</Button.Vote>
+                          <Button.Vote onClick={SoMeInstaLink}>{SoMeInsta}</Button.Vote>
                           <Button.Vote onClick={SoMeRedditLink}>{SoMeReddit}</Button.Vote>
                         </div>
                         <div
