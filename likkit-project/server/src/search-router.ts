@@ -2,40 +2,46 @@ import express from 'express';
 import searchService from './search-service';
 import pool from './mysql-pool';
 
-/**
- * Express router containing task methods.
- */
 const router = express.Router();
 
-router.get('/posts', async (request, response) => {
+router.get('/', async (request, response) => {
   try {
-    const searchQuery = request.query.query;
-
-    if (typeof searchQuery === 'string') {
-      searchService.searchQuestions(searchQuery);
-    } else {
-      response.status(400).json({ error: 'Invalid search query.' });
+    const searchQuery = request.query.term;
+    if (typeof searchQuery !== 'string') {
+      return response.status(400).json({ error: 'Invalid search query.' });
     }
+
+    const results = await searchService.searchQuestions(searchQuery);
+    response.json(results);
   } catch (error) {
+    console.error(error);
     response.status(500).json({ error: 'Internal server error' });
   }
 });
 
-router.get('/api/suggest', async (request, response) => {
+// Handler for autocomplete suggestions
+router.get('/autocomplete', async (request, response) => {
   try {
-    const partialQuery = request.query.term; // Assume 'term' is the query parameter
-    if (!partialQuery) {
+    const partialQuery = request.query.term;
+    if (typeof partialQuery !== 'string' || !partialQuery.trim()) {
       return response.status(400).json({ error: 'No search term provided' });
     }
 
-    // Example query, adjust according to your data schema
-    const suggestions = await pool.query(
+    const queryResult = await pool.query(
       'SELECT DISTINCT title FROM question WHERE title LIKE CONCAT("%", ?, "%") LIMIT 10',
       [partialQuery],
     );
 
-    response.json(suggestions);
+    if (Array.isArray(queryResult) && Array.isArray(queryResult[0])) {
+      const suggestions = queryResult[0];
+      response.json(suggestions);
+    } else {
+      // Handle unexpected structure
+      console.error('Unexpected query result structure:', queryResult);
+      response.status(500).json({ error: 'Internal server error' });
+    }
   } catch (error) {
+    console.error(error);
     response.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question } from '../question-service';
-import SearchBar from './search-component';
+import SearchBar from './searchBar-component';
 import { createHashHistory } from 'history';
+import SearchContainer from './searchContainer-component';
 
 const history = createHashHistory();
 
@@ -30,7 +31,7 @@ export class Menu extends Component {
           </NavBar.Link>
         </Column>
         <Column width={6} none>
-          <SearchBar />
+          <SearchContainer />
         </Column>
         <Column width={2} right>
           <NavBar.Link to="/user">

@@ -10,14 +10,11 @@ export type QuestionSummary = {
 };
 
 class SearchService {
-  /**
-   * Search for questions based on a query string.
-   */
   searchQuestions(query: string) {
     return new Promise<QuestionSummary[]>((resolve, reject) => {
       pool.query(
         'SELECT question_id, title, content, created_at, karma FROM question WHERE MATCH(title, content) AGAINST (? IN NATURAL LANGUAGE MODE)',
-        [query, query],
+        [query],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
 
