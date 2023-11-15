@@ -95,28 +95,49 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   </Column>
                   <Column width={2}>Comments: {this.comments.length}</Column>
                 </Row>
-              </div>
 
-              <Row marginBottom={3}>
-                <Column width={1}></Column>
-                <Column none>
-                  <Form.Textarea
-                    type="text"
-                    value={this.writeComment}
-                    onChange={(event) => (this.writeComment = event.currentTarget.value)}
-                    placeholder="Write your post here..."
-                    style={{ height: '30vh' }}
-                  />
-                </Column>
-              </Row>
-              <Row marginBottom={5}>
-                <Column right>
-                  <Button.Success onClick={() => {}}>Post</Button.Success>
-                  <Button.Vote onClick={shrek}>{SoMeX} </Button.Vote>
-                  <Button.Vote onClick={shrek}>{SoMeInsta}</Button.Vote>
-                  <Button.Vote onClick={shrek}>{SoMeReddit}</Button.Vote>
-                </Column>
-              </Row>
+                <Row marginBottom={3}>
+                  <Column width={1}></Column>
+                  <Column none>
+                    <Form.Textarea
+                      type="text"
+                      value={this.writeComment}
+                      onChange={(event) => (this.writeComment = event.currentTarget.value)}
+                      placeholder="Write your post here..."
+                      style={{ height: '30vh' }}
+                    />
+                  </Column>
+                </Row>
+                <Row marginBottom={5}>
+                  <Column right>
+                    <Button.Success onClick={() => {}}>Post</Button.Success>
+                    <Button.Vote onClick={shrek}>{SoMeX} </Button.Vote>
+                    <Button.Vote onClick={shrek}>{SoMeInsta}</Button.Vote>
+                    <Button.Vote onClick={shrek}>{SoMeReddit}</Button.Vote>
+                  </Column>
+                </Row>
+                <Column>Sort by:</Column>
+              </div>
+              <Column>
+                <div style={{ marginLeft: '10px', color: 'white' }}>
+                  <select
+                    id="dropdown"
+                    style={{
+                      appearance: 'none',
+                      background: '#5A5A5A',
+                      color: 'white',
+                      cursor: 'pointer',
+                      border: '1px solid #ffffff',
+                      borderRadius: '10px',
+                      padding: '5px',
+                    }}
+                  >
+                    <option value="">Popular</option>
+                    <option value="best">Best</option>
+                  </select>
+                </div>
+              </Column>
+
               <Card title="" width="100%" backgroundColor="rgb(70,70,70)">
                 {this.comments.map((comment, i) => (
                   <div
