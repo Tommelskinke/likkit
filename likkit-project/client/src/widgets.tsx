@@ -17,6 +17,13 @@ export const downLikk = (
   />
 );
 
+export const SoMeX = (
+  <img
+    src="https://www.pngguru.in/storage/uploads/images/Twitter%20x%20logo%20png%20free%20download_1690392476_1358447790.webp"
+    alt="X-logo (twitter)"
+  />
+);
+
 /**
  * Renders an information card using Bootstrap classes.
  *

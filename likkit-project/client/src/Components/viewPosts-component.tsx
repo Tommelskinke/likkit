@@ -126,7 +126,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                             fontSize: '25px',
                             display: 'flex',
                             flexDirection: 'row',
-                            alignItems: 'center',
+                            alignItems: 'stretch',
                           }}
                         ></div>
 
@@ -142,16 +142,23 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                             fontSize: '25px',
                             display: 'flex',
                             flexDirection: 'row',
-                            alignItems: 'center',
+                            alignItems: 'stretch',
                           }}
                         >
-                          <Column width={1}>
-                            <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
-                          </Column>
-                          <Column width={1}>{comment.karma}</Column>
-                          <Column width={1}>
-                            <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
-                          </Column>
+                          <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                          <p style={{ margin: '0 10px' }}>{comment.karma}</p>
+                          <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                        </div>
+                        <div
+                          style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '25px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'stretch',
+                          }}
+                        >
                           <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
                             <div
                               style={{
@@ -160,7 +167,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 fontWeight: 'normal',
                                 display: 'flex',
                                 flexDirection: 'row',
-                                alignItems: 'center',
+                                alignItems: 'stretch',
+                                width: '100%',
                               }}
                             >
                               <Column>{comment.content}</Column>
