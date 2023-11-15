@@ -35,6 +35,11 @@ export const SoMeReddit = (
   <img src="https://www.redditinc.com/assets/images/site/reddit-logo.png" alt="Redditlogo" />
 );
 
+export function SoMeRedditLink() {
+  let target = 'https://www.reddit.com';
+  window.location.href = target;
+}
+
 /**
  * Renders an information card using Bootstrap classes.
  *
