@@ -74,6 +74,19 @@ class TaskService {
       );
     });
   }
+  createComment(question_id: number, content: string, user_id: number) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO answer SET question_id=?, content=?, user_id=?',
+        [question_id, content, user_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
 }
 
 const taskService = new TaskService();

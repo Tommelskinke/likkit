@@ -44,6 +44,14 @@ class TaskService {
       .get<Comment[]>('/posts/' + question_id + '/comments/')
       .then((response) => response.data);
   }
+  createComment(question_id: number, content: string, user_id: number) {
+    return axios
+      .post<{ id: number }>('/posts/' + question_id, {
+        content: content,
+        user_id: user_id,
+      })
+      .then((response) => response.data);
+  }
 }
 
 const taskService = new TaskService();

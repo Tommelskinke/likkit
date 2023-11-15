@@ -117,7 +117,22 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 </Row>
                 <Row marginBottom={5}>
                   <Column right>
-                    <Button.Success onClick={() => {}}>Post</Button.Success>
+                    <Button.Success
+                      onClick={() => {
+                        console.log(this.props.match.params.id);
+                        taskService
+                          .createComment(
+                            this.props.match.params.id,
+                            this.writeComment,
+                            4 /*user_id*/,
+                          )
+                          .then(() => {
+                            this.writeComment = '';
+                          });
+                      }}
+                    >
+                      Post
+                    </Button.Success>
                     <Button.Vote onClick={SoMeXLink}>{SoMeX} </Button.Vote>
                     <Button.Vote onClick={SoMeInstaLink}>{SoMeInsta}</Button.Vote>
                     <Button.Vote onClick={SoMeRedditLink}>{SoMeReddit}</Button.Vote>
