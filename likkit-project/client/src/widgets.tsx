@@ -228,7 +228,10 @@ class ButtonDanger extends Component<{ small?: boolean; onClick: () => void }> {
  *
  * Properties: small, onClick
  */
-class ButtonLight extends Component<{ small?: boolean; onClick: () => void }> {
+class ButtonLight extends Component<{
+  small?: boolean;
+  onClick: () => void;
+}> {
   render() {
     return (
       <button
