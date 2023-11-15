@@ -170,7 +170,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                         ></div>
 
                         <Column width={4}>
-                          Posted by {comment.user_id} at {comment.created_at}
+                          Posted by {comment.username} at {comment.created_at}
                         </Column>
                       </Row>
                       <Row>
