@@ -6,6 +6,7 @@ import { TagList } from './Components/tag-component';
 import { UserProfile } from './Components/userpage-components';
 import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
+import { Auth } from './Components/auth-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { Alert } from './widgets';
@@ -26,6 +27,7 @@ if (root)
         <Route exact path="/posts/:id" component={ViewPost} />
         <Route exact path="/posts/tag/:id" component={TagPosts} />
         <Route exact path="/posts/tag/:id/post/:id" component={Post} />
+        <Route exact path="/auth" component={Auth} />
       </div>
     </HashRouter>,
   );
