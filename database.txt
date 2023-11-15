@@ -2,7 +2,8 @@ CREATE TABLE users(
 	user_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
 	user_type VARCHAR(20),
 	username VARCHAR(20),
-	password VARCHAR(20));
+	password VARCHAR(20),
+	user_pfp TINYTEXT);
 
 CREATE TABLE tag( 
 	tag_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
@@ -11,6 +12,10 @@ CREATE TABLE tag(
 CREATE TABLE question_tag( 
 	question_id INTEGER, 
 	tag_id INTEGER);
+
+CREATE TABLE profile_picture(
+	pfp_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	pfp_link TINYTEXT);
 
 CREATE TABLE question( 
 	question_id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -41,7 +46,6 @@ ALTER TABLE question ADD CONSTRAINT question_fk2 FOREIGN KEY(user_id) REFERENCES
 
 ALTER TABLE answer ADD CONSTRAINT answer_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
 ALTER TABLE answer ADD CONSTRAINT answer_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id);
- 
 
 INSERT INTO tag VALUES(1, 'solved');
 INSERT INTO tag VALUES(2, 'JS');
