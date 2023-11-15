@@ -99,14 +99,6 @@ export class CreatePost extends Component {
                 >
                   Post
                 </Button.Success>
-                <Button.Success
-                  onClick={() => {
-                    console.log(this.questionNew.question_id + 1)
-                    
-                  }}
-                >
-                  testing
-                </Button.Success>
               </Column>
             </Row>
           </Card>
