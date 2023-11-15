@@ -11,3 +11,9 @@ img {
 #test {
   width: 100%;
 }
+
+.profilePicture {
+  height: 20vh;
+  width: 20vh;
+  margin: 10px;
+}
