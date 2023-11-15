@@ -6,6 +6,7 @@ import taskService from './task-service';
  */
 const router = express.Router();
 
+//gets a post based on id
 router.get('/posts/:id', (request, response) => {
   const id = Number(request.params.id);
   taskService
@@ -14,6 +15,7 @@ router.get('/posts/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//gets the 3 most uppvoted posts 
 router.get('/', (_request, response) => {
   taskService
     .questionGetThree()
@@ -21,6 +23,7 @@ router.get('/', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//gets the 3 newest post in the database
 router.get('/createPost/lol', (_request, response) => {
   taskService
     .questionGetNewest()
@@ -28,6 +31,7 @@ router.get('/createPost/lol', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//creates a post
 router.post('/createPost', (request, response) => {
   const data = request.body;
   if (data && data.title && data.title.length != 0)
@@ -38,6 +42,25 @@ router.post('/createPost', (request, response) => {
   else response.status(400).send('Missing question title');
 });
 
+//creates tags for a post
+router.post('/createPost/tag', (request, response) => {
+  const data = request.body;
+    taskService
+      .questionTagCreate(data.question_id, data.tag_id)
+      .then((id) => response.send({ id: id }))
+      .catch((error) => response.status(500).send(error));
+});
+
+//gets the tags a post have
+router.get('/posts/:id/tag', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .questionTagGet(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
+//get comments on a post from the database
 router.get('/posts/:id/comments', (request, response) => {
   const id = Number(request.params.id);
   taskService
@@ -45,6 +68,8 @@ router.get('/posts/:id/comments', (request, response) => {
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });
+
+//creates a comment on a post
 router.post('/posts/:id', (request, response) => {
   const data = request.body;
   if (data && data.content && data.content.length != 0)

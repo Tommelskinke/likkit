@@ -21,6 +21,11 @@ export type Comment = {
   karma: number;
 };
 
+export type tag = {
+  tag_id: number;
+  tag_name: string;
+};
+
 class TaskService {
   /**
    * Get question with given id.
@@ -85,6 +90,34 @@ class TaskService {
       );
     });
   }
+
+  questionTagCreate(question_id: number, tag_id: number) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO question_tag SET question_id=?, tag_id=?',
+        [question_id, tag_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
+
+  questionTagGet(question_id: number) {
+    return new Promise<tag[]>((resolve, reject) => {
+      pool.query(
+        'SELECT t.tag_id, t.tag_name FROM question q, question_tag qt, tag t WHERE q.question_id = qt.question_id AND qt.tag_id = t.tag_id AND q.question_id = ?',
+        [question_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as tag[]);
+        },
+      );
+    });
+  }
+
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
       pool.query(
