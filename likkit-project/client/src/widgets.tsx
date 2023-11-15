@@ -19,9 +19,20 @@ export const downLikk = (
 
 export const SoMeX = (
   <img
-    src="https://www.pngguru.in/storage/uploads/images/Twitter%20x%20logo%20png%20free%20download_1690392476_1358447790.webp"
+    src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
     alt="X-logo (twitter)"
   />
+);
+
+export const SoMeInsta = (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Instagram.svg/2048px-Instagram.svg.png"
+    alt="Instagramlogo"
+  />
+);
+
+export const SoMeReddit = (
+  <img src="https://www.redditinc.com/assets/images/site/reddit-logo.png" alt="Redditlogo" />
 );
 
 /**
