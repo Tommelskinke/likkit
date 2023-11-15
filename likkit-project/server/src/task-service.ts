@@ -12,9 +12,7 @@ export type Question = {
   karma: number;
 };
 export type Comment = {
-  answer_id: number;
-  question_id: number;
-  user: string;
+  username: string;
   best_answer: boolean;
   content: string;
   created_at: string;
@@ -67,7 +65,7 @@ class TaskService {
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM answer WHERE question_id=?',
+        'SELECT u.username, a.best_answer, a.content, a.created_at, a.upvotes, a.downvotes, a.karma FROM answer a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id=?',
         [question_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
