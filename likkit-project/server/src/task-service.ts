@@ -39,9 +39,32 @@ class TaskService {
     });
   }
 
+  questionGetNewest() {
+    return new Promise<Question>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question ORDER BY created_at DESC LIMIT 1',
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results[0] as Question);
+        },
+      );
+    });
+  }
+
   questionGetThree() {
     return new Promise<Question[]>((resolve, reject) => {
-      pool.query('SELECT * FROM question LIMIT 3', (error, results: RowDataPacket[]) => {
+      pool.query('SELECT * FROM question ORDER BY karma DESC LIMIT 3', (error, results: RowDataPacket[]) => {
+        if (error) return reject(error);
+
+        resolve(results as Question[]);
+      });
+    });
+  }
+
+  questionGetThreeNew() {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query('SELECT * FROM question ORDER BY created_at DESC LIMIT 3', (error, results: RowDataPacket[]) => {
         if (error) return reject(error);
 
         resolve(results as Question[]);

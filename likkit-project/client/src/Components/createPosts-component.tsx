@@ -2,11 +2,26 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question } from '../question-service';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
+import { createHashHistory } from 'history';
+
+const history = createHashHistory();
 
 export class CreatePost extends Component {
   title: string = '';
   content: string = '';
   tags: string = '';
+ 
+  questionNew: Question = {
+    question_id: 0,
+    user_id: 0,
+    title: "",
+    content: "",
+    created_at: "",
+    upvotes: 0,
+    downvotes: 0,
+    karma: 0
+  };
+  
   questionSolved: boolean = false;
 
   render() {
@@ -76,9 +91,21 @@ export class CreatePost extends Component {
                       this.title = '';
                       this.content = '';
                     });
+                    taskService.questionGetNewest().then(() => {
+                    
+                    })
+                    history.push('/posts/' + (this.questionNew.question_id + 1));
                   }}
                 >
                   Post
+                </Button.Success>
+                <Button.Success
+                  onClick={() => {
+                    console.log(this.questionNew.question_id + 1)
+                    
+                  }}
+                >
+                  testing
                 </Button.Success>
               </Column>
             </Row>
@@ -86,5 +113,8 @@ export class CreatePost extends Component {
         </div>
       </div>
     );
+  }
+  mounted() {
+    taskService.questionGetNewest().then((questionNew) => (this.questionNew = questionNew));
   }
 }
