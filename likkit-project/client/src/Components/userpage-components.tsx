@@ -36,11 +36,26 @@ export class UserProfile extends Component {
           <Card title="" backgroundColor="rgb(90,90,90)">
             <Row>
               <Column width={2}>
-                <img
-                  style={{ width: '100%', height: '100%' }}
-                  src="https://www.augustaarnesen.no/globalassets/produktbilder-2/100_1/1301-32-main.jpg?width=800&height=800&quality=100&mode=Pad&anchor=Middlecenter&scale=Down&factor=1&backgroundColor="
-                  alt="Green profile picture"
-                />
+                <Row marginBottom={3}>
+                  <img
+                    style={{ width: '100%', height: '100%' }}
+                    src="https://www.augustaarnesen.no/globalassets/produktbilder-2/100_1/1301-32-main.jpg?width=800&height=800&quality=100&mode=Pad&anchor=Middlecenter&scale=Down&factor=1&backgroundColor="
+                    alt="Green profile picture"
+                  />
+                </Row>
+                <Row marginBottom={3}>
+                  <form action="/uploadpfp" method="post" encType="multipart/form-data">
+                    <input style={{ color: 'white' }} type="file" name="fileToUpload" />
+                    <Button.Light
+                      type="submit"
+                      onClick={() => {
+                        console.log('yep');
+                      }}
+                    >
+                      Upload picture
+                    </Button.Light>
+                  </form>
+                </Row>
               </Column>
               <Column width={9}>
                 <Card title="Bio" backgroundColor="rgb(80,80,80)">
@@ -48,7 +63,7 @@ export class UserProfile extends Component {
                     style={{
                       color: 'white',
                       fontSize: '14px',
-                      height: '17vh',
+                      height: '22vh',
                     }}
                   >
                     {this.bio}

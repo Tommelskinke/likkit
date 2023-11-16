@@ -55,9 +55,7 @@ class TaskService {
   }
 
   questionTagGet(question_id: number) {
-    return axios
-      .get<Tag[]>('/posts/' + question_id + '/tag/')
-      .then((response) => response.data);
+    return axios.get<Tag[]>('/posts/' + question_id + '/tag/').then((response) => response.data);
   }
 
   commentsGet(question_id: number) {
@@ -69,6 +67,14 @@ class TaskService {
     return axios
       .post<{ id: number }>('/posts/' + question_id, {
         content: content,
+        user_id: user_id,
+      })
+      .then((response) => response.data);
+  }
+  fileUpload(file: any, user_id: number) {
+    return axios
+      .post('/uploadpfp', {
+        file: file,
         user_id: user_id,
       })
       .then((response) => response.data);

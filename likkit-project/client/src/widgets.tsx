@@ -230,12 +230,17 @@ class ButtonDanger extends Component<{ small?: boolean; onClick: () => void }> {
  */
 class ButtonLight extends Component<{
   small?: boolean;
+  type?: 'button' | 'submit' | 'reset';
   onClick: () => void;
 }> {
+  static defaultProps = {
+    type: 'button',
+  };
+
   render() {
     return (
       <button
-        type="button"
+        type={this.props.type}
         className="btn btn-light"
         style={
           this.props.small

@@ -1,10 +1,12 @@
 import express from 'express';
 import taskService from './task-service';
+import multer from 'multer';
 
 /**
  * Express router containing task methods.
  */
 const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
 
 //gets a post based on id
 router.get('/posts/:id', (request, response) => {
@@ -15,7 +17,7 @@ router.get('/posts/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-//gets the 3 most uppvoted posts 
+//gets the 3 most uppvoted posts
 router.get('/', (_request, response) => {
   taskService
     .questionGetThree()
@@ -45,10 +47,10 @@ router.post('/createPost', (request, response) => {
 //creates tags for a post
 router.post('/createPost/tag', (request, response) => {
   const data = request.body;
-    taskService
-      .questionTagCreate(data.question_id, data.tag_id)
-      .then((id) => response.send({ id: id }))
-      .catch((error) => response.status(500).send(error));
+  taskService
+    .questionTagCreate(data.question_id, data.tag_id)
+    .then((id) => response.send({ id: id }))
+    .catch((error) => response.status(500).send(error));
 });
 
 //gets the tags a post have
@@ -79,4 +81,15 @@ router.post('/posts/:id', (request, response) => {
       .catch((error) => response.status(500).send(error));
   else response.status(400).send('Missing content');
 });
+
+router.post('/uploadpfp', upload.single('fileToUpload'), (request, response) => {
+  const data = request.body;
+  if (data && data.user_id && data.user_id.length != 0 && request.file)
+    taskService
+      .uploadPfp(data.user_id, request.file)
+      .then((id) => response.send({ id: id }))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing content');
+});
+
 export default router;

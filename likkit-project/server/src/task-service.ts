@@ -59,21 +59,27 @@ class TaskService {
 
   questionGetThree() {
     return new Promise<Question[]>((resolve, reject) => {
-      pool.query('SELECT * FROM question ORDER BY karma DESC LIMIT 3', (error, results: RowDataPacket[]) => {
-        if (error) return reject(error);
+      pool.query(
+        'SELECT * FROM question ORDER BY karma DESC LIMIT 3',
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
 
-        resolve(results as Question[]);
-      });
+          resolve(results as Question[]);
+        },
+      );
     });
   }
 
   questionGetThreeNew() {
     return new Promise<Question[]>((resolve, reject) => {
-      pool.query('SELECT * FROM question ORDER BY created_at DESC LIMIT 3', (error, results: RowDataPacket[]) => {
-        if (error) return reject(error);
+      pool.query(
+        'SELECT * FROM question ORDER BY created_at DESC LIMIT 3',
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
 
-        resolve(results as Question[]);
-      });
+          resolve(results as Question[]);
+        },
+      );
     });
   }
 
@@ -135,6 +141,19 @@ class TaskService {
       pool.query(
         'INSERT INTO answer SET question_id=?, content=?, user_id=?',
         [question_id, content, user_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
+  uploadPfp(user_id: number, file: any) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'UPDATE users SET profile_picture=? WHERE user_id=?',
+        [file.filename, user_id],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
