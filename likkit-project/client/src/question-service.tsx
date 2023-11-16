@@ -59,9 +59,7 @@ class TaskService {
   }
 
   questionTagGet(question_id: number) {
-    return axios
-      .get<Tag[]>('/posts/' + question_id + '/tag/')
-      .then((response) => response.data);
+    return axios.get<Tag[]>('/posts/' + question_id + '/tag/').then((response) => response.data);
   }
 
   commentsGet(question_id: number) {
@@ -76,6 +74,10 @@ class TaskService {
         user_id: user_id,
       })
       .then((response) => response.data);
+  }
+
+  upvoteQuestion(question_id: number) {
+    return axios.post('/posts/' + question_id + '/upvote');
   }
 }
 

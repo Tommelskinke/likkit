@@ -60,14 +60,25 @@ export class Home extends Component {
   handleSortChange = (event: any) => {
     const selectedOption = event.target.value;
     this.selectedOption = selectedOption;
-    
+
     if (selectedOption === 'popular') {
       taskService.questionGetThree().then((posts) => (this.posts = posts));
     } else if (selectedOption === 'newest') {
       taskService.questionGetThreeNew().then((posts) => (this.posts = posts));
     }
-    console.log(this.postsNew)
+    console.log(this.postsNew);
     this.forceUpdate(); // Trigger a re-render
+  };
+
+  handleUpvote = (questionId: number) => {
+    taskService
+      .upvoteQuestion(questionId)
+      .then(() => {
+        this.handleSortChange({ target: { value: this.selectedOption } });
+      })
+      .catch((error) => {
+        console.error('Error upvoting question:', error);
+      });
   };
 
   render() {
@@ -185,7 +196,9 @@ export class Home extends Component {
                         alignItems: 'center',
                       }}
                     >
-                      <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                      <Button.Vote onClick={() => this.handleUpvote(post.question_id)}>
+                        {upLikk}
+                      </Button.Vote>
                       <p style={{ margin: '0 10px' }}>{post.karma}</p>
                       <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
                     </div>

@@ -15,7 +15,7 @@ router.get('/posts/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-//gets the 3 most uppvoted posts 
+//gets the 3 most uppvoted posts
 router.get('/', (_request, response) => {
   taskService
     .questionGetThree()
@@ -23,7 +23,7 @@ router.get('/', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-//gets the 3 newest posts 
+//gets the 3 newest posts
 router.get('/new', (_request, response) => {
   taskService
     .questionGetThreeNew()
@@ -53,10 +53,10 @@ router.post('/createPost', (request, response) => {
 //creates tags for a post
 router.post('/createPost/tag', (request, response) => {
   const data = request.body;
-    taskService
-      .questionTagCreate(data.question_id, data.tag_id)
-      .then((id) => response.send({ id: id }))
-      .catch((error) => response.status(500).send(error));
+  taskService
+    .questionTagCreate(data.question_id, data.tag_id)
+    .then((id) => response.send({ id: id }))
+    .catch((error) => response.status(500).send(error));
 });
 
 //gets the tags a post have
@@ -86,5 +86,21 @@ router.post('/posts/:id', (request, response) => {
       .then((id) => response.send({ id: id }))
       .catch((error) => response.status(500).send(error));
   else response.status(400).send('Missing content');
+});
+
+//updates upvotes
+router.post('/posts/:id/upvote', (request, response) => {
+  const id = Number(request.params.id);
+
+  taskService
+    .upvoteQuestion(id)
+    .then(() => response.send({ message: 'Upvote successful' }))
+    .catch((error) => {
+      if (error.message === 'Question not found') {
+        response.status(404).send('Question not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
 });
 export default router;
