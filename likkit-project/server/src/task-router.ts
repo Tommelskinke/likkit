@@ -23,7 +23,15 @@ router.get('/', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-//gets the 3 newest post in the database
+//gets the 3 newest posts 
+router.get('/new', (_request, response) => {
+  taskService
+    .questionGetThreeNew()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
+//gets the newest post in the database
 router.get('/createPost/lol', (_request, response) => {
   taskService
     .questionGetNewest()
