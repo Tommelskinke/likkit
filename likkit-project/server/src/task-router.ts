@@ -31,8 +31,24 @@ router.get('/new', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//gets all posts sorted by karma
+router.get('/posts', (_request, response) => {
+  taskService
+    .questionGetAll()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
+//gets all posts sorted by newest
+router.get('/postsNew', (_request, response) => {
+  taskService
+    .questionGetAllNew()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
 //gets the newest post in the database
-router.get('/createPost/lol', (_request, response) => {
+router.get('/createPost/new', (_request, response) => {
   taskService
     .questionGetNewest()
     .then((rows) => response.send(rows))

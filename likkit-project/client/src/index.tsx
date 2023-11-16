@@ -7,6 +7,7 @@ import { UserProfile } from './Components/userpage-components';
 import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
 import { Auth } from './Components/auth-component';
+import { AllPosts } from './Components/allPosts-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { Alert } from './widgets';
@@ -23,7 +24,7 @@ if (root)
         <Route exact path="/createPost" component={CreatePost} />
         <Route exact path="/favorites" component={FavoriteList} />
         <Route exact path="/user" component={UserProfile} />
-        <Route exact path="/posts" component={Posts} />
+        <Route exact path="/posts" component={AllPosts} />
         <Route exact path="/posts/:id" component={ViewPost} />
         <Route exact path="/posts/tag/:id" component={TagPosts} />
         <Route exact path="/posts/tag/:id/post/:id" component={Post} />
