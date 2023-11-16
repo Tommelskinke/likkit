@@ -27,9 +27,8 @@ export type tag = {
 };
 
 class TaskService {
-  /**
-   * Get question with given id.
-   */
+
+//gets a post based on id
   questionGet(question_id: number) {
     return new Promise<Question>((resolve, reject) => {
       pool.query(
@@ -43,7 +42,7 @@ class TaskService {
       );
     });
   }
-
+//gets the newest post in the database
   questionGetNewest() {
     return new Promise<Question>((resolve, reject) => {
       pool.query(
@@ -56,11 +55,11 @@ class TaskService {
       );
     });
   }
-
+//gets the 3 most uppvoted posts 
   questionGetThree() {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM question ORDER BY karma DESC LIMIT 3',
+        'SELECT * FROM question ORDER BY (upvotes - downvotes) DESC LIMIT 3',
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
 
@@ -69,7 +68,7 @@ class TaskService {
       );
     });
   }
-
+//gets the 3 newest posts 
   questionGetThreeNew() {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(
@@ -82,7 +81,27 @@ class TaskService {
       );
     });
   }
+//gets all posts sorted by karma
+  questionGetAll() {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query('SELECT * FROM question ORDER BY (upvotes - downvotes) DESC', (error, results: RowDataPacket[]) => {
+        if (error) return reject(error);
 
+        resolve(results as Question[]);
+      });
+    });
+  }
+//gets all posts sorted by newest
+  questionGetAllNew() {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query('SELECT * FROM question ORDER BY created_at DESC', (error, results: RowDataPacket[]) => {
+        if (error) return reject(error);
+
+        resolve(results as Question[]);
+      });
+    });
+  }
+//creates a post
   questionCreate(title: string, content: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
@@ -96,7 +115,7 @@ class TaskService {
       );
     });
   }
-
+//creates tags for a post
   questionTagCreate(question_id: number, tag_id: number) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
@@ -110,7 +129,7 @@ class TaskService {
       );
     });
   }
-
+//gets the tags a post have
   questionTagGet(question_id: number) {
     return new Promise<tag[]>((resolve, reject) => {
       pool.query(
@@ -123,7 +142,7 @@ class TaskService {
       );
     });
   }
-
+//get comments on a post from the database
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
       pool.query(
@@ -136,6 +155,7 @@ class TaskService {
       );
     });
   }
+//creates a comment on a post
   createComment(question_id: number, content: string, user_id: number) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
