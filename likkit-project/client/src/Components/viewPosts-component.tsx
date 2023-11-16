@@ -124,6 +124,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 <Row>
                   <Column width={1}></Column>
                   <Column>{activeTags}</Column>
+                  <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
+                  {this.renderSocialButtons()}
                 </Row>
               </div>
             </Card>
