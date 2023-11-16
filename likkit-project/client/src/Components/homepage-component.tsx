@@ -53,6 +53,22 @@ export class Menu extends Component {
 export class Home extends Component {
   search: string = '';
   posts: Question[] = [];
+  postsNew: Question[] = [];
+  postsPopular: Question[] = [];
+  selectedOption: string = 'popular'; // default selected option
+
+  handleSortChange = (event: any) => {
+    const selectedOption = event.target.value;
+    this.selectedOption = selectedOption;
+    
+    if (selectedOption === 'popular') {
+      taskService.questionGetThree().then((posts) => (this.posts = posts));
+    } else if (selectedOption === 'newest') {
+      taskService.questionGetThreeNew().then((posts) => (this.posts = posts));
+    }
+    console.log(this.postsNew)
+    this.forceUpdate(); // Trigger a re-render
+  };
 
   render() {
     return (
@@ -104,9 +120,11 @@ export class Home extends Component {
                         borderRadius: '10px',
                         padding: '5px',
                       }}
+                      onChange={this.handleSortChange}
+                      value={this.selectedOption}
                     >
-                      <option value="">Popular</option>
-                      <option value="best">Best</option>
+                      <option value="popular">Popular</option>
+                      <option value="newest">Newest</option>
                     </select>
                   </div>
                 </Column>
@@ -190,6 +208,7 @@ export class Home extends Component {
   }
   mounted() {
     taskService.questionGetThree().then((posts) => (this.posts = posts));
+    taskService.questionGetThreeNew().then((postsNew) => (this.postsNew = postsNew));
   }
 }
 
