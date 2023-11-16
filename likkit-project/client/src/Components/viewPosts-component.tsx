@@ -178,8 +178,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     >
                       Post
                     </Button.Success>
-                    <Button.Success onClick={this.handleShowButtons}>Share</Button.Success>
-                    {this.renderSocialButtons()}
                   </Column>
                 </Row>
                 <Column>Sort by:</Column>
@@ -251,7 +249,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                           <p style={{ margin: '0 10px' }}>{comment.karma}</p>
                           <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
 
-                          <Button.Success onClick={this.handleShowButtons}>Share</Button.Success>
+                          <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                           {this.renderSocialButtons()}
                         </div>
                         <div

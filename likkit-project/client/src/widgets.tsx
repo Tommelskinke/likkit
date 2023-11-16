@@ -167,6 +167,24 @@ class ButtonVote extends Component<{ small?: boolean; onClick: () => void }> {
     );
   }
 }
+
+class ButtonShare extends Component<{ small?: boolean; onClick: () => void }> {
+  render() {
+    return (
+      <button
+        type="button"
+        className="btn custom-gray"
+        style={{
+          width: '10%',
+          color: 'white',
+        }}
+        onClick={this.props.onClick}
+      >
+        {this.props.children}
+      </button>
+    );
+  }
+}
 /**
  * Renders a success button using Bootstrap styles.
  *
@@ -265,6 +283,7 @@ export class Button {
   static Light = ButtonLight;
   static Post = ButtonPost;
   static Vote = ButtonVote;
+  static Share = ButtonShare;
 }
 
 /**
