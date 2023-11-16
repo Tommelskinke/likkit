@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Comment, Tag } from '../question-service';
 import {
@@ -39,14 +40,33 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
   tags: Tag[] = [];
 
+  state = {
+    showButtons: false,
+  };
 
-  
+  handleShowButtons = () => {
+    this.setState({ showButtons: !this.state.showButtons });
+  };
+
+  renderSocialButtons() {
+    if (this.state.showButtons) {
+      return (
+        <>
+          <Button.Vote onClick={SoMeXLink}>{SoMeX}</Button.Vote>
+          <Button.Vote onClick={SoMeInstaLink}>{SoMeInsta}</Button.Vote>
+          <Button.Vote onClick={SoMeRedditLink}>{SoMeReddit}</Button.Vote>
+        </>
+      );
+    }
+    return null; // or any other default content when showButtons is false
+  }
+
   render() {
-    let activeTags: string = "Tags:"
-    this.tags.forEach(tag => {
-        activeTags += (" "+ tag.tag_name + ",")
+    let activeTags: string = 'Tags:';
+    this.tags.forEach((tag) => {
+      activeTags += ' ' + tag.tag_name + ',';
     });
-    activeTags = activeTags.slice (0, -1) + "."
+    activeTags = activeTags.slice(0, -1) + '.';
     return (
       <div
         style={{
@@ -158,9 +178,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     >
                       Post
                     </Button.Success>
-                    <Button.Vote onClick={SoMeXLink}>{SoMeX} </Button.Vote>
-                    <Button.Vote onClick={SoMeInstaLink}>{SoMeInsta}</Button.Vote>
-                    <Button.Vote onClick={SoMeRedditLink}>{SoMeReddit}</Button.Vote>
                   </Column>
                 </Row>
                 <Column>Sort by:</Column>
@@ -231,9 +248,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                           <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
                           <p style={{ margin: '0 10px' }}>{comment.karma}</p>
                           <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
-                          <Button.Vote onClick={SoMeXLink}>{SoMeX}</Button.Vote>
-                          <Button.Vote onClick={SoMeInstaLink}>{SoMeInsta}</Button.Vote>
-                          <Button.Vote onClick={SoMeRedditLink}>{SoMeReddit}</Button.Vote>
+
+                          <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
+                          {this.renderSocialButtons()}
                         </div>
                         <div
                           style={{
@@ -281,8 +298,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       .commentsGet(this.props.match.params.id)
       .then((getComments) => (this.comments = getComments));
 
-    taskService
-      .questionTagGet(this.props.match.params.id)
-      .then((tags) => (this.tags = tags));
+    taskService.questionTagGet(this.props.match.params.id).then((tags) => (this.tags = tags));
   }
 }
