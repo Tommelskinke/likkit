@@ -121,26 +121,31 @@ export class CreatePost extends Component {
               <Column right>
                 <Button.Success
                   onClick={() => {
-                    taskService.questionCreate(this.title, this.content).then(() => { 
-                     });
-                     
-                     //gjør dette om til en forEach loop
-                    if (this.questionSolved) {
-                      taskService.questionTagCreate((this.questionNew.question_id + 1), 1)
+
+                    if ((this.title.length <= 255) && (this.content.length <= 255)) {
+                      taskService.questionCreate(this.title, this.content).then(() => { 
+                       });
+                       
+                       //gjør dette om til en forEach loop
+                      if (this.questionSolved) {
+                        taskService.questionTagCreate((this.questionNew.question_id + 1), 1)
+                      }
+                      if (this.questionJS) {
+                        taskService.questionTagCreate((this.questionNew.question_id + 1), 2)
+                      }
+                      if (this.questionRust) {
+                        taskService.questionTagCreate((this.questionNew.question_id + 1), 3)
+                      }
+                      if (this.questionLinux) {
+                        taskService.questionTagCreate((this.questionNew.question_id + 1), 4)
+                      }
+                      taskService.questionGetNewest().then(() => {
+                      
+                      })
+                      history.push('/posts/' + (this.questionNew.question_id + 1));               
+                    } else {
+                      alert("The title and/or content cant be more than 255 characters!")
                     }
-                    if (this.questionJS) {
-                      taskService.questionTagCreate((this.questionNew.question_id + 1), 2)
-                    }
-                    if (this.questionRust) {
-                      taskService.questionTagCreate((this.questionNew.question_id + 1), 3)
-                    }
-                    if (this.questionLinux) {
-                      taskService.questionTagCreate((this.questionNew.question_id + 1), 4)
-                    }
-                    taskService.questionGetNewest().then(() => {
-                    
-                    })
-                    history.push('/posts/' + (this.questionNew.question_id + 1));
                   }}
                 >
                   Post

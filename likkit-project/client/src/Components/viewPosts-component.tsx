@@ -192,19 +192,24 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   <Column right>
                     <Button.Success
                       onClick={() => {
-                        console.log(this.props.match.params.id);
-                        taskService
-                          .createComment(
-                            this.props.match.params.id,
-                            this.writeComment,
-                            4 /*user_id*/,
-                          )
-                          .then(() => {
-                            this.writeComment = '';
-                            taskService
-                              .commentsGet(this.props.match.params.id)
-                              .then((getComments) => (this.comments = getComments));
-                          });
+
+                         if (this.writeComment.length <= 255) {
+                          console.log(this.props.match.params.id);
+                          taskService
+                            .createComment(
+                              this.props.match.params.id,
+                              this.writeComment,
+                              4 /*user_id*/,
+                            )
+                            .then(() => {
+                              this.writeComment = '';
+                              taskService
+                                .commentsGet(this.props.match.params.id)
+                                .then((getComments) => (this.comments = getComments));
+                            });
+                        }else {
+                          alert("The comment cant be more than 255 characters!")
+                        }
                       }}
                     >
                       Post
