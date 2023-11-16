@@ -5,6 +5,7 @@ import taskService, { Question } from '../question-service';
 import SearchBar from './searchBar-component';
 import { createHashHistory } from 'history';
 import SearchContainer from './searchContainer-component';
+import { VotingService } from '../voting-service';
 
 const history = createHashHistory();
 

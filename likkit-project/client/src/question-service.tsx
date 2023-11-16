@@ -76,6 +76,8 @@ class TaskService {
       .then((response) => response.data);
   }
 
+  //Votingknapper
+
   upvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/upvote');
   }
