@@ -62,6 +62,34 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     return null; // or any other default content when showButtons is false
   }
 
+  handleUpvote = (questionId: number) => {
+    taskService
+      .upvoteQuestion(questionId)
+      .then(() => {
+        taskService
+      .questionGet(this.props.match.params.id)
+      .then((question) => (this.question = question));
+      })
+      .catch((error) => {
+        console.error('Error upvoting question:', error);
+      });
+      this.forceUpdate();
+  };
+
+  handleDownvote = (questionId: number) => {
+    taskService
+      .downvoteQuestion(questionId)
+      .then(() => {
+        taskService
+        .questionGet(this.props.match.params.id)
+        .then((question) => (this.question = question));
+      })
+      .catch((error) => {
+        console.error('Error downvoting question:', error);
+      });
+      this.forceUpdate();
+  };
+
   render() {
     let activeTags: string = 'Tags:';
     this.tags.forEach((tag) => {
@@ -106,7 +134,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
               >
                 <Row marginBottom={5}>
                   <Column width={1}>
-                    <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                    <Button.Vote onClick={() => this.handleUpvote(this.question.question_id)}>{upLikk}</Button.Vote>
                     <p
                       style={{
                         marginLeft: '30px',
@@ -115,9 +143,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                         fontSize: '25px',
                       }}
                     >
-                      {this.question.karma}
+                      {this.question.upvotes - this.question.downvotes}
                     </p>
-                    <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                    <Button.Vote onClick={() => this.handleDownvote(this.question.question_id)}>{downLikk}</Button.Vote>
                   </Column>
                   <Column>{this.question.content}</Column>
                   <Column width={1}></Column>
