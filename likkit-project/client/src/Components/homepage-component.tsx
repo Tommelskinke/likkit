@@ -199,7 +199,7 @@ export class Home extends Component {
                       <Button.Vote onClick={() => this.handleUpvote(post.question_id)}>
                         {upLikk}
                       </Button.Vote>
-                      <p style={{ margin: '0 10px' }}>{post.karma}</p>
+                      <p style={{ margin: '0 10px' }}>{post.upvotes - post.downvotes}</p>
                       <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
                     </div>
 

@@ -26,10 +26,6 @@ export type tag = {
   tag_name: string;
 };
 
-export type Karma = {
-  karma: number;
-};
-
 class TaskService {
   /**
    * Get question with given id.
@@ -149,24 +145,6 @@ class TaskService {
           if (error) return reject(error);
 
           resolve(results.insertId);
-        },
-      );
-    });
-  }
-  karmaGet(question_id: number): Promise<{ upvotes: number; downvotes: number }> {
-    return new Promise<{ upvotes: number; downvotes: number }>((resolve, reject) => {
-      pool.query(
-        'SELECT upvotes, downvotes FROM question WHERE question_id = ?',
-        [question_id],
-        (error, results: RowDataPacket[]) => {
-          if (error) return reject(error);
-
-          if (results.length === 0) {
-            reject(new Error('Question not found'));
-          } else {
-            const { upvotes, downvotes } = results[0];
-            resolve({ upvotes, downvotes });
-          }
         },
       );
     });
