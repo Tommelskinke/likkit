@@ -22,6 +22,11 @@ export type Comment = {
   karma: number;
 };
 
+export type Tag = {
+  tag_id: number;
+  tag_name: string;
+};
+
 class TaskService {
   /**
    * Get task with given id.
@@ -43,6 +48,18 @@ class TaskService {
       .post<{ id: number }>('/createPost', { title: title, content: content })
       .then((response) => response.data.id);
   }
+  questionTagCreate(question_id: number, tag_id: number) {
+    return axios
+      .post<{ id: number }>('/createPost/tag', { question_id: question_id, tag_id: tag_id })
+      .then((response) => response.data.id);
+  }
+
+  questionTagGet(question_id: number) {
+    return axios
+      .get<Tag[]>('/posts/' + question_id + '/tag/')
+      .then((response) => response.data);
+  }
+
   commentsGet(question_id: number) {
     return axios
       .get<Comment[]>('/posts/' + question_id + '/comments/')

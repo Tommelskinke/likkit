@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import taskService, { Question, Comment } from '../question-service';
+import taskService, { Question, Comment, Tag } from '../question-service';
 import {
   Alert,
   Card,
@@ -37,7 +37,16 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
   comments: Comment[] = [];
 
+  tags: Tag[] = [];
+
+
+  
   render() {
+    let activeTags: string = "Tags:"
+    this.tags.forEach(tag => {
+        activeTags += (" "+ tag.tag_name + ",")
+    });
+    activeTags = activeTags.slice (0, -1) + "."
     return (
       <div
         style={{
@@ -91,6 +100,10 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   </Column>
                   <Column>{this.question.content}</Column>
                   <Column width={1}></Column>
+                </Row>
+                <Row>
+                  <Column width={1}></Column>
+                  <Column>{activeTags}</Column>
                 </Row>
               </div>
             </Card>
@@ -267,5 +280,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     taskService
       .commentsGet(this.props.match.params.id)
       .then((getComments) => (this.comments = getComments));
+
+    taskService
+      .questionTagGet(this.props.match.params.id)
+      .then((tags) => (this.tags = tags));
   }
 }
