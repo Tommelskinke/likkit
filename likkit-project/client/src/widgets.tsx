@@ -36,7 +36,7 @@ export const SoMeReddit = (
 );
 
 export function SoMeRedditLink() {
-  let target = 'https://www.reddit.com';
+  let target = 'https://www.reddit.com/submit';
   window.location.href = target;
 }
 
