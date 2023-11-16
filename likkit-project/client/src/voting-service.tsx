@@ -1,5 +1,8 @@
 import { Component } from 'react-simplified';
 import taskService, { Question } from './question-service'; // Make sure to import Question type
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:3000/api/v2';
 
 export class VotingService extends Component {
   selectedOption: string = 'popular'; // Define the selected option

@@ -18,6 +18,7 @@ import {
   SoMeInstaLink,
   SoMeXLink,
 } from '../widgets';
+import { Home } from './homepage-component';
 
 function shrek() {
   alert('SHREK');
