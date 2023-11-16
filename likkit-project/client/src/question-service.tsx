@@ -79,6 +79,10 @@ class TaskService {
   upvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/upvote');
   }
+
+  downvoteQuestion(question_id: number) {
+    return axios.post('/posts/' + question_id + '/downvote');
+  }
 }
 
 const taskService = new TaskService();

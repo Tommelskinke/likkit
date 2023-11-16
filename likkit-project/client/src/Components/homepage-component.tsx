@@ -81,6 +81,17 @@ export class Home extends Component {
       });
   };
 
+  handleDownvote = (questionId: number) => {
+    taskService
+      .downvoteQuestion(questionId)
+      .then(() => {
+        this.handleSortChange({ target: { value: this.selectedOption } });
+      })
+      .catch((error) => {
+        console.error('Error downvoting question:', error);
+      });
+  };
+
   render() {
     return (
       <div
@@ -200,7 +211,9 @@ export class Home extends Component {
                         {upLikk}
                       </Button.Vote>
                       <p style={{ margin: '0 10px' }}>{post.upvotes - post.downvotes}</p>
-                      <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                      <Button.Vote onClick={() => this.handleDownvote(post.question_id)}>
+                        {downLikk}
+                      </Button.Vote>
                     </div>
 
                     <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>

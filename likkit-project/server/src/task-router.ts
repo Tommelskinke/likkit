@@ -103,4 +103,19 @@ router.post('/posts/:id/upvote', (request, response) => {
       }
     });
 });
+
+router.post('/posts/:id/downvote', (request, response) => {
+  const id = Number(request.params.id);
+
+  taskService
+    .downvoteQuestion(id)
+    .then(() => response.send({ message: 'Downvote successful' }))
+    .catch((error) => {
+      if (error.message === 'Question not found') {
+        response.status(404).send('Question not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
 export default router;

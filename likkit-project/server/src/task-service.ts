@@ -166,6 +166,23 @@ class TaskService {
       );
     });
   }
+
+  downvoteQuestion(question_id: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'UPDATE question SET downvotes = downvotes + 1 WHERE question_id = ?',
+        [question_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows === 0) {
+            reject(new Error('Question not found'));
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 }
 
 const taskService = new TaskService();
