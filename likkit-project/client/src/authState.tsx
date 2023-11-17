@@ -18,6 +18,11 @@ fetch('/api/userinfo')
   })
   .then((userData) => {
     console.log(userData);
+    sessionStorage.setItem('user_id', userData.user_id);
+    sessionStorage.setItem('email', userData.email);
+    sessionStorage.setItem('user_type', userData.user_type);
+    sessionStorage.setItem('username', userData.username);
+    sessionStorage.setItem('user_pfp', userData.user_pfp);
     // Now you have user data, including the profile picture URL
     // You can display this data in your UI
   })
