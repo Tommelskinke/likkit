@@ -2,7 +2,7 @@ CREATE TABLE users(
 	user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	google_id VARCHAR(255) UNIQUE,
 	email VARCHAR(255) UNIQUE,
-	user_type VARCHAR(20),
+	user_type VARCHAR(20) DEFAULT user,
 	username VARCHAR(20) UNIQUE,
 	password VARCHAR(255),
 	user_pfp TINYTEXT);
