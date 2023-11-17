@@ -2,10 +2,12 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button } from '../widgets';
 
-export class Auth extends Component<{ match: { params: { id: number } } }> {
-  username = "";
-  password = "";
-  
+export class Login extends Component<{ match: { params: { id: number } } }> {
+  username = '';
+  password = '';
+  GoogleLoginButton = () => {
+    return <a href="http://localhost:3000/oauth2/google">Login with Google</a>;
+  };
   render() {
     return (
       <div
@@ -15,7 +17,7 @@ export class Auth extends Component<{ match: { params: { id: number } } }> {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '150vh',
+          height: '100vh',
         }}
       >
         <div
@@ -27,27 +29,31 @@ export class Auth extends Component<{ match: { params: { id: number } } }> {
           }}
         >
           <Card title="Login" width="100%" backgroundColor="rgb(90,90,90)">
-            <Row marginBottom={5}>
-              <Column> 
+            <Row>
+              <Column width={9}>
                 <Form.Input
-                    type="text"
-                    value={this.username}
-                    onChange={(event) => (this.username = event.currentTarget.value)}
-                    placeholder="username"
+                  type="text"
+                  value={this.username}
+                  onChange={(event) => (this.username = event.currentTarget.value)}
+                  placeholder="username"
                 />
                 <Form.Input
-                    type="password"
-                    value={this.password}
-                    onChange={(event) => (this.password = event.currentTarget.value)}
-                    placeholder="password"
+                  type="password"
+                  value={this.password}
+                  onChange={(event) => (this.password = event.currentTarget.value)}
+                  placeholder="password"
                 />
-                <Button.Success 
-                    onClick={() => {
-                      console.log(this.username)
-                    }}>login
+                <Button.Success
+                  onClick={() => {
+                    console.log(this.username);
+                  }}
+                >
+                  login
                 </Button.Success>
-             </Column>
-              <Column width={8}></Column>
+              </Column>
+              <Column width={3}>
+                <this.GoogleLoginButton />
+              </Column>
             </Row>
             <Row marginBottom={5}>{}</Row>
           </Card>
@@ -55,5 +61,4 @@ export class Auth extends Component<{ match: { params: { id: number } } }> {
       </div>
     );
   }
-
 }

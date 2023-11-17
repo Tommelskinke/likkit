@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
+import { UserContext, UserProvider } from '../authState';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question } from '../question-service';
-import SearchBar from './searchBar-component';
 import { createHashHistory } from 'history';
 import SearchContainer from './searchContainer-component';
 
@@ -12,36 +12,39 @@ export class Menu extends Component {
   search: string = '';
   render() {
     return (
-      <NavBar
-        brand={
-          <img
-            src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
-            alt="Picture of likkit logo"
-          />
-        }
-        id="test"
-      >
-        <Column width={3}>
-          <NavBar.Link to="/">
-            <h1>likkit</h1>
-          </NavBar.Link>
-        </Column>
-        <Column width={6} none>
-          <SearchContainer />
-        </Column>
-        <Column width={2} right>
-          <NavBar.Link to="/user">
-            <img
-              src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
-              alt="Green profile picture"
-            />
-          </NavBar.Link>
-        </Column>
-        <Column width={1} none>
-          <Row>Navn</Row>
-          <Row>likks: 371</Row>
-        </Column>
-      </NavBar>
+      <UserContext.Consumer>
+        {(userData) => (
+          <NavBar
+            brand={
+              <img
+                src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
+                alt="Picture of likkit logo"
+              />
+            }
+            id="test"
+          >
+            <Column width={3}>
+              <NavBar.Link to="/">
+                <h1>likkit</h1>
+              </NavBar.Link>
+            </Column>
+            <Column width={6} none>
+              <SearchContainer />
+            </Column>
+            <Column width={1} right>
+              <NavBar.Link to="/user">
+                <img src={userData?.user_pfp} alt="User profile picture" />
+              </NavBar.Link>
+            </Column>
+            <Column width={3} none>
+              <Row>
+                Logged in as <b>{userData?.username}</b>
+              </Row>
+              <Row>likks: 371</Row>
+            </Column>
+          </NavBar>
+        )}
+      </UserContext.Consumer>
     );
   }
 }
