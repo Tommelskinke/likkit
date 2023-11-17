@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question } from '../question-service';
+import userpageService, { UserComment } from '../userpage-service';
 import { createHashHistory } from 'history';
 import { UserContext, UserProvider } from '../authState';
 
@@ -12,15 +13,14 @@ function shrek() {
 }
 
 export class UserProfile extends Component {
-  posts: Question[] = [];
   user: string = 'banan';
   userType: string = 'administrator';
   likkAmount: number = 696969;
   upvoteAmount: number = 1337;
   commentAmount: number = 2;
   bestCommentAmount: number = 0;
-  bio: string =
-    'I am a banana (lol nice bio copilot) then just a lot of  gpuiwehs giouhrweop8 ugewraoiugh oiuaguokyighiou weoie ufgqOUYG Fgfu wegfuyogbwe fuweyfg iouagh faygbf hgidf oilfuhg ipaefhgvoipaudfhgoiuafd yhfgorgholaerfghvafedgø oiadfhgbpiudafhbpsf djbgubp9fdhgb oiuarhgfp9a rehg7pa erhg9po7ae rhbodfhb vliudfshg lfdyhgdfpiuy  ghfodihaougp  9adef8grea p p8 iuoy oiyewou yuygouiy g  uygu uwyq giuywebjnwe jn uhg uiuy';
+  options = [[], [], [], []] as [Question[], UserComment[], UserComment[], Question[]];
+  active: number = 0;
 
   render() {
     return (
@@ -37,66 +37,55 @@ export class UserProfile extends Component {
           <Card title="" backgroundColor="rgb(90,90,90)">
             <Row>
               <Column width={2}>
-                <UserContext.Consumer>
-                  {(userData) => (
-                    <img
-                      style={{ width: '100%', height: '100%' }}
-                      src={userData?.user_pfp}
-                      alt="User profile picture"
-                    />
-                  )}
-                </UserContext.Consumer>
-              </Column>
-              <Column width={9}>
-                <Card title="Bio" backgroundColor="rgb(80,80,80)">
-                  <div
-                    style={{
-                      color: 'white',
-                      fontSize: '14px',
-                      height: '17vh',
-                    }}
-                  >
-                    {this.bio}
-                  </div>
-                </Card>
-              </Column>
-            </Row>
-            <Row>
-              <Column width={2}>
-                <Card title="Information" backgroundColor="rgb(80,80,80)">
-                  <div
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      fontSize: '20px',
-                    }}
-                  >
-                    <Row>
-                      <Column width={5}>Username:</Column>
-                      <Column width={5}>{this.user}</Column>
-                    </Row>
-                    <Row>
-                      <Column width={5}>Licks:</Column>
-                      <Column width={5}>{this.likkAmount}</Column>
-                    </Row>
-                    <Row>
-                      <Column width={5}>Comments:</Column>
-                      <Column width={5}>{this.commentAmount}</Column>
-                    </Row>
-                    <Row>
-                      <Column width={5}>Usertype:</Column>
-                      <Column width={5}>{this.userType}</Column>
-                    </Row>
-                    <Row>
-                      <Column width={5}>Upvotes:</Column>
-                      <Column width={5}>{this.upvoteAmount}</Column>
-                    </Row>
-                    <Row>
-                      <Column width={5}>Best comments:</Column>
-                      <Column width={5}>{this.bestCommentAmount}</Column>
-                    </Row>
-                  </div>
-                </Card>
+                <Row marginBottom={2}>
+                  <UserContext.Consumer>
+                    {(userData) => (
+                      <img
+                        style={{ width: '100%', height: '100%' }}
+                        src={userData?.user_pfp}
+                        alt="User profile picture"
+                      />
+                    )}
+                  </UserContext.Consumer>
+                </Row>
+                <Row>
+                  <Column none>
+                    <Card title="Information" backgroundColor="rgb(80,80,80)">
+                      <div
+                        style={{
+                          color: 'white',
+                          fontWeight: 'bold',
+                          fontSize: '20px',
+                        }}
+                      >
+                        <Row>
+                          <Column width={5}>Username:</Column>
+                          <Column width={5}>{this.user}</Column>
+                        </Row>
+                        <Row>
+                          <Column width={5}>Licks:</Column>
+                          <Column width={5}>{this.likkAmount}</Column>
+                        </Row>
+                        <Row>
+                          <Column width={5}>Comments:</Column>
+                          <Column width={5}>{this.commentAmount}</Column>
+                        </Row>
+                        <Row>
+                          <Column width={5}>Usertype:</Column>
+                          <Column width={5}>{this.userType}</Column>
+                        </Row>
+                        <Row>
+                          <Column width={5}>Upvotes:</Column>
+                          <Column width={5}>{this.upvoteAmount}</Column>
+                        </Row>
+                        <Row>
+                          <Column width={5}>Best comments:</Column>
+                          <Column width={5}>{this.bestCommentAmount}</Column>
+                        </Row>
+                      </div>
+                    </Card>
+                  </Column>
+                </Row>
               </Column>
               <Column width={9}>
                 <div
@@ -104,37 +93,59 @@ export class UserProfile extends Component {
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     margin: '2%',
+                    width: '100%',
                   }}
                 >
                   <Row>
                     <Column>
-                      <Button.Light onClick={() => console.log('yep')}>
-                        <NavBar.Link to="/">Favorite Posts</NavBar.Link>
+                      <Button.Light onClick={() => console.log('yep')}>Favorite Posts</Button.Light>
+                    </Column>
+                    <Column>
+                      <Button.Light
+                        onClick={() => {
+                          this.active = 0;
+                          this.forceUpdate();
+                        }}
+                      >
+                        Best Post
+                      </Button.Light>
+                    </Column>
+                    <Column>
+                      <Button.Light
+                        onClick={() => {
+                          console.log(this.options[0]);
+                          console.log(this.options[0][0]);
+                          console.log(this.options[1]);
+                          this.active = 1;
+                          this.forceUpdate();
+                        }}
+                      >
+                        Best Comment
                       </Button.Light>
                     </Column>
                     <Column>
                       <Button.Light onClick={() => console.log('yep')}>
-                        <NavBar.Link to="/">Best Post</NavBar.Link>
+                        Favorite Comments
                       </Button.Light>
                     </Column>
                     <Column>
-                      <Button.Light onClick={() => console.log('yep')}>
-                        <NavBar.Link to="/">Best Comment</NavBar.Link>
+                      <Button.Light
+                        onClick={() => {
+                          this.active = 3;
+                          this.forceUpdate();
+                        }}
+                      >
+                        All Posts
                       </Button.Light>
                     </Column>
                     <Column>
-                      <Button.Light onClick={() => console.log('yep')}>
-                        <NavBar.Link to="/">Favorite Comments</NavBar.Link>
-                      </Button.Light>
-                    </Column>
-                    <Column>
-                      <Button.Light onClick={() => console.log('yep')}>
-                        <NavBar.Link to="/">All Posts</NavBar.Link>
-                      </Button.Light>
-                    </Column>
-                    <Column>
-                      <Button.Light onClick={() => console.log('yep')}>
-                        <NavBar.Link to="/">All Comments</NavBar.Link>
+                      <Button.Light
+                        onClick={() => {
+                          this.active = 2;
+                          this.forceUpdate();
+                        }}
+                      >
+                        All Comments
                       </Button.Light>
                     </Column>
                   </Row>
@@ -142,7 +153,7 @@ export class UserProfile extends Component {
                 <Row>
                   <Card title="" width="100%" backgroundColor="rgb(70,70,70)" marginBottom={-3}>
                     <Row>
-                      {this.posts.map((post, i) => (
+                      {this.options[this.active].map((data, i) => (
                         <Card
                           title=""
                           width="100%"
@@ -150,30 +161,132 @@ export class UserProfile extends Component {
                           marginBottom={3}
                           key={i}
                         >
-                          <div
-                            style={{
-                              color: 'white',
-                              fontWeight: 'bold',
-                              fontSize: '25px',
-                              display: 'flex',
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
-                            <p style={{ margin: '0 10px' }}>{post.karma}</p>
-                            <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
-                          </div>
+                          {this.active == 0 || this.active == 3 ? (
+                            <>
+                              <div
+                                style={{
+                                  color: 'white',
+                                  fontWeight: 'bold',
+                                  fontSize: '25px',
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
+                                <p style={{ margin: '0 10px' }}>{data.upvotes - data.downvotes}</p>
+                                <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                              </div>
+                              <Button.Post
+                                onClick={() => history.push('/posts/' + data.question_id)}
+                              >
+                                <div
+                                  style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}
+                                >
+                                  <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
+                                  <p>{data.title}</p>
+                                  <p style={{ fontSize: '14px', fontWeight: 'normal' }}>
+                                    {data.content}
+                                  </p>
+                                </div>
+                              </Button.Post>
+                            </>
+                          ) : (
+                            <Button.Post onClick={() => history.push('/posts/' + data.question_id)}>
+                              <div
+                                style={{
+                                  color: 'white',
+                                  fontSize: '14px',
+                                }}
+                              >
+                                <Row>
+                                  <Row marginBottom={1}>
+                                    <Column>
+                                      <UserContext.Consumer>
+                                        {(userData) => (
+                                          <img
+                                            style={{ borderRadius: '50%' }}
+                                            src={userData?.user_pfp}
+                                            alt="User profile picture"
+                                          />
+                                        )}
+                                      </UserContext.Consumer>
+                                    </Column>
+                                    <div
+                                      style={{
+                                        color: 'white',
+                                        fontWeight: 'bold',
+                                        fontSize: '25px',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        alignItems: 'stretch',
+                                      }}
+                                    ></div>
 
-                          <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
-                            <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
-                              <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
-                              <p>{post.title}</p>
-                              <p style={{ fontSize: '14px', fontWeight: 'normal' }}>
-                                {post.content}
-                              </p>
-                            </div>
-                          </Button.Post>
+                                    <Column width={4}>
+                                      Posted by {data.username} at {data.created_at}
+                                    </Column>
+                                  </Row>
+                                  <Row>
+                                    <div
+                                      style={{
+                                        color: 'white',
+                                        fontWeight: 'bold',
+                                        fontSize: '25px',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        alignItems: 'stretch',
+                                      }}
+                                    >
+                                      <Button.Vote onClick={() => console.log(data.downvotes)}>
+                                        {upLikk}
+                                      </Button.Vote>
+
+                                      <p style={{ margin: '0 10px' }}>
+                                        {data.upvotes - data.downvotes}
+                                      </p>
+                                      <Button.Vote onClick={() => console.log('HI')}>
+                                        {downLikk}
+                                      </Button.Vote>
+                                    </div>
+                                    <div
+                                      style={{
+                                        color: 'white',
+                                        fontWeight: 'bold',
+                                        fontSize: '25px',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        alignItems: 'stretch',
+                                      }}
+                                    >
+                                      <Card title="" width="100%" backgroundColor="rgb(55,55,55)">
+                                        <div
+                                          style={{
+                                            color: 'white',
+                                            fontSize: '20px',
+                                            fontWeight: 'normal',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            alignItems: 'stretch',
+                                            width: '100%',
+                                          }}
+                                        >
+                                          <Column>{data.content}</Column>
+                                        </div>
+                                      </Card>
+                                    </div>
+                                  </Row>
+                                </Row>
+                                <Row marginBottom={3}>
+                                  <Column right>
+                                    <div style={{ fontSize: '12px', color: 'rgb(176, 176, 176)' }}>
+                                      From: {data.title}
+                                    </div>
+                                  </Column>
+                                </Row>
+                              </div>
+                            </Button.Post>
+                          )}
                         </Card>
                       ))}
                     </Row>
@@ -187,6 +300,9 @@ export class UserProfile extends Component {
     );
   }
   mounted() {
-    taskService.questionGetThree().then((posts) => (this.posts = posts));
+    userpageService.getBestPosts(4).then((bestPosts) => (this.options[0] = bestPosts));
+    userpageService.getBestComments(4).then((bestComments) => (this.options[1] = bestComments));
+    userpageService.getAllUserComments(4).then((allComments) => (this.options[2] = allComments));
+    userpageService.getAllUserPosts(4).then((allPosts) => (this.options[3] = allPosts));
   }
 }
