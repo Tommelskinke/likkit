@@ -2,7 +2,7 @@ import pool from './mysql-pool';
 import type { RowDataPacket, ResultSetHeader } from 'mysql2';
 
 export type Question = {
-  username: string
+  username: string;
   question_id: number;
   user_id: number;
   title: string;
@@ -204,6 +204,7 @@ class TaskService {
     });
   }
 
+  //voter opp en post
   upvoteQuestion(question_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -221,6 +222,7 @@ class TaskService {
     });
   }
 
+  //voter ned en post
   downvoteQuestion(question_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -238,6 +240,7 @@ class TaskService {
     });
   }
 
+  //voter opp en kommentar
   upvoteAnswer(answer_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -255,10 +258,11 @@ class TaskService {
     });
   }
 
+  //voter ned en kommentar
   downvoteAnswer(answer_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
-        'UPDATE answer SET downvotes = downvotes - 1 WHERE answer_id = ?',
+        'UPDATE answer SET downvotes = downvotes + 1 WHERE answer_id = ?',
         [answer_id],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
