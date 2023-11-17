@@ -104,7 +104,7 @@ router.post('/posts/:id', (request, response) => {
   else response.status(400).send('Missing content');
 });
 
-//updates upvotes
+//upvotes på en post
 router.post('/posts/:id/upvote', (request, response) => {
   const id = Number(request.params.id);
 
@@ -120,6 +120,7 @@ router.post('/posts/:id/upvote', (request, response) => {
     });
 });
 
+//downvotes på en post
 router.post('/posts/:id/downvote', (request, response) => {
   const id = Number(request.params.id);
 
@@ -135,8 +136,8 @@ router.post('/posts/:id/downvote', (request, response) => {
     });
 });
 
-//votes på kommentarer
-router.post('/posts/:id/answers/:id/upvote', (request, response) => {
+//upvotes på kommentarer
+router.post('/answers/:id/upvote', (request, response) => {
   const id = Number(request.params.id);
 
   taskService
@@ -151,7 +152,8 @@ router.post('/posts/:id/answers/:id/upvote', (request, response) => {
     });
 });
 
-router.post('/posts/:id/answers/:id/downvote', (request, response) => {
+//downvotes på kommentar
+router.post('/answers/:id/downvote', (request, response) => {
   const id = Number(request.params.id);
 
   taskService
