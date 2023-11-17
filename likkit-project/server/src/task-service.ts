@@ -23,6 +23,17 @@ export type Comment = {
   karma: number;
 };
 
+export type UserComment = {
+  username: string;
+  content: string;
+  created_at: string;
+  upvotes: number;
+  downvotes: number;
+  karma: number;
+  title: string;
+  question_id: number;
+};
+
 export type tag = {
   tag_id: number;
   tag_name: string;
@@ -256,6 +267,62 @@ class TaskService {
           } else {
             resolve();
           }
+        },
+      );
+    });
+  }
+
+  // Henter alle kommentarer som er marker som best av en bruker
+  getBestComments(user_id: number) {
+    return new Promise<UserComment[]>((resolve, reject) => {
+      pool.query(
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, a.karma, q.title, q.question_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=? AND a.best_answer = 1',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as UserComment[]);
+        },
+      );
+    });
+  }
+
+  // Henter alle kommentarer som er skrevet av en bruker
+  getAllUserComments(user_id: number) {
+    return new Promise<UserComment[]>((resolve, reject) => {
+      pool.query(
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, a.karma, q.title, q.question_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=?',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as UserComment[]);
+        },
+      );
+    });
+  }
+
+  // Henter alle poster som er skrevet av en bruker
+  getAllUserPosts(user_id: number) {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question WHERE user_id=?',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as Question[]);
+        },
+      );
+    });
+  }
+
+  // Henter alle poster som er skrevet av en bruker sortert etter karma
+  getBestUserPosts(user_id: number) {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question WHERE user_id=? ORDER BY (upvotes - downvotes) DESC LIMIT 3',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as Question[]);
         },
       );
     });

@@ -165,4 +165,49 @@ router.post('/posts/:id/answers/:id/downvote', (request, response) => {
       }
     });
 });
+
+//gets best comments
+router.get('/user/bestComment', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getBestComments(user_id)
+      .then((bestComments) => response.send(bestComments))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
+//gets all comments
+router.get('/user/allComments', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getAllUserComments(user_id)
+      .then((allComments) => response.send(allComments))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
+//gets all posts
+router.get('/user/allPosts', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getAllUserPosts(user_id)
+      .then((allPosts) => response.send(allPosts))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
+//gets best posts
+router.get('/user/bestPosts', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getBestUserPosts(user_id)
+      .then((bestPosts) => response.send(bestPosts))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
 export default router;
