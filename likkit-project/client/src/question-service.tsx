@@ -3,6 +3,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3000/api/v2';
 
 export type Question = {
+  username: string,
   question_id: number;
   user_id: number;
   title: string;
@@ -17,6 +18,7 @@ export type Comment = {
   question_id: number;
   user_id: number;
   username: string;
+  user_pfp: string;
   best_answer: boolean;
   content: string;
   created_at: string;
@@ -69,9 +71,9 @@ class TaskService {
     return axios.get<Question>('/createPost/new').then((response) => response.data);
   }
   //creates a post
-  questionCreate(title: string, content: string) {
+  questionCreate(user_id: number | undefined, title: string, content: string) {
     return axios
-      .post<{ id: number }>('/createPost', { title: title, content: content })
+      .post<{ id: number }>('/createPost', {user_id: user_id, title: title, content: content })
       .then((response) => response.data.id);
   }
   //creates tags for a post

@@ -27,6 +27,7 @@ function shrek() {
 
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
+    username: '',
     question_id: 1,
     user_id: 0,
     title: '',
@@ -53,6 +54,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   comments: Comment[] = [];
 
   tags: Tag[] = [];
+
+  user_id: number = Number(sessionStorage.getItem('user_id'));
 
   state = {
     showButtons: false,
@@ -192,12 +195,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   <Column>{this.question.content}</Column>
                   <Column width={1}></Column>
                 </Row>
-                <Row>
+                <Row> 
                   <Column width={1}></Column>
                   <Column>{activeTags}</Column>
                   <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                   {this.renderSocialButtons()}
                 </Row>
+                <Row>Posted by: {this.question.username} at {this.question.created_at}</Row>
               </div>
             </Card>
             <Card title="" width="100%" backgroundColor="rgb(80,80,80)">
@@ -240,7 +244,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                             .createComment(
                               this.props.match.params.id,
                               this.writeComment,
-                              4 /*user_id*/,
+                              this.user_id,
                             )
                             .then(() => {
                               this.writeComment = '';
@@ -292,7 +296,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       <Row marginBottom={1}>
                         <Column>
                           <img
-                            src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"
+                            src={comment.user_pfp}
                             alt="Green profile picture"
                           />
                         </Column>

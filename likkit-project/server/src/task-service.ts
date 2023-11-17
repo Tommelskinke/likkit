@@ -2,6 +2,7 @@ import pool from './mysql-pool';
 import type { RowDataPacket, ResultSetHeader } from 'mysql2';
 
 export type Question = {
+  username: string
   question_id: number;
   user_id: number;
   title: string;
@@ -13,6 +14,7 @@ export type Question = {
 };
 export type Comment = {
   username: string;
+  user_pfp: string;
   best_answer: boolean;
   content: string;
   created_at: string;
@@ -42,7 +44,7 @@ class TaskService {
   questionGet(question_id: number) {
     return new Promise<Question>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM question WHERE question_id = ?',
+        'SELECT u.username, a.* FROM question a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id = ?',
         [question_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
@@ -134,11 +136,11 @@ class TaskService {
     });
   }
   //creates a post
-  questionCreate(title: string, content: string) {
+  questionCreate(user_id: number, title: string, content: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO question SET title=?, content=?',
-        [title, content],
+        'INSERT INTO question SET user_id=?, title=?, content=?',
+        [user_id, title, content],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
@@ -178,7 +180,7 @@ class TaskService {
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
       pool.query(
-        'SELECT u.username, a.best_answer, a.content, a.created_at, a.upvotes, a.downvotes, a.karma FROM answer a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id=?',
+        'SELECT u.username, u.user_pfp, a.best_answer, a.content, a.created_at, a.upvotes, a.downvotes, a.karma FROM answer a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id=?',
         [question_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
