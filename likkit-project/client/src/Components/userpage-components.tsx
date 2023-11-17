@@ -38,7 +38,7 @@ export class UserProfile extends Component {
               <Column width={2}>
                 <img
                   style={{ width: '100%', height: '100%' }}
-                  src="https://www.augustaarnesen.no/globalassets/produktbilder-2/100_1/1301-32-main.jpg?width=800&height=800&quality=100&mode=Pad&anchor=Middlecenter&scale=Down&factor=1&backgroundColor="
+                  src="https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/f5tcnybatu9tvnbrh18y/smash-burger"
                   alt="Green profile picture"
                 />
               </Column>
