@@ -134,4 +134,4 @@ public/
 !public/style.css
 
 # File containing database info
-# server/config.ts
+server/config.ts
