@@ -37,17 +37,17 @@ export const SoMeReddit = (
 
 export function SoMeRedditLink() {
   let target = 'https://www.reddit.com/submit';
-  window.location.href = target;
+  window.open(target, '_blank');
 }
 
 export function SoMeInstaLink() {
   let target = 'https://www.instagram.com';
-  window.location.href = target;
+  window.open(target, '_blank');
 }
 
 export function SoMeXLink() {
   let target = 'https://www.x.com';
-  window.location.href = target;
+  window.open(target, '_blank');
 }
 
 /**

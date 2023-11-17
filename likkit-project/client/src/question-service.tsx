@@ -13,7 +13,22 @@ export type Question = {
   karma: number;
 };
 export type Comment = {
+  answer_id: number;
+  question_id: number;
+  user_id: number;
   username: string;
+  best_answer: boolean;
+  content: string;
+  created_at: string;
+  upvotes: number;
+  downvotes: number;
+  karma: number;
+};
+
+export type Answer = {
+  answer_id: number;
+  question_id: number;
+  user_id: number;
   best_answer: boolean;
   content: string;
   created_at: string;
@@ -85,14 +100,26 @@ class TaskService {
       .then((response) => response.data);
   }
 
-  //Votingknapper
+  //henter svar
+  answerGet(answer_id: number) {
+    return axios.get<Answer>('/posts/' + answer_id).then((response) => response.data);
+  }
 
+  //Votingknapper
   upvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/upvote');
   }
 
   downvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/downvote');
+  }
+
+  upvoteAnswer(answer_id: number) {
+    return axios.post('/posts/answers' + answer_id + '/upvote');
+  }
+
+  downvoteAnswer(answer_id: number) {
+    return axios.post('/posts/answers' + answer_id + '/downvote');
   }
 }
 

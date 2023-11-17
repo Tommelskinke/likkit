@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Component } from 'react-simplified';
-import taskService, { Question, Comment, Tag } from '../question-service';
+import taskService, { Question, Answer, Comment, Tag } from '../question-service';
 import {
   Alert,
   Card,
@@ -18,7 +18,8 @@ import {
   SoMeInstaLink,
   SoMeXLink,
 } from '../widgets';
-import { Home } from './homepage-component';
+
+import { downLikkFunc } from '../voting-service';
 
 function shrek() {
   alert('SHREK');
@@ -34,6 +35,18 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     upvotes: 2,
     downvotes: 1,
     karma: 1,
+  };
+
+  answer: Answer = {
+    answer_id: 0,
+    question_id: 0,
+    user_id: 1,
+    best_answer: false,
+    content: '',
+    created_at: '',
+    upvotes: 0,
+    downvotes: 0,
+    karma: 0,
   };
   writeComment: string = '';
 
@@ -67,13 +80,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       .upvoteQuestion(questionId)
       .then(() => {
         taskService
-      .questionGet(this.props.match.params.id)
-      .then((question) => (this.question = question));
+          .questionGet(this.props.match.params.id)
+          .then((question) => (this.question = question));
       })
       .catch((error) => {
         console.error('Error upvoting question:', error);
       });
-      this.forceUpdate();
+    this.forceUpdate();
   };
 
   handleDownvote = (questionId: number) => {
@@ -81,13 +94,37 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       .downvoteQuestion(questionId)
       .then(() => {
         taskService
-        .questionGet(this.props.match.params.id)
-        .then((question) => (this.question = question));
+          .questionGet(this.props.match.params.id)
+          .then((question) => (this.question = question));
       })
       .catch((error) => {
         console.error('Error downvoting question:', error);
       });
-      this.forceUpdate();
+    this.forceUpdate();
+  };
+
+  handleUpvoteComment = (answerId: number) => {
+    taskService
+      .upvoteAnswer(answerId)
+      .then(() => {
+        taskService.answerGet(this.props.match.params.id).then((answer) => (this.answer = answer));
+      })
+      .catch((error) => {
+        console.error('Error upvoting answer:', error);
+      });
+    this.forceUpdate();
+  };
+
+  handleDownvoteComment = (answerId: number) => {
+    taskService
+      .downvoteAnswer(answerId)
+      .then(() => {
+        taskService.answerGet(this.props.match.params.id).then((answer) => (this.answer = answer));
+      })
+      .catch((error) => {
+        console.error('Error downvoting answer:', error);
+      });
+    this.forceUpdate();
   };
 
   render() {
@@ -134,7 +171,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
               >
                 <Row marginBottom={5}>
                   <Column width={1}>
-                    <Button.Vote onClick={() => this.handleUpvote(this.question.question_id)}>{upLikk}</Button.Vote>
+                    <Button.Vote onClick={() => this.handleUpvote(this.question.question_id)}>
+                      {upLikk}
+                    </Button.Vote>
                     <p
                       style={{
                         marginLeft: '30px',
@@ -145,7 +184,10 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     >
                       {this.question.upvotes - this.question.downvotes}
                     </p>
-                    <Button.Vote onClick={() => this.handleDownvote(this.question.question_id)}>{downLikk}</Button.Vote>
+
+                    <Button.Vote onClick={() => this.handleDownvote(this.question.question_id)}>
+                      {downLikk}
+                    </Button.Vote>
                   </Column>
                   <Column>{this.question.content}</Column>
                   <Column width={1}></Column>
@@ -192,8 +234,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   <Column right>
                     <Button.Success
                       onClick={() => {
-
-                         if (this.writeComment.length <= 255) {
+                        if (this.writeComment.length <= 255) {
                           console.log(this.props.match.params.id);
                           taskService
                             .createComment(
@@ -207,8 +248,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 .commentsGet(this.props.match.params.id)
                                 .then((getComments) => (this.comments = getComments));
                             });
-                        }else {
-                          alert("The comment cant be more than 255 characters!")
+                        } else {
+                          alert('The comment cant be more than 255 characters!');
                         }
                       }}
                     >
@@ -281,9 +322,15 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                             alignItems: 'stretch',
                           }}
                         >
-                          <Button.Vote onClick={shrek}>{upLikk}</Button.Vote>
-                          <p style={{ margin: '0 10px' }}>{comment.karma}</p>
-                          <Button.Vote onClick={shrek}>{downLikk}</Button.Vote>
+                          <Button.Vote onClick={() => this.handleUpvoteComment(comment.answer_id)}>
+                            {upLikk}
+                          </Button.Vote>
+                          <p style={{ margin: '0 10px' }}>{comment.upvotes - comment.downvotes}</p>
+                          <Button.Vote
+                            onClick={() => this.handleDownvoteComment(comment.answer_id)}
+                          >
+                            {downLikk}
+                          </Button.Vote>
 
                           <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                           {this.renderSocialButtons()}

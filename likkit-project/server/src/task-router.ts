@@ -134,4 +134,35 @@ router.post('/posts/:id/downvote', (request, response) => {
       }
     });
 });
+
+//votes på kommentarer
+router.post('/posts/:id/answers/:id/upvote', (request, response) => {
+  const id = Number(request.params.id);
+
+  taskService
+    .upvoteAnswer(id)
+    .then(() => response.send({ message: 'Upvote successful' }))
+    .catch((error) => {
+      if (error.message === 'Answer not found') {
+        response.status(404).send('Answer not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
+router.post('/posts/:id/answers/:id/downvote', (request, response) => {
+  const id = Number(request.params.id);
+
+  taskService
+    .downvoteAnswer(id)
+    .then(() => response.send({ message: 'Downvote successful' }))
+    .catch((error) => {
+      if (error.message === 'Answer not found') {
+        response.status(404).send('Answer not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
 export default router;
