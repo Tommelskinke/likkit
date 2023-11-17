@@ -33,7 +33,11 @@ export class Menu extends Component {
             </Column>
             <Column width={1} right>
               <NavBar.Link to="/user">
-                <img src={userData?.user_pfp} alt="User profile picture" />
+                <img
+                  src={userData?.user_pfp}
+                  alt="User profile picture"
+                  style={{ borderRadius: '50%' }}
+                />
               </NavBar.Link>
             </Column>
             <Column width={3} none>
