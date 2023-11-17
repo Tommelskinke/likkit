@@ -327,6 +327,20 @@ class TaskService {
       );
     });
   }
+
+//gets the sum of uppvotes and downvotes the user have
+  getUserLikks(user_id: number) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'SELECT SUM(total_votes) AS total_votes FROM ( SELECT SUM(upvotes - downvotes) AS total_votes FROM question WHERE user_id = ? UNION ALL SELECT SUM(upvotes - downvotes) AS total_votes FROM answer WHERE user_id = ? ) AS combined_votes',
+        [user_id, user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results[0] as any );
+        },
+      );
+    });
+  }
 }
 
 const taskService = new TaskService();
