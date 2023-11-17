@@ -30,7 +30,8 @@ export class UserProfile extends Component {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'stretch',
-          height: '100vh',
+          height: '100%',
+          width: '100%',
         }}
       >
         <div style={{ margin: '1%', marginLeft: '15%', marginRight: '15%' }}>
