@@ -21,6 +21,7 @@ export class UserProfile extends Component {
   bestCommentAmount: number = 0;
   options = [[], [], [], []] as [Question[], UserComment[], UserComment[], Question[]];
   active: number = 0;
+  user_id: number = Number(sessionStorage.getItem('user_id'));
 
   render() {
     return (
@@ -303,9 +304,13 @@ export class UserProfile extends Component {
     );
   }
   mounted() {
-    userpageService.getBestPosts(4).then((bestPosts) => (this.options[0] = bestPosts));
-    userpageService.getBestComments(4).then((bestComments) => (this.options[1] = bestComments));
-    userpageService.getAllUserComments(4).then((allComments) => (this.options[2] = allComments));
-    userpageService.getAllUserPosts(4).then((allPosts) => (this.options[3] = allPosts));
+    userpageService.getBestPosts(this.user_id).then((bestPosts) => (this.options[0] = bestPosts));
+    userpageService
+      .getBestComments(this.user_id)
+      .then((bestComments) => (this.options[1] = bestComments));
+    userpageService
+      .getAllUserComments(this.user_id)
+      .then((allComments) => (this.options[2] = allComments));
+    userpageService.getAllUserPosts(this.user_id).then((allPosts) => (this.options[3] = allPosts));
   }
 }
