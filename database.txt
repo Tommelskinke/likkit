@@ -1,8 +1,10 @@
 CREATE TABLE users( 
-	user_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+	user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	google_id VARCHAR(255) UNIQUE,
+	email VARCHAR(255) UNIQUE,
 	user_type VARCHAR(20),
-	username VARCHAR(20),
-	password VARCHAR(20),
+	username VARCHAR(20) UNIQUE,
+	password VARCHAR(255),
 	user_pfp TINYTEXT);
 
 CREATE TABLE tag( 
@@ -37,7 +39,6 @@ CREATE TABLE answer(
 	upvotes INTEGER DEFAULT 0,
 	downvotes INTEGER DEFAULT 0,
 	karma INTEGER DEFAULT 0);
-
 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk2 FOREIGN KEY(tag_id) REFERENCES tag (tag_id); 
