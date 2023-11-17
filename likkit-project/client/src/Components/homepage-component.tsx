@@ -103,6 +103,7 @@ export class Home extends Component {
           flexDirection: 'column',
           alignItems: 'stretch',
           height: '150vh',
+          overflowX: 'hidden',
         }}
       >
         <div
