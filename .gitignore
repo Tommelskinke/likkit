@@ -135,3 +135,4 @@ public/
 
 # File containing database info
 server/config.ts
+likkit-project/server/config.ts
