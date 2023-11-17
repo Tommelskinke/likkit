@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3000/api/v2';
 
 export type Question = {
-  username: string,
+  username: string;
   question_id: number;
   user_id: number;
   title: string;
@@ -73,7 +73,7 @@ class TaskService {
   //creates a post
   questionCreate(user_id: number | undefined, title: string, content: string) {
     return axios
-      .post<{ id: number }>('/createPost', {user_id: user_id, title: title, content: content })
+      .post<{ id: number }>('/createPost', { user_id: user_id, title: title, content: content })
       .then((response) => response.data.id);
   }
   //creates tags for a post
@@ -107,21 +107,30 @@ class TaskService {
     return axios.get<Answer>('/posts/' + answer_id).then((response) => response.data);
   }
 
-  //Votingknapper
+  //upvoter en post
   upvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/upvote');
   }
-
+  //downvoter en post
   downvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/downvote');
   }
-
+  /*
+  //upvoter en kommentar
   upvoteAnswer(answer_id: number) {
     return axios.post('/posts/answers' + answer_id + '/upvote');
   }
-
+  //downvoter en kommentar
   downvoteAnswer(answer_id: number) {
     return axios.post('/posts/answers' + answer_id + '/downvote');
+  }
+  */
+  upvoteAnswer(answer_id: number) {
+    return axios.post(`/posts/answers/${answer_id}/upvote`);
+  }
+
+  downvoteAnswer(answer_id: number) {
+    return axios.post(`/posts/answers/${answer_id}/downvote`);
   }
 }
 
