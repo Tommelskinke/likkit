@@ -3,6 +3,7 @@ import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question } from '../question-service';
 import { createHashHistory } from 'history';
+import { UserContext, UserProvider } from '../authState';
 
 const history = createHashHistory();
 
@@ -36,11 +37,15 @@ export class UserProfile extends Component {
           <Card title="" backgroundColor="rgb(90,90,90)">
             <Row>
               <Column width={2}>
-                <img
-                  style={{ width: '100%', height: '100%' }}
-                  src="https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/f5tcnybatu9tvnbrh18y/smash-burger"
-                  alt="Green profile picture"
-                />
+                <UserContext.Consumer>
+                  {(userData) => (
+                    <img
+                      style={{ width: '100%', height: '100%' }}
+                      src={userData?.user_pfp}
+                      alt="User profile picture"
+                    />
+                  )}
+                </UserContext.Consumer>
               </Column>
               <Column width={9}>
                 <Card title="Bio" backgroundColor="rgb(80,80,80)">
