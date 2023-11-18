@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Answer, Comment, Tag } from '../question-service';
+import { createHashHistory } from 'history';
 import {
   Alert,
   Card,
@@ -18,6 +19,8 @@ import {
   SoMeInstaLink,
   SoMeXLink,
 } from '../widgets';
+
+const history = createHashHistory();
 
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
@@ -129,6 +132,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   };
 
   render() {
+    const isAuthor = this.user_id === this.question.user_id;
     let activeTags: string = 'Tags:';
     this.tags.forEach((tag) => {
       activeTags += ' ' + tag.tag_name + ',';
@@ -157,7 +161,12 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   fontSize: '20px',
                   fontWeight: 'bold',
                 }}
-              >
+              >{/* Conditionally render the button based on the user being the author */}
+              {isAuthor && (
+                <Button.Success onClick={() => history.push('/editPost/' + (this.question.question_id))}>
+                  edit
+                </Button.Success>
+              )}
                 <Row marginBottom={3}>
                   <Column width={1}></Column>
                   <Column>{this.question.title}</Column>

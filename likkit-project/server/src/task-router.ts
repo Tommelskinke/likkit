@@ -66,6 +66,22 @@ router.post('/createPost', (request, response) => {
   else response.status(400).send('Missing question title');
 });
 
+//Edits a post
+router.post('/editPost/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const data = request.body;
+  taskService
+    .questionEdit(data.title, data.content, id)
+    .then(() => response.send({ message: 'Edit successful' }))
+    .catch((error) => {
+      if (error.message === 'Failed to edit post') {
+        response.status(404).send('Failed to edit post');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
 //creates tags for a post
 router.post('/createPost/tag', (request, response) => {
   const data = request.body;
@@ -73,6 +89,22 @@ router.post('/createPost/tag', (request, response) => {
     .questionTagCreate(data.question_id, data.tag_id)
     .then((id) => response.send({ id: id }))
     .catch((error) => response.status(500).send(error));
+});
+
+//remove tag from a post
+router.post('/editPost/:id/tag/remove', (request, response) => {
+  const id = Number(request.params.id);
+  const data = request.body;
+  taskService
+    .questionTagRemove(id, data.tag_id)
+    .then(() => response.send({ message: 'Edit successful' }))
+    .catch((error) => {
+      if (error.message === 'Failed to edit post') {
+        response.status(404).send('Failed to edit post');
+      } else {
+        response.status(500).send(error);
+      }
+    });
 });
 
 //gets the tags a post have

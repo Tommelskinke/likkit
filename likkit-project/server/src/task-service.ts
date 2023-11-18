@@ -150,11 +150,28 @@ class TaskService {
       );
     });
   }
+    //Edits a post
+    questionEdit(title: string, content: string, question_id: number) {
+      return new Promise<void>((resolve, reject) => {
+        pool.query(
+          'UPDATE question SET title=?, content=? WHERE question_id = ?',
+          [title, content, question_id],
+          (error, results: ResultSetHeader) => {
+            if (error) return reject(error);
+            if (results.affectedRows === 0) {
+              reject(new Error('Failed to edit post'));
+            } else {
+              resolve();
+            }
+          },
+        );
+      });
+    }
   //creates tags for a post
   questionTagCreate(question_id: number, tag_id: number) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO question_tag SET question_id=?, tag_id=?',
+        'INSERT IGNORE INTO question_tag SET question_id=?, tag_id=?',
         [question_id, tag_id],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
@@ -164,6 +181,21 @@ class TaskService {
       );
     });
   }
+
+    //removes tags for a post
+    questionTagRemove(question_id: number, tag_id: number) {
+      return new Promise<number>((resolve, reject) => {
+        pool.query(
+          'DELETE FROM question_tag where question_id = ? AND tag_id = ?',
+          [question_id, tag_id],
+          (error, results: ResultSetHeader) => {
+            if (error) return reject(error);
+  
+            resolve(results.insertId);
+          },
+        );
+      });
+    }
   //gets the tags a post have
   questionTagGet(question_id: number) {
     return new Promise<tag[]>((resolve, reject) => {

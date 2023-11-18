@@ -76,12 +76,23 @@ class TaskService {
       .post<{ id: number }>('/createPost', { user_id: user_id, title: title, content: content })
       .then((response) => response.data.id);
   }
+  //edits a post
+  questionEdit(title: string, content: string, question_id: number) {
+    return axios
+      .post('/editPost/' + question_id, {title: title, content: content, question_id: question_id });
+  }
   //creates tags for a post
   questionTagCreate(question_id: number, tag_id: number) {
     return axios
       .post<{ id: number }>('/createPost/tag', { question_id: question_id, tag_id: tag_id })
       .then((response) => response.data.id);
   }
+    //removes tags from a post
+    questionTagRemove(question_id: number, tag_id: number) {
+      return axios
+        .post<{ id: number }>('/editPost/'+ question_id +'/tag/remove', { question_id: question_id, tag_id: tag_id })
+        .then((response) => response.data.id);
+    }
   //gets the tags a post have
   questionTagGet(question_id: number) {
     return axios.get<Tag[]>('/posts/' + question_id + '/tag/').then((response) => response.data);

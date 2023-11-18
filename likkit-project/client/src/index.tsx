@@ -8,6 +8,7 @@ import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
 import { Login } from './Components/auth-component';
 import { AllPosts } from './Components/allPosts-component';
+import { EditPost } from './Components/editPosts-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { UserProvider } from './authState';
@@ -33,6 +34,7 @@ if (root) {
             <Route exact path="/" component={Home} />
             <Route exact path="/tags" component={TagList} />
             <Route exact path="/createPost" component={CreatePost} />
+            <Route exact path="/editPost/:id" component={EditPost} />
             <Route exact path="/favorites" component={FavoriteList} />
             <Route exact path="/user" component={UserProfile} />
             <Route exact path="/posts" component={AllPosts} />
