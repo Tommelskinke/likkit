@@ -212,4 +212,15 @@ router.get('/user/bestPosts', (request, response) => {
   else response.status(400).send('Missing user_id');
 });
 
+//gets likks
+router.get('/user/likks', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getUserLikks(user_id)
+      .then((likks) => response.send(likks))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
 export default router;

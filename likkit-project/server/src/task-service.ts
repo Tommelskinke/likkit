@@ -332,7 +332,7 @@ class TaskService {
     });
   }
 
-//gets the sum of uppvotes and downvotes the user have
+  //gets the sum of upvotes and downvotes the user have
   getUserLikks(user_id: number) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
@@ -340,7 +340,7 @@ class TaskService {
         [user_id, user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
-          resolve(results[0] as any );
+          resolve(results[0] as any);
         },
       );
     });
