@@ -49,6 +49,12 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+  updateProfilePicture(user_id: number, newpfppath: string) {
+    return axios.post('/user/newPfp', {
+      user_id,
+      newpfppath,
+    });
+  }
 }
 
 const userpageService = new UserpageService();

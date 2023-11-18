@@ -22,6 +22,7 @@ export class UserProfile extends Component {
   options = [[], [], [], []] as [Question[], UserComment[], UserComment[], Question[]];
   active: number = 0;
   user_id: number = Number(sessionStorage.getItem('user_id'));
+  newpfppath: string = '';
 
   render() {
     return (
@@ -49,6 +50,37 @@ export class UserProfile extends Component {
                       />
                     )}
                   </UserContext.Consumer>
+                </Row>
+                <Row marginBottom={4}>
+                  <form
+                    onSubmit={() => {
+                      userpageService
+                        .updateProfilePicture(this.user_id, this.newpfppath)
+                        .then(() => {
+                          location.reload();
+                        });
+                    }}
+                  >
+                    <Row>
+                      <Column none>
+                        <Form.Input
+                          type="url"
+                          value={this.newpfppath}
+                          onChange={(event) => (this.newpfppath = event.currentTarget.value)}
+                          placeholder="Profile picture URL..."
+                        />
+                      </Column>
+                    </Row>
+                    <Row>
+                      <Column>
+                        <Form.Input
+                          type="submit"
+                          value="Update profilepicture"
+                          onChange={() => {}}
+                        />
+                      </Column>
+                    </Row>
+                  </form>
                 </Row>
                 <Row>
                   <Column none>

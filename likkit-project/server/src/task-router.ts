@@ -255,4 +255,14 @@ router.get('/user/totalLicks', (request, response) => {
   else response.status(400).send('Missing user_id');
 });
 
+router.post('/user/newPfp', (request, response) => {
+  const data = request.body;
+  if (data && data.newpfppath && data.newpfppath.length != 0) {
+    taskService
+      .updateProfilePicture(data.user_id, data.newpfppath)
+      .then(() => response.send({ message: 'Upvote successful' }))
+      .catch((error) => response.status(500).send(error));
+  } else response.status(400).send('Missing user_id');
+});
+
 export default router;

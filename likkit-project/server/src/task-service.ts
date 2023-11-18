@@ -378,6 +378,23 @@ class TaskService {
       );
     });
   }
+
+  updateProfilePicture(user_id: number, user_pfp: string) {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'UPDATE users SET user_pfp = ? WHERE user_id = ?',
+        [user_pfp, user_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows === 0) {
+            reject(new Error('User not found'));
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 }
 
 const taskService = new TaskService();
