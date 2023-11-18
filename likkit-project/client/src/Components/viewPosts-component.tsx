@@ -19,12 +19,6 @@ import {
   SoMeXLink,
 } from '../widgets';
 
-import { downLikkFunc } from '../voting-service';
-
-function shrek() {
-  alert('SHREK');
-}
-
 export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   question: Question = {
     username: '',
@@ -110,24 +104,28 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     taskService
       .upvoteAnswer(answerId)
       .then(() => {
-        taskService.answerGet(this.props.match.params.id).then((answer) => (this.answer = answer));
+        taskService
+        .commentsGet(this.props.match.params.id)
+        .then((getComments) => (this.comments = getComments));
+        this.forceUpdate();
       })
       .catch((error) => {
         console.error('Error upvoting answer:', error);
       });
-    this.forceUpdate();
   };
 
   handleDownvoteComment = (answerId: number) => {
     taskService
       .downvoteAnswer(answerId)
       .then(() => {
-        taskService.answerGet(this.props.match.params.id).then((answer) => (this.answer = answer));
+        taskService
+          .commentsGet(this.props.match.params.id)
+          .then((getComments) => (this.comments = getComments));
+          this.forceUpdate();
       })
       .catch((error) => {
         console.error('Error downvoting answer:', error);
       });
-    this.forceUpdate();
   };
 
   render() {

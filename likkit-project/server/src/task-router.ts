@@ -137,7 +137,7 @@ router.post('/posts/:id/downvote', (request, response) => {
 });
 
 //upvotes på kommentarer
-router.post('/answers/:id/upvote', (request, response) => {
+router.post('/posts/answers/:id/upvote', (request, response) => {
   const id = Number(request.params.id);
 
   taskService
@@ -153,7 +153,7 @@ router.post('/answers/:id/upvote', (request, response) => {
 });
 
 //downvotes på kommentar
-router.post('/answers/:id/downvote', (request, response) => {
+router.post('/posts/answers/:id/downvote', (request, response) => {
   const id = Number(request.params.id);
 
   taskService

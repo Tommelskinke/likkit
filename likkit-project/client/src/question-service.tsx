@@ -115,22 +115,14 @@ class TaskService {
   downvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/downvote');
   }
-  /*
+  
   //upvoter en kommentar
   upvoteAnswer(answer_id: number) {
-    return axios.post('/posts/answers' + answer_id + '/upvote');
+    return axios.post('/posts/answers/' + answer_id + '/upvote');
   }
   //downvoter en kommentar
   downvoteAnswer(answer_id: number) {
-    return axios.post('/posts/answers' + answer_id + '/downvote');
-  }
-  */
-  upvoteAnswer(answer_id: number) {
-    return axios.post(`/posts/answers/${answer_id}/upvote`);
-  }
-
-  downvoteAnswer(answer_id: number) {
-    return axios.post(`/posts/answers/${answer_id}/downvote`);
+    return axios.post('/posts/answers/' + answer_id + '/downvote');
   }
 }
 
