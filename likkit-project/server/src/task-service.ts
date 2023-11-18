@@ -341,7 +341,7 @@ class TaskService {
         [user_id, user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
-          resolve(results[0] as any);
+          resolve(results[0].total_votes as number);
         },
       );
     });

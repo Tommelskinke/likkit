@@ -42,6 +42,13 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+  getTotalLicks(user_id: number) {
+    return axios
+      .get<number>('/user/totalLicks', {
+        params: { user_id },
+      })
+      .then((response) => response.data);
+  }
 }
 
 const userpageService = new UserpageService();

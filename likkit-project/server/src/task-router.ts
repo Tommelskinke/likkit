@@ -213,7 +213,7 @@ router.get('/user/bestPosts', (request, response) => {
 });
 
 //gets likks
-router.get('/user/likks', (request, response) => {
+router.get('/user/totalLicks', (request, response) => {
   const user_id = Number(request.query.user_id);
   if (user_id != 0)
     taskService

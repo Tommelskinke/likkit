@@ -313,5 +313,8 @@ export class UserProfile extends Component {
       .getAllUserComments(this.user_id)
       .then((allComments) => (this.options[2] = allComments));
     userpageService.getAllUserPosts(this.user_id).then((allPosts) => (this.options[3] = allPosts));
+    userpageService
+      .getTotalLicks(this.user_id)
+      .then((totalLicks) => (this.likkAmount = totalLicks));
   }
 }
