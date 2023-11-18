@@ -32,19 +32,29 @@ export class Menu extends Component {
               <SearchContainer />
             </Column>
             <Column width={1} right>
-              <NavBar.Link to="/user">
-                <img
-                  src={userData?.user_pfp}
-                  alt="User profile picture"
-                  style={{ borderRadius: '50%' }}
-                />
-              </NavBar.Link>
+              {userData?.user_id ? (
+                <NavBar.Link to="/user">
+                  <img
+                    src={userData.user_pfp}
+                    alt="User profile picture"
+                    style={{ borderRadius: '50%' }}
+                  />
+                </NavBar.Link>
+              ) : (
+                <NavBar.Link to="/login">
+                  <Button.Success onClick={() => {}}>Login</Button.Success>
+                </NavBar.Link>
+              )}
             </Column>
             <Column width={3} none>
-              <Row>
-                Logged in as <b>{userData?.username}</b>
-              </Row>
-              <Row>likks: 371</Row>
+              {userData?.user_id ? (
+                <>
+                  <Row>
+                    Logged in as <b>{userData.username}</b>
+                  </Row>
+                  <Row>likks: 371</Row>
+                </>
+              ) : null}
             </Column>
           </NavBar>
         )}
