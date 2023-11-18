@@ -13,11 +13,11 @@ function shrek() {
 }
 
 export class UserProfile extends Component {
-  user: string = 'banan';
-  userType: string = 'administrator';
-  likkAmount: number = 696969;
-  upvoteAmount: number = 1337;
-  commentAmount: number = 2;
+  user: string = String(sessionStorage.getItem('username'));
+  userType: string = String(sessionStorage.getItem('user_type'));
+  likkAmount: number = 0;
+  upvoteAmount: number = 0;
+  commentAmount: number = 0;
   bestCommentAmount: number = 0;
   options = [[], [], [], []] as [Question[], UserComment[], UserComment[], Question[]];
   active: number = 0;
@@ -57,31 +57,31 @@ export class UserProfile extends Component {
                         style={{
                           color: 'white',
                           fontWeight: 'bold',
-                          fontSize: '20px',
+                          fontSize: '14px',
                         }}
                       >
                         <Row>
-                          <Column width={5}>Username:</Column>
+                          <Column width={6}>Username:</Column>
                           <Column width={5}>{this.user}</Column>
                         </Row>
                         <Row>
-                          <Column width={5}>Licks:</Column>
+                          <Column width={6}>Licks:</Column>
                           <Column width={5}>{this.likkAmount}</Column>
                         </Row>
                         <Row>
-                          <Column width={5}>Comments:</Column>
+                          <Column width={6}>Comments:</Column>
                           <Column width={5}>{this.commentAmount}</Column>
                         </Row>
                         <Row>
-                          <Column width={5}>Usertype:</Column>
+                          <Column width={6}>Usertype:</Column>
                           <Column width={5}>{this.userType}</Column>
                         </Row>
                         <Row>
-                          <Column width={5}>Upvotes:</Column>
+                          <Column width={6}>Upvotes:</Column>
                           <Column width={5}>{this.upvoteAmount}</Column>
                         </Row>
                         <Row>
-                          <Column width={5}>Best comments:</Column>
+                          <Column width={6}>Best comments:</Column>
                           <Column width={5}>{this.bestCommentAmount}</Column>
                         </Row>
                       </div>
@@ -306,12 +306,14 @@ export class UserProfile extends Component {
   }
   mounted() {
     userpageService.getBestPosts(this.user_id).then((bestPosts) => (this.options[0] = bestPosts));
-    userpageService
-      .getBestComments(this.user_id)
-      .then((bestComments) => (this.options[1] = bestComments));
-    userpageService
-      .getAllUserComments(this.user_id)
-      .then((allComments) => (this.options[2] = allComments));
+    userpageService.getBestComments(this.user_id).then((bestComments) => {
+      this.options[1] = bestComments;
+      this.bestCommentAmount = bestComments.length;
+    });
+    userpageService.getAllUserComments(this.user_id).then((allComments) => {
+      this.options[2] = allComments;
+      this.commentAmount = allComments.length;
+    });
     userpageService.getAllUserPosts(this.user_id).then((allPosts) => (this.options[3] = allPosts));
     userpageService
       .getTotalLicks(this.user_id)
