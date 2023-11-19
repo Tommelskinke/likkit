@@ -60,7 +60,7 @@ router.post('/createPost', (request, response) => {
   const data = request.body;
   if (data && data.title && data.title.length != 0)
     taskService
-      .questionCreate(data.user_id, data.title, data.content)
+      .questionCreate(data.user_id, data.title, data.content, data.username)
       .then((id) => response.send({ id: id }))
       .catch((error) => response.status(500).send(error));
   else response.status(400).send('Missing question title');
