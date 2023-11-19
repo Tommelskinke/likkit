@@ -6,8 +6,6 @@ import taskService, { Question } from '../src/task-service';
 const currentDate = new Date();
 const formattedDate = currentDate.toISOString().slice(0, -5) + '.000Z';
 
-const formattedDateWithoutSeconds = formattedDate.replace(/:\d{2}$/, ':00');
-
 const testQuestion: Question[] = [
   {
     username: 'batman',
@@ -26,7 +24,7 @@ const testQuestion: Question[] = [
     user_id: 2,
     title: 'Yesterday',
     content: 'I believe in yesterday',
-    created_at: formattedDateWithoutSeconds,
+    created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
     karma: 0,
@@ -37,7 +35,7 @@ const testQuestion: Question[] = [
     user_id: 3,
     title: 'Hey Jude',
     content: 'Dont be afraid',
-    created_at: formattedDateWithoutSeconds,
+    created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
     karma: 0,
@@ -92,6 +90,7 @@ afterAll((done) => {
 });
 
 describe('Fetch posts (GET)', () => {
+  //Tester om den kan hente alle posts
   test('Fetch all posts (200 OK)', (done) => {
     axios.get('/posts').then((response) => {
       expect(response.status).toEqual(200);
@@ -99,4 +98,39 @@ describe('Fetch posts (GET)', () => {
       done();
     });
   });
+  test('Fetch post (200 OK)', (done) => {
+    axios.get('/posts/1').then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.data).toEqual(testQuestion[0]);
+      done();
+    });
+  });
+
+  test('Fetch post (404 Not Found)', (done) => {
+    axios
+      .get('/posts/4')
+      .then((_response) => done(new Error()))
+      .catch((error) => {
+        expect(error.message).toEqual('Request failed with status code 404');
+        done();
+      });
+  });
 });
+
+/*
+describe('Create new post (POST)', () => {
+  test('Create new post (200 OK)', (done) => {
+    axios
+      .post('/posts', {
+        user_id: '4',
+        title: 'Yellow Submarine',
+        content: 'We all live in a',
+        username: 'Nygma',
+      })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.data).toEqual({ id: 4 });
+        done();
+      });
+  });
+});*/
