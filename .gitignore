@@ -132,7 +132,6 @@ dist
 # Bundel stuff
 public/
 !public/style.css
-!public/bootstrap.min.css
 
 # File containing database info
 server/config.ts
