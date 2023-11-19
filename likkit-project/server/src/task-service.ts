@@ -186,7 +186,19 @@ class TaskService {
       );
     });
   }
+  questionRemove(question_id: number) {
+    return new Promise<Number>((resolve, reject) => {
+      pool.query(
+        'DELETE FROM question where question_id=?',
+        [question_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
 
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
   //removes tags for a post
   questionTagRemove(question_id: number, tag_id: number) {
     return new Promise<number>((resolve, reject) => {

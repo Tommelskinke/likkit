@@ -1,0 +1,75 @@
+CREATE TABLE users( 
+	user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	google_id VARCHAR(255) UNIQUE,
+	email VARCHAR(255) UNIQUE,
+	user_type VARCHAR(20) DEFAULT user,
+	username VARCHAR(20) UNIQUE,
+	password VARCHAR(255),
+	user_pfp TINYTEXT);
+
+CREATE TABLE tag( 
+	tag_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+	tag_name VARCHAR(20));
+
+CREATE TABLE question_tag( 
+	question_id INTEGER, 
+	tag_id INTEGER);
+
+CREATE TABLE standard_pfp(
+	pfp_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	pfp_link TINYTEXT);
+
+CREATE TABLE question( 
+	question_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	user_id INTEGER,
+	title TINYTEXT,
+	content MEDIUMTEXT,
+	created_at VARCHAR(20),
+	upvotes INTEGER DEFAULT 0,
+	downvotes INTEGER DEFAULT 0,
+	karma INTEGER DEFAULT 0);
+
+CREATE TABLE answer( 
+	answer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	parent_answer_id INTEGER DEFAULT null,
+	question_id INTEGER,
+	user_id INTEGER,
+	best_answer BOOLEAN DEFAULT false,
+	content MEDIUMTEXT,
+	created_at VARCHAR(20),
+	upvotes INTEGER DEFAULT 0,
+	downvotes INTEGER DEFAULT 0,
+	karma INTEGER DEFAULT 0);
+
+ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
+ALTER TABLE question_tag ADD CONSTRAINT question_id_fk2 FOREIGN KEY(tag_id) REFERENCES tag (tag_id); 
+
+ALTER TABLE question ADD CONSTRAINT question_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id); 
+
+ALTER TABLE answer ADD CONSTRAINT answer_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
+ALTER TABLE answer ADD CONSTRAINT answer_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id);
+
+INSERT INTO tag VALUES(1, 'solved');
+INSERT INTO tag VALUES(2, 'JS');
+INSERT INTO tag VALUES(3, 'Rust');
+INSERT INTO tag VALUES(4, 'Linux');
+
+INSERT INTO users VALUES(DEFAULT,'admin', 'Oscar', 'Password1!');
+INSERT INTO users VALUES(DEFAULT, 'user', 'Vegard', 'Password1!');
+INSERT INTO users VALUES(DEFAULT, 'admin', 'Elias', 'Password1!');
+INSERT INTO users VALUES(DEFAULT, 'user', 'Trygve', 'Password1!');
+
+INSERT INTO question VALUES(DEFAULT, 1, ('3,4'), 'Hjelp, igjen', 'Jeg trenger hjelp med noe, igjen.', DEFAULT, 0, 0, 0);
+
+INSERT INTO answer VALUES(DEFAULT, 1, 2, 0, 'Her er svaret', DEFAULT, 0, 0, 0);
+
+INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1174390821697630279/free-user-icon-3297-thumb2.png?ex=65676baf&is=6554f6af&hm=b0d98cd532daab0a5c7f594eff469328ea1bbbd16526f931d42c2a6c8ace9504&");
+INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1174390822100279296/free-user-icon-3297-thumb11.png?ex=65676baf&is=6554f6af&hm=c05dfd2eb83b042903686cfebb49c97fd786d12b62cb595e23c99f79e871258a&");
+INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1174390822624571552/free-user-icon-3297-thumb1.png?ex=65676baf&is=6554f6af&hm=483d99c7ecc302dca4c3bc824c4ff12dda0d103847df87ea454e07cd48e09960&");
+INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1175534326033694800/free-user-icon-3297-thumb21.png?ex=656b94a7&is=65591fa7&hm=b4f23e2cc4ea15327d524af581189dc036c8479e17d185afa71ef4fd260fcf1b&");
+INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1175534326365048842/free-user-icon-3297-thumb12.png?ex=656b94a7&is=65591fa7&hm=bb344bdd59cbb05429a0303c13f0280fc68c988c32ee8b12c16f355cd29cb233&");
+INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1175534326599925760/free-user-icon-3297-thumb3.png?ex=656b94a7&is=65591fa7&hm=6798678b87837667041e73be16fb93d549b141855d8f7d7b208b70f1adf8910a&");
+
+
+
+

@@ -280,4 +280,11 @@ router.post('/posts/:id/reply', (request, response) => {
   else response.status(400).send('Missing content');
 });
 
+router.delete('/posts/:id', (request, response) => {
+  taskService
+    .questionRemove(Number(request.params.id))
+    .then((_result) => response.send())
+    .catch((error) => response.status(500).send(error));
+});
+
 export default router;
