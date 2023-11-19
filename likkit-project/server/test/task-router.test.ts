@@ -61,14 +61,14 @@ beforeEach((done) => {
         testQuestion[0].user_id,
         testQuestion[0].title,
         testQuestion[0].content,
-        testQuestion[0].username,
+        /*testQuestion[0].username,*/
       )
       .then(() =>
         taskService.questionCreate(
           testQuestion[1].user_id,
           testQuestion[1].title,
           testQuestion[1].content,
-          testQuestion[1].username,
+          /*testQuestion[1].username,*/
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
@@ -76,7 +76,7 @@ beforeEach((done) => {
           testQuestion[2].user_id,
           testQuestion[2].title,
           testQuestion[2].content,
-          testQuestion[2].username,
+          /*testQuestion[2].username,*/
         ),
       ) // Create testQuestion[2] after testQuestion[1] has been created
       .then(() => done()); // Call done() after testQuestion[2] has been created
