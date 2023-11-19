@@ -12,6 +12,14 @@ export type Question = {
   downvotes: number;
   karma: number;
 };
+
+export type QuestionLite = {
+  username: string;
+  question_id: number;
+  user_id: number;
+  title: string;
+  content: string;
+};
 export type Comment = {
   username: string;
   user_pfp: string;
@@ -137,11 +145,11 @@ class TaskService {
     });
   }
   //creates a post
-  questionCreate(user_id: number, title: string, content: string) {
+  questionCreate(user_id: number, title: string, content: string, username: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO question SET user_id=?, title=?, content=?',
-        [user_id, title, content],
+        'INSERT INTO question SET user_id=?, title=?, content=?, username=?',
+        [user_id, title, content, username],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
@@ -150,23 +158,47 @@ class TaskService {
       );
     });
   }
-    //Edits a post
-    questionEdit(title: string, content: string, question_id: number) {
-      return new Promise<void>((resolve, reject) => {
-        pool.query(
-          'UPDATE question SET title=?, content=? WHERE question_id = ?',
-          [title, content, question_id],
-          (error, results: ResultSetHeader) => {
-            if (error) return reject(error);
-            if (results.affectedRows === 0) {
-              reject(new Error('Failed to edit post'));
-            } else {
-              resolve();
-            }
-          },
-        );
-      });
-    }
+  /*
+  //creates a post for the test database
+  testQuestionCreate(
+    user_id: number,
+    title: string,
+    content: string,
+    created_at: string,
+    upvotes: number,
+    downvotes: number,
+    karma: number,
+  ) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO question SET user_id=?, title=?, content=?, created_at=?, upvotes=?, downvotes=?, karma=?',
+        [user_id, title, content, created_at, upvotes, downvotes, karma],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
+  */
+  //Edits a post
+  questionEdit(title: string, content: string, question_id: number) {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'UPDATE question SET title=?, content=? WHERE question_id = ?',
+        [title, content, question_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows === 0) {
+            reject(new Error('Failed to edit post'));
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
   //creates tags for a post
   questionTagCreate(question_id: number, tag_id: number) {
     return new Promise<number>((resolve, reject) => {
@@ -182,20 +214,20 @@ class TaskService {
     });
   }
 
-    //removes tags for a post
-    questionTagRemove(question_id: number, tag_id: number) {
-      return new Promise<number>((resolve, reject) => {
-        pool.query(
-          'DELETE FROM question_tag where question_id = ? AND tag_id = ?',
-          [question_id, tag_id],
-          (error, results: ResultSetHeader) => {
-            if (error) return reject(error);
-  
-            resolve(results.insertId);
-          },
-        );
-      });
-    }
+  //removes tags for a post
+  questionTagRemove(question_id: number, tag_id: number) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'DELETE FROM question_tag where question_id = ? AND tag_id = ?',
+        [question_id, tag_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
   //gets the tags a post have
   questionTagGet(question_id: number) {
     return new Promise<tag[]>((resolve, reject) => {
@@ -398,4 +430,5 @@ class TaskService {
 }
 
 const taskService = new TaskService();
+
 export default taskService;

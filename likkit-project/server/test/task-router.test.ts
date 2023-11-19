@@ -3,6 +3,11 @@ import pool from '../src/mysql-pool';
 import app from '../src/app';
 import taskService, { Question } from '../src/task-service';
 
+const currentDate = new Date();
+const formattedDate = currentDate.toISOString().slice(0, -5) + '.000Z';
+
+const formattedDateWithoutSeconds = formattedDate.replace(/:\d{2}$/, ':00');
+
 const testQuestion: Question[] = [
   {
     username: 'batman',
@@ -10,10 +15,10 @@ const testQuestion: Question[] = [
     user_id: 1,
     title: 'Help',
     content: 'I need somebody',
-    created_at: '2023-11-10 10:56:20',
-    upvotes: 1,
+    created_at: formattedDate,
+    upvotes: 0,
     downvotes: 0,
-    karma: 1,
+    karma: 0,
   },
   {
     username: 'robin',
@@ -21,21 +26,21 @@ const testQuestion: Question[] = [
     user_id: 2,
     title: 'Yesterday',
     content: 'I believe in yesterday',
-    created_at: '2023-11-12 11:56:20',
-    upvotes: 10,
-    downvotes: 3,
-    karma: 7,
+    created_at: formattedDateWithoutSeconds,
+    upvotes: 0,
+    downvotes: 0,
+    karma: 0,
   },
   {
     username: 'alfred',
-    question_id: 1,
-    user_id: 1,
+    question_id: 3,
+    user_id: 3,
     title: 'Hey Jude',
     content: 'Dont be afraid',
-    created_at: '1939-11-10 19:56:20',
-    upvotes: 100,
-    downvotes: 30,
-    karma: 70,
+    created_at: formattedDateWithoutSeconds,
+    upvotes: 0,
+    downvotes: 0,
+    karma: 0,
   },
 ];
 
@@ -49,14 +54,33 @@ beforeAll((done) => {
 
 beforeEach((done) => {
   //Slett alle questions, og reset id auto-increment startverdi
-  pool.query('TRUNCATE TABLE Question', (error) => {
+  pool.query('TRUNCATE TABLE question', (error) => {
     if (error) return done(error);
 
     // Create testQuestions sequentially in order to set correct id, and call done() when finished
     taskService
-      .create(testQuestion[0].title)
-      .then(() => taskService.create(testQuestion[1].title, testQuestion[1].content)) // Create testQuestion[1] after testQuestion[0] has been created
-      .then(() => taskService.create(testQuestion[2].title, testQuestion[2].content)) // Create testQuestion[2] after testQuestion[1] has been created
+      .questionCreate(
+        testQuestion[0].user_id,
+        testQuestion[0].title,
+        testQuestion[0].content,
+        testQuestion[0].username,
+      )
+      .then(() =>
+        taskService.questionCreate(
+          testQuestion[1].user_id,
+          testQuestion[1].title,
+          testQuestion[1].content,
+          testQuestion[1].username,
+        ),
+      ) // Create testQuestion[1] after testQuestion[0] has been created
+      .then(() =>
+        taskService.questionCreate(
+          testQuestion[2].user_id,
+          testQuestion[2].title,
+          testQuestion[2].content,
+          testQuestion[2].username,
+        ),
+      ) // Create testQuestion[2] after testQuestion[1] has been created
       .then(() => done()); // Call done() after testQuestion[2] has been created
   });
 });
