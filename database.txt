@@ -31,10 +31,11 @@ CREATE TABLE question(
 
 CREATE TABLE answer( 
 	answer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	parent_answer_id INTEGER DEFAULT null,
 	question_id INTEGER,
 	user_id INTEGER,
 	best_answer BOOLEAN DEFAULT false,
-	content TINYTEXT,
+	content MEDIUMTEXT,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 	upvotes INTEGER DEFAULT 0,
 	downvotes INTEGER DEFAULT 0,
