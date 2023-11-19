@@ -16,6 +16,7 @@ export type Question = {
 export type Comment = {
   answer_id: number;
   question_id: number;
+  parent_answer_id: number | null;
   user_id: number;
   username: string;
   user_pfp: string;
@@ -30,6 +31,7 @@ export type Comment = {
 export type Answer = {
   answer_id: number;
   question_id: number;
+  parent_answer_id: Number | null;
   user_id: number;
   best_answer: boolean;
   content: string;
@@ -78,8 +80,11 @@ class TaskService {
   }
   //edits a post
   questionEdit(title: string, content: string, question_id: number) {
-    return axios
-      .post('/editPost/' + question_id, {title: title, content: content, question_id: question_id });
+    return axios.post('/editPost/' + question_id, {
+      title: title,
+      content: content,
+      question_id: question_id,
+    });
   }
   //creates tags for a post
   questionTagCreate(question_id: number, tag_id: number) {
@@ -87,12 +92,15 @@ class TaskService {
       .post<{ id: number }>('/createPost/tag', { question_id: question_id, tag_id: tag_id })
       .then((response) => response.data.id);
   }
-    //removes tags from a post
-    questionTagRemove(question_id: number, tag_id: number) {
-      return axios
-        .post<{ id: number }>('/editPost/'+ question_id +'/tag/remove', { question_id: question_id, tag_id: tag_id })
-        .then((response) => response.data.id);
-    }
+  //removes tags from a post
+  questionTagRemove(question_id: number, tag_id: number) {
+    return axios
+      .post<{ id: number }>('/editPost/' + question_id + '/tag/remove', {
+        question_id: question_id,
+        tag_id: tag_id,
+      })
+      .then((response) => response.data.id);
+  }
   //gets the tags a post have
   questionTagGet(question_id: number) {
     return axios.get<Tag[]>('/posts/' + question_id + '/tag/').then((response) => response.data);
@@ -126,7 +134,7 @@ class TaskService {
   downvoteQuestion(question_id: number) {
     return axios.post('/posts/' + question_id + '/downvote');
   }
-  
+
   //upvoter en kommentar
   upvoteAnswer(answer_id: number) {
     return axios.post('/posts/answers/' + answer_id + '/upvote');
@@ -134,6 +142,21 @@ class TaskService {
   //downvoter en kommentar
   downvoteAnswer(answer_id: number) {
     return axios.post('/posts/answers/' + answer_id + '/downvote');
+  }
+
+  createCommentReply(
+    question_id: number,
+    parent_answer_id: number,
+    content: string,
+    user_id: number,
+  ) {
+    return axios
+      .post<{ id: number }>('/posts/' + question_id + '/reply', {
+        parent_answer_id: parent_answer_id,
+        content: content,
+        user_id: user_id,
+      })
+      .then((response) => response.data);
   }
 }
 

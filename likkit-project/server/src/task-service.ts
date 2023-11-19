@@ -145,11 +145,11 @@ class TaskService {
     });
   }
   //creates a post
-  questionCreate(user_id: number, title: string, content: string, username: string) {
+  questionCreate(user_id: number, title: string, content: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO question SET user_id=?, title=?, content=?, username=?',
-        [user_id, title, content, username],
+        'INSERT INTO question SET user_id=?, title=?, content=?',
+        [user_id, title, content],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
@@ -245,7 +245,7 @@ class TaskService {
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
       pool.query(
-        'SELECT u.username, u.user_pfp, a.answer_id, a.best_answer, a.content, a.created_at, a.upvotes, a.downvotes, a.karma FROM answer a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id=?',
+        'SELECT u.username, u.user_pfp, a.answer_id, a.parent_answer_id, a.best_answer, a.content, a.created_at, a.upvotes, a.downvotes, a.karma FROM answer a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id=?',
         [question_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
@@ -411,6 +411,7 @@ class TaskService {
     });
   }
 
+  //updates the profile picture of a user
   updateProfilePicture(user_id: number, user_pfp: string) {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -423,6 +424,39 @@ class TaskService {
           } else {
             resolve();
           }
+        },
+      );
+    });
+  }
+
+  createUser(username: string, password: string, email: string) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO users SET username=?, password=?, email=?',
+        [username, password, email],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
+
+  createCommentReply(
+    question_id: number,
+    parent_answer_id: number,
+    content: string,
+    user_id: number,
+  ) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO answer SET question_id=?, parent_answer_id=?, content=?, user_id=?',
+        [question_id, parent_answer_id, content, user_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
         },
       );
     });

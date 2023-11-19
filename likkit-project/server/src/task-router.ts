@@ -265,4 +265,19 @@ router.post('/user/newPfp', (request, response) => {
   } else response.status(400).send('Missing user_id');
 });
 
+router.post('/posts/:id/reply', (request, response) => {
+  const data = request.body;
+  if (data && data.content && data.content.length != 0)
+    taskService
+      .createCommentReply(
+        Number(request.params.id),
+        data.parent_answer_id,
+        data.content,
+        data.user_id,
+      )
+      .then((id) => response.send({ id: id }))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing content');
+});
+
 export default router;

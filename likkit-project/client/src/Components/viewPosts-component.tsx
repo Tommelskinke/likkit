@@ -38,6 +38,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   answer: Answer = {
     answer_id: 0,
     question_id: 0,
+    parent_answer_id: null,
     user_id: 1,
     best_answer: false,
     content: '',
@@ -56,6 +57,84 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
   state = {
     showButtons: false,
+    showcommentSection: false,
+    activeButtonId: null,
+    rendercommentButton: true,
+  };
+
+  handleButtonClick = (id: number) => {
+    this.setState({ activeButtonId: id });
+  };
+
+  rendercommentButton = (comment: Comment) => {
+    if (
+      this.state.rendercommentButton === true ||
+      this.state.activeButtonId !== comment.answer_id
+    ) {
+      return (
+        <Column width={4} none>
+          <Button.Share
+            onClick={() => {
+              this.handleButtonClick(comment.answer_id);
+              console.log('test');
+              this.setState({ showcommentSection: true, rendercommentButton: false });
+            }}
+          >
+            Reply
+          </Button.Share>
+        </Column>
+      );
+    } else {
+      return null;
+    }
+  };
+
+  rendercommentSection = (comment: Comment) => {
+    if (this.state.activeButtonId === comment.answer_id) {
+      return (
+        <>
+          <Row marginTop={2}>
+            <Column width={6} none>
+              <Form.Textarea
+                type="text"
+                value={this.writeComment}
+                onChange={(event) => (this.writeComment = event.currentTarget.value)}
+                placeholder="Write your comment here..."
+                style={{ height: '15vh' }}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column width={6} right>
+              <Button.Success
+                onClick={() => {
+                  taskService
+                    .createCommentReply(
+                      this.props.match.params.id,
+                      comment.answer_id,
+                      this.writeComment,
+                      this.user_id,
+                    )
+                    .then(() => {
+                      this.writeComment = '';
+                      taskService
+                        .commentsGet(this.props.match.params.id)
+                        .then((getComments) => (this.comments = getComments));
+                    });
+                  this.setState({
+                    showcommentSection: false,
+                    rendercommentButton: true,
+                    activeButtonId: null,
+                  });
+                }}
+              >
+                Post
+              </Button.Success>
+            </Column>
+          </Row>
+        </>
+      );
+    }
   };
 
   handleShowButtons = () => {
@@ -108,8 +187,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       .upvoteAnswer(answerId)
       .then(() => {
         taskService
-        .commentsGet(this.props.match.params.id)
-        .then((getComments) => (this.comments = getComments));
+          .commentsGet(this.props.match.params.id)
+          .then((getComments) => (this.comments = getComments));
         this.forceUpdate();
       })
       .catch((error) => {
@@ -124,12 +203,101 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
         taskService
           .commentsGet(this.props.match.params.id)
           .then((getComments) => (this.comments = getComments));
-          this.forceUpdate();
+        this.forceUpdate();
       })
       .catch((error) => {
         console.error('Error downvoting answer:', error);
       });
   };
+
+  mapComments(comments: Comment[], parentId: number, depth: number = 1) {
+    return comments
+      .filter((reply) => reply.parent_answer_id === parentId)
+      .map((reply) => (
+        <div
+          key={reply.answer_id}
+          style={{
+            marginLeft: `${depth * 30}px`,
+            borderLeft: '1px dotted #ccc',
+            paddingLeft: '10px',
+          }}
+        >
+          <Row marginBottom={4}>
+            <Row marginBottom={1}>
+              <Column>
+                <img src={reply.user_pfp} alt="Green profile picture" />
+              </Column>
+              <div
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: '25px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'stretch',
+                }}
+              ></div>
+
+              <Column width={4}>
+                Posted by {reply.username} at {reply.created_at}
+              </Column>
+            </Row>
+            <Row marginBottom={2}>
+              <div
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: '25px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'stretch',
+                }}
+              >
+                <Button.Vote onClick={() => this.handleUpvoteComment(reply.answer_id)}>
+                  {upLikk}
+                </Button.Vote>
+                <p style={{ margin: '0 10px' }}>{reply.upvotes - reply.downvotes}</p>
+                <Button.Vote onClick={() => this.handleDownvoteComment(reply.answer_id)}>
+                  {downLikk}
+                </Button.Vote>
+
+                <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
+                {this.renderSocialButtons()}
+              </div>
+              <div
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: '25px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'stretch',
+                }}
+              >
+                <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
+                  <div
+                    style={{
+                      color: 'white',
+                      fontSize: '20px',
+                      fontWeight: 'normal',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'stretch',
+                      width: '100%',
+                    }}
+                  >
+                    <Column>{reply.content}</Column>
+                  </div>
+                </Card>
+              </div>
+            </Row>
+            <Row>{this.rendercommentButton(reply)}</Row>
+            <Row>{this.rendercommentSection(reply)}</Row>
+          </Row>
+          {this.mapComments(comments, reply.answer_id, depth + 1)}
+        </div>
+      ));
+  }
 
   render() {
     const isAuthor = this.user_id === this.question.user_id;
@@ -161,12 +329,15 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   fontSize: '20px',
                   fontWeight: 'bold',
                 }}
-              >{/* Conditionally render the button based on the user being the author */}
-              {isAuthor && (
-                <Button.Success onClick={() => history.push('/editPost/' + (this.question.question_id))}>
-                  edit
-                </Button.Success>
-              )}
+              >
+                {/* Conditionally render the button based on the user being the author */}
+                {isAuthor && (
+                  <Button.Success
+                    onClick={() => history.push('/editPost/' + this.question.question_id)}
+                  >
+                    edit
+                  </Button.Success>
+                )}
                 <Row marginBottom={3}>
                   <Column width={1}></Column>
                   <Column>{this.question.title}</Column>
@@ -202,13 +373,15 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   <Column>{this.question.content}</Column>
                   <Column width={1}></Column>
                 </Row>
-                <Row> 
+                <Row>
                   <Column width={1}></Column>
                   <Column>{activeTags}</Column>
                   <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                   {this.renderSocialButtons()}
                 </Row>
-                <Row>Posted by: {this.question.username} at {this.question.created_at}</Row>
+                <Row>
+                  Posted by: {this.question.username} at {this.question.created_at}
+                </Row>
               </div>
             </Card>
             <Card title="" width="100%" backgroundColor="rgb(80,80,80)">
@@ -245,7 +418,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   <Column right>
                     <Button.Success
                       onClick={() => {
-                        if (this.writeComment.length <= 255) {
+                        if (this.writeComment.length <= 100000) {
                           console.log(this.props.match.params.id);
                           taskService
                             .createComment(
@@ -260,7 +433,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 .then((getComments) => (this.comments = getComments));
                             });
                         } else {
-                          alert('The comment cant be more than 255 characters!');
+                          alert('The comment cant be more than 100000 characters!');
                         }
                       }}
                     >
@@ -291,91 +464,101 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
               </Column>
 
               <Card title="" width="100%" backgroundColor="rgb(70,70,70)">
-                {this.comments.map((comment, i) => (
-                  <div
-                    style={{
-                      color: 'white',
-                      fontSize: '14px',
-                    }}
-                    key={i}
-                  >
-                    <Row marginBottom={4}>
-                      <Row marginBottom={1}>
-                        <Column>
-                          <img
-                            src={comment.user_pfp}
-                            alt="Green profile picture"
-                          />
-                        </Column>
-                        <div
-                          style={{
-                            color: 'white',
-                            fontWeight: 'bold',
-                            fontSize: '25px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'stretch',
-                          }}
-                        ></div>
-
-                        <Column width={4}>
-                          Posted by {comment.username} at {comment.created_at}
-                        </Column>
-                      </Row>
-                      <Row>
-                        <div
-                          style={{
-                            color: 'white',
-                            fontWeight: 'bold',
-                            fontSize: '25px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'stretch',
-                          }}
-                        >
-                          <Button.Vote onClick={() => this.handleUpvoteComment(comment.answer_id)}>
-                            {upLikk}
-                          </Button.Vote>
-                          <p style={{ margin: '0 10px' }}>{comment.upvotes - comment.downvotes}</p>
-                          <Button.Vote
-                            onClick={() => this.handleDownvoteComment(comment.answer_id)}
-                          >
-                            {downLikk}
-                          </Button.Vote>
-
-                          <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
-                          {this.renderSocialButtons()}
-                        </div>
-                        <div
-                          style={{
-                            color: 'white',
-                            fontWeight: 'bold',
-                            fontSize: '25px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'stretch',
-                          }}
-                        >
-                          <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
+                {this.comments.map((comment, i) => {
+                  if (comment.parent_answer_id === null) {
+                    return (
+                      <div
+                        style={{
+                          color: 'white',
+                          fontSize: '14px',
+                          borderLeft: '1px dotted #ccc',
+                          paddingLeft: '10px',
+                        }}
+                        key={i}
+                      >
+                        <Row marginBottom={4}>
+                          <Row marginBottom={1}>
+                            <Column>
+                              <img src={comment.user_pfp} alt="Green profile picture" />
+                            </Column>
                             <div
                               style={{
                                 color: 'white',
-                                fontSize: '20px',
-                                fontWeight: 'normal',
+                                fontWeight: 'bold',
+                                fontSize: '25px',
                                 display: 'flex',
                                 flexDirection: 'row',
                                 alignItems: 'stretch',
-                                width: '100%',
+                              }}
+                            ></div>
+
+                            <Column width={4}>
+                              Posted by {comment.username} at {comment.created_at}
+                            </Column>
+                          </Row>
+                          <Row marginBottom={2}>
+                            <div
+                              style={{
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '25px',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'stretch',
                               }}
                             >
-                              <Column>{comment.content}</Column>
+                              <Button.Vote
+                                onClick={() => this.handleUpvoteComment(comment.answer_id)}
+                              >
+                                {upLikk}
+                              </Button.Vote>
+                              <p style={{ margin: '0 10px' }}>
+                                {comment.upvotes - comment.downvotes}
+                              </p>
+                              <Button.Vote
+                                onClick={() => this.handleDownvoteComment(comment.answer_id)}
+                              >
+                                {downLikk}
+                              </Button.Vote>
+
+                              <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
+                              {this.renderSocialButtons()}
                             </div>
-                          </Card>
-                        </div>
-                      </Row>
-                    </Row>
-                  </div>
-                ))}
+                            <div
+                              style={{
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '25px',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'stretch',
+                              }}
+                            >
+                              <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
+                                <div
+                                  style={{
+                                    color: 'white',
+                                    fontSize: '20px',
+                                    fontWeight: 'normal',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'stretch',
+                                    width: '100%',
+                                  }}
+                                >
+                                  <Column>{comment.content}</Column>
+                                </div>
+                              </Card>
+                            </div>
+                          </Row>
+                          <Row>{this.rendercommentButton(comment)}</Row>
+                          <Row>{this.rendercommentSection(comment)}</Row>
+                        </Row>
+                        {this.mapComments(this.comments, comment.answer_id)}
+                      </div>
+                    );
+                  }
+                })}
               </Card>
             </Card>
           </Card>
