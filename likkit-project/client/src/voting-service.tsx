@@ -47,6 +47,9 @@ export class VotingService extends Component {
       });
   };
 }
+//Ser ut som en ubrukt funksjon
+
+/*
 function handleSortChange(selectedOption, posts, forceUpdate) {
   if (selectedOption === 'popular') {
     taskService.questionGetThree().then((newPosts) => {
@@ -60,6 +63,7 @@ function handleSortChange(selectedOption, posts, forceUpdate) {
     });
   }
 }
+*/
 
 // Example of calling the function:
 // Replace `yourSelectedOption`, `yourPosts`, and `yourForceUpdate` with appropriate values.
