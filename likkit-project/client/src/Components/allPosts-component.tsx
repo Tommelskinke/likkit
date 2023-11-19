@@ -52,12 +52,12 @@ export class Menu extends Component {
 export class AllPosts extends Component {
   search: string = '';
   posts: Question[] = [];
-  selectedOption: string = 'popular'; 
+  selectedOption: string = 'popular';
 
   handleSortChange = (event: any) => {
     const selectedOption = event.target.value;
     this.selectedOption = selectedOption;
-    
+
     if (selectedOption === 'popular') {
       taskService.questionGetAll().then((posts) => (this.posts = posts));
     } else if (selectedOption === 'newest') {
@@ -209,4 +209,3 @@ export class AllPosts extends Component {
     taskService.questionGetAll().then((posts) => (this.posts = posts));
   }
 }
-

@@ -6,7 +6,7 @@ import { createHashHistory } from 'history';
 
 const history = createHashHistory();
 
-export class EditPost extends Component <{ match: { params: { id: number } } }> {
+export class EditPost extends Component<{ match: { params: { id: number } } }> {
   title: string = '';
   content: string = '';
   tags: Tag[] = [];
@@ -125,7 +125,11 @@ export class EditPost extends Component <{ match: { params: { id: number } } }> 
                   onClick={() => {
                     if (this.title.length <= 255) {
                       taskService
-                        .questionEdit(this.questionNew.title, this.questionNew.content, this.questionNew.question_id)
+                        .questionEdit(
+                          this.questionNew.title,
+                          this.questionNew.content,
+                          this.questionNew.question_id,
+                        )
                         .then(() => {});
 
                       //gjør dette om til en forEach loop
@@ -151,7 +155,7 @@ export class EditPost extends Component <{ match: { params: { id: number } } }> 
                       }
                       taskService.questionGetNewest().then(() => {});
                       setTimeout(() => {
-                        history.push('/posts/' + (this.questionNew.question_id));
+                        history.push('/posts/' + this.questionNew.question_id);
                       }, 100);
                     } else {
                       alert('The title cant be more than 255 characters!');
@@ -171,7 +175,7 @@ export class EditPost extends Component <{ match: { params: { id: number } } }> 
     taskService
       .questionGet(this.props.match.params.id)
       .then((question) => (this.questionNew = question));
-      taskService
+    taskService
       .questionTagGet(this.props.match.params.id)
       .then((tags) => (this.tags = tags))
       .then(() => {
@@ -193,6 +197,7 @@ export class EditPost extends Component <{ match: { params: { id: number } } }> 
             default:
               break;
           }
-      })
-  })
-}}
+        });
+      });
+  }
+}
