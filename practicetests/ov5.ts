@@ -1,16 +1,18 @@
-import axios from 'axios';
-import pool from '../src/mysql-pool';
-import app from '../src/app';
-import taskService, { Task } from '../src/task-service';
+import axios from "axios";
+import pool from "../likkit-project/server/src/mysql-pool";
+import app from "../likkit-project/server/src/app";
+import taskService, {
+  Task,
+} from "../likkit-project/server/src/task-service";
 
 const testTasks: Task[] = [
-  { id: 1, title: 'Les leksjon', done: false },
-  { id: 2, title: 'Møt opp på forelesning', done: false },
-  { id: 3, title: 'Gjør øving', done: false },
+  { id: 1, title: "Les leksjon", done: false },
+  { id: 2, title: "Møt opp på forelesning", done: false },
+  { id: 3, title: "Gjør øving", done: false },
 ];
 
 // Since API is not compatible with v1, API version is increased to v2
-axios.defaults.baseURL = 'http://localhost:3001/api/v2';
+axios.defaults.baseURL = "http://localhost:3001/api/v2";
 
 let webServer: any;
 beforeAll((done) => {
@@ -20,7 +22,7 @@ beforeAll((done) => {
 
 beforeEach((done) => {
   // Delete all tasks, and reset id auto-increment start value
-  pool.query('TRUNCATE TABLE Tasks', (error) => {
+  pool.query("TRUNCATE TABLE Tasks", (error) => {
     if (error) return done(error);
 
     // Create testTasks sequentially in order to set correct id, and call done() when finished
@@ -38,37 +40,39 @@ afterAll((done) => {
   webServer.close(() => pool.end(() => done()));
 });
 
-describe('Fetch tasks (GET)', () => {
-  test('Fetch all tasks (200 OK)', (done) => {
-    axios.get('/tasks').then((response) => {
+describe("Fetch tasks (GET)", () => {
+  test("Fetch all tasks (200 OK)", (done) => {
+    axios.get("/tasks").then((response) => {
       expect(response.status).toEqual(200);
       expect(response.data).toEqual(testTasks);
       done();
     });
   });
 
-  test('Fetch task (200 OK)', (done) => {
-    axios.get('/tasks/1').then((response) => {
+  test("Fetch task (200 OK)", (done) => {
+    axios.get("/tasks/1").then((response) => {
       expect(response.status).toEqual(200);
       expect(response.data).toEqual(testTasks[0]);
       done();
     });
   });
 
-  test('Fetch task (404 Not Found)', (done) => {
+  test("Fetch task (404 Not Found)", (done) => {
     axios
-      .get('/tasks/4')
+      .get("/tasks/4")
       .then((_response) => done(new Error()))
       .catch((error) => {
-        expect(error.message).toEqual('Request failed with status code 404');
+        expect(error.message).toEqual(
+          "Request failed with status code 404"
+        );
         done();
       });
   });
 });
 
-describe('Create new task (POST)', () => {
-  test('Create new task (200 OK)', (done) => {
-    axios.post('/tasks', { title: 'Ny oppgave' }).then((response) => {
+describe("Create new task (POST)", () => {
+  test("Create new task (200 OK)", (done) => {
+    axios.post("/tasks", { title: "Ny oppgave" }).then((response) => {
       expect(response.status).toEqual(200);
       expect(response.data).toEqual({ id: 4 });
       done();
@@ -76,9 +80,9 @@ describe('Create new task (POST)', () => {
   });
 });
 
-describe('Delete task (DELETE)', () => {
-  test('Delete task (200 OK)', (done) => {
-    axios.delete('/tasks/2').then((response) => {
+describe("Delete task (DELETE)", () => {
+  test("Delete task (200 OK)", (done) => {
+    axios.delete("/tasks/2").then((response) => {
       expect(response.status).toEqual(200);
       done();
     });
