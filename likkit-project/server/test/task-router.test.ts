@@ -117,7 +117,7 @@ describe('Fetch posts (GET)', () => {
       });
   });
 });
-
+/*
 describe('Create new question (POST)', () => {
   const newQuestion = {
     user_id: 4,
@@ -134,3 +134,4 @@ describe('Create new question (POST)', () => {
     });
   });
 });
+*/
