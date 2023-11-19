@@ -5,6 +5,7 @@ import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from
 import taskService, { Question } from '../question-service';
 import { createHashHistory } from 'history';
 import SearchContainer from './searchContainer-component';
+import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();
 
@@ -204,7 +205,9 @@ export class Home extends Component {
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
                         <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
                         <p>{post.title}</p>
-                        <p style={{ fontSize: '14px', fontWeight: 'normal' }}>{post.content}</p>
+                        <p style={{ fontSize: '14px', fontWeight: 'normal' }}>
+                          <PrettyPreview htmlContent={post.content} maxLength={100} />
+                        </p>
                       </div>
                     </Button.Post>
                   </Card>

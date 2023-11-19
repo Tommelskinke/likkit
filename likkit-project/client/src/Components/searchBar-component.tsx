@@ -11,7 +11,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [suggestions, setSuggestions] = useState<Array<any>>([]);
   const [searchResults, setSearchResults] = useState<Array<any>>([]);
 
-  const fetchSuggestions = debounce(async (input) => {
+  const fetchSuggestions = debounce(async (input: any) => {
     const response = await axios.get(`/search`, { params: { term: input } });
     setSuggestions(response.data || []);
   }, 300);

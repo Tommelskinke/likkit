@@ -5,6 +5,7 @@ import taskService, { Question } from '../question-service';
 import userpageService, { UserComment } from '../userpage-service';
 import { createHashHistory } from 'history';
 import { UserContext, UserProvider } from '../authState';
+import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();
 
@@ -217,7 +218,7 @@ export class UserProfile extends Component {
                                   <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
                                   <p>{data.title}</p>
                                   <p style={{ fontSize: '14px', fontWeight: 'normal' }}>
-                                    {data.content}
+                                    <PrettyPreview htmlContent={data.content} maxLength={100} />
                                   </p>
                                 </div>
                               </Button.Post>

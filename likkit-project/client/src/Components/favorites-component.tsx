@@ -98,6 +98,7 @@ export class FavoriteList extends Component {
                       <option value="tagC">C</option>
                     </select>
                   </div>
+                  {/* trenger en for-loop her */}
                 </Column>
                 <Column right>
                   <div style={{ marginRight: '5px' }}>Filters:</div>
