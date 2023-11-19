@@ -48,7 +48,7 @@ export class Login extends Component<{ match: { params: { id: number } } }> {
                     console.log(this.username);
                   }}
                 >
-                  login
+                  Login
                 </Button.Success>
               </Column>
               <Column width={3}>

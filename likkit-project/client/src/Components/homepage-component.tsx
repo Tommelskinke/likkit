@@ -42,7 +42,7 @@ export class Menu extends Component {
                 </NavBar.Link>
               ) : (
                 <NavBar.Link to="/login">
-                  <Button.Success onClick={() => {}}>Login</Button.Success>
+                  <Button.Post onClick={() => {}}>Login</Button.Post>
                 </NavBar.Link>
               )}
             </Column>
