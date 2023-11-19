@@ -16,13 +16,6 @@ export type Question = {
   karma: number;
 };
 
-export type QuestionLite = {
-  username: string;
-  question_id: number;
-  user_id: number;
-  title: string;
-  content: string;
-};
 export type Comment = {
   username: string;
   user_pfp: string;
