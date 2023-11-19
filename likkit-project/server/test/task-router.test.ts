@@ -3,8 +3,8 @@ import pool from '../src/mysql-pool';
 import app from '../src/app';
 import taskService, { Question } from '../src/task-service';
 
-const currentDate = new Date();
-const formattedDate = currentDate.toISOString().slice(0, -5) + '.000Z';
+const date = new Date();
+const formattedDate = date.toISOString().slice(0, -6);
 
 const testQuestion: Question[] = [
   {
@@ -61,14 +61,14 @@ beforeEach((done) => {
         testQuestion[0].user_id,
         testQuestion[0].title,
         testQuestion[0].content,
-        /*testQuestion[0].username,*/
+        testQuestion[0].username,
       )
       .then(() =>
         taskService.questionCreate(
           testQuestion[1].user_id,
           testQuestion[1].title,
           testQuestion[1].content,
-          /*testQuestion[1].username,*/
+          testQuestion[1].username,
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
@@ -76,7 +76,7 @@ beforeEach((done) => {
           testQuestion[2].user_id,
           testQuestion[2].title,
           testQuestion[2].content,
-          /*testQuestion[2].username,*/
+          testQuestion[2].username,
         ),
       ) // Create testQuestion[2] after testQuestion[1] has been created
       .then(() => done()); // Call done() after testQuestion[2] has been created
@@ -98,6 +98,7 @@ describe('Fetch posts (GET)', () => {
       done();
     });
   });
+
   test('Fetch post (200 OK)', (done) => {
     axios.get('/posts/1').then((response) => {
       expect(response.status).toEqual(200);
@@ -106,7 +107,7 @@ describe('Fetch posts (GET)', () => {
     });
   });
 
-  test('Fetch post (404 Not Found)', (done) => {
+  test('Failing to fetch post that doesnt exitst (404 Not Found)', (done) => {
     axios
       .get('/posts/4')
       .then((_response) => done(new Error()))
@@ -117,20 +118,19 @@ describe('Fetch posts (GET)', () => {
   });
 });
 
-/*
-describe('Create new post (POST)', () => {
-  test('Create new post (200 OK)', (done) => {
-    axios
-      .post('/posts', {
-        user_id: '4',
-        title: 'Yellow Submarine',
-        content: 'We all live in a',
-        username: 'Nygma',
-      })
-      .then((response) => {
-        expect(response.status).toEqual(200);
-        expect(response.data).toEqual({ id: 4 });
-        done();
-      });
+describe('Create new question (POST)', () => {
+  const newQuestion = {
+    user_id: 4,
+    title: 'New Question',
+    content: 'This is a new question.',
+    username: 'new_user',
+  };
+
+  test('Create new question (200 OK)', (done) => {
+    axios.post('/posts', newQuestion).then((response) => {
+      expect(response.status).toEqual(404);
+      expect(response.data).toEqual({ question_id: 4 });
+      done();
+    });
   });
-});*/
+});

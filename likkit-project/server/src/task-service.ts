@@ -1,6 +1,9 @@
 import pool from './mysql-pool';
 import type { RowDataPacket, ResultSetHeader } from 'mysql2';
 
+const date = new Date();
+const formattedDate = date.toISOString().slice(0, -6);
+
 export type Question = {
   username: string;
   question_id: number;
@@ -145,11 +148,11 @@ class TaskService {
     });
   }
   //creates a post
-  questionCreate(user_id: number, title: string, content: string) {
+  questionCreate(user_id: number, title: string, content: string, username: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO question SET user_id=?, title=?, content=?',
-        [user_id, title, content],
+        'INSERT INTO question SET user_id=?, title=?, content=?, username=?, created_at=?',
+        [user_id, title, content, username, formattedDate],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
@@ -158,30 +161,7 @@ class TaskService {
       );
     });
   }
-  /*
-  //creates a post for the test database
-  testQuestionCreate(
-    user_id: number,
-    title: string,
-    content: string,
-    created_at: string,
-    upvotes: number,
-    downvotes: number,
-    karma: number,
-  ) {
-    return new Promise<number>((resolve, reject) => {
-      pool.query(
-        'INSERT INTO question SET user_id=?, title=?, content=?, created_at=?, upvotes=?, downvotes=?, karma=?',
-        [user_id, title, content, created_at, upvotes, downvotes, karma],
-        (error, results: ResultSetHeader) => {
-          if (error) return reject(error);
 
-          resolve(results.insertId);
-        },
-      );
-    });
-  }
-  */
   //Edits a post
   questionEdit(title: string, content: string, question_id: number) {
     return new Promise<void>((resolve, reject) => {
