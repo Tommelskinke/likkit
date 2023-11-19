@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserContext, UserProvider } from '../authState';
+import { UserContext, UserProvider, handleLogout } from '../authState';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question } from '../question-service';
@@ -24,39 +24,52 @@ export class Menu extends Component {
             }
             id="test"
           >
-            <Column width={3}>
+            <Column width={2}>
               <NavBar.Link to="/">
-                <h1>likkit</h1>
+                <div>
+                  <h1>likkit</h1>
+                </div>
               </NavBar.Link>
             </Column>
             <Column width={6} none>
-              <SearchContainer />
+              <div>
+                <SearchContainer />
+              </div>
             </Column>
             <Column width={1} right>
               {userData?.user_id ? (
-                <NavBar.Link to="/user">
-                  <img
-                    src={userData.user_pfp}
-                    alt="User profile picture"
-                    style={{ borderRadius: '50%' }}
-                  />
-                </NavBar.Link>
+                <div>
+                  <NavBar.Link to="/user">
+                    <img
+                      src={userData.user_pfp}
+                      alt="User profile picture"
+                      style={{ borderRadius: '50%' }}
+                    />
+                  </NavBar.Link>
+                </div>
               ) : (
                 <NavBar.Link to="/login">
                   <Button.Post onClick={() => {}}>Login</Button.Post>
                 </NavBar.Link>
               )}
             </Column>
-            <Column width={3} none>
-              {userData?.user_id ? (
-                <>
+            {userData?.user_id ? (
+              <>
+                <Column width={2} none>
                   <Row>
-                    Logged in as <b>{userData.username}</b>
+                    <div>
+                      Logged in as <b>{userData.username}</b>
+                    </div>
                   </Row>
-                  <Row>likks: 371</Row>
-                </>
-              ) : null}
-            </Column>
+                  <Row>
+                    <div>likks:</div>
+                  </Row>
+                </Column>
+                <Column width={1} right>
+                  <Button.Danger onClick={handleLogout}>Log out</Button.Danger>
+                </Column>
+              </>
+            ) : null}
           </NavBar>
         )}
       </UserContext.Consumer>

@@ -28,6 +28,21 @@ fetch('/api/userinfo')
   })
   .catch((error) => console.error(error));
 
+export function handleLogout() {
+  fetch('/logout')
+    .then((response) => {
+      if (response.ok) {
+        window.location.href = '/';
+      } else {
+        console.error('Failed to log out');
+      }
+    })
+    .catch((error) => {
+      console.error('Logout error: ', error);
+      // Handle error case
+    });
+}
+
 // Create a context with an initial empty state
 export const UserContext = React.createContext<UserData | null>(null);
 

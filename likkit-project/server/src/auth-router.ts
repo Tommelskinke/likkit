@@ -28,4 +28,27 @@ router.get('/api/userinfo', (req, res) => {
   }
 });
 
+router.get('/logout', (request, response) => {
+  request.logout((error) => {
+    if (error) {
+      // Handle the error
+      return response.status(500).send('Could not log out, please try again.');
+    }
+    // Destroying the session and sending a response
+    if (request.session) {
+      console.log('User logged out');
+      request.session.destroy((error) => {
+        if (error) {
+          // Handle the error
+          return response.status(500).send('Could not log out, please try again.');
+        }
+        response.clearCookie('connect.sid'); // Clear the session cookie
+        return response.redirect('/'); // Redirect to home page or login page
+      });
+    } else {
+      response.redirect('/');
+    }
+  });
+});
+
 export default router;
