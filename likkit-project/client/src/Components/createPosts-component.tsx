@@ -4,6 +4,7 @@ import { Component } from 'react-simplified';
 import taskService, { Question } from '../question-service';
 import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
 import { createHashHistory } from 'history';
+import EditorComponent from './editor-component';
 
 const history = createHashHistory();
 
@@ -111,12 +112,10 @@ export class CreatePost extends Component {
             <Row marginBottom={5}>
               <Column width={2}></Column>
               <Column width={9} none>
-                <Form.Textarea
-                  type="text"
-                  value={this.content}
-                  onChange={(event) => (this.content = event.currentTarget.value)}
-                  placeholder="Write your post here..."
-                  style={{ height: '55vh' }}
+                <EditorComponent
+                  onContentChange={(content: string) => {
+                    this.content = content;
+                  }}
                 />
               </Column>
             </Row>

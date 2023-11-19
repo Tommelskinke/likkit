@@ -19,6 +19,7 @@ import {
   SoMeInstaLink,
   SoMeXLink,
 } from '../widgets';
+import DOMPurify from 'dompurify';
 
 const history = createHashHistory();
 
@@ -370,7 +371,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       {downLikk}
                     </Button.Vote>
                   </Column>
-                  <Column>{this.question.content}</Column>
+                  <Column>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(this.question.content),
+                      }}
+                    />
+                  </Column>
                   <Column width={1}></Column>
                 </Row>
                 <Row>
