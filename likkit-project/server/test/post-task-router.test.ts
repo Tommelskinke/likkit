@@ -8,7 +8,7 @@ const formattedDate = date.toISOString().slice(0, -9);
 
 const testQuestion: Question[] = [
   {
-    username: 'batman',
+    username: null,
     question_id: 1,
     user_id: 1,
     title: 'Help',
@@ -19,7 +19,7 @@ const testQuestion: Question[] = [
     karma: 0,
   },
   {
-    username: 'robin',
+    username: null,
     question_id: 2,
     user_id: 2,
     title: 'Yesterday',
@@ -30,7 +30,7 @@ const testQuestion: Question[] = [
     karma: 0,
   },
   {
-    username: 'alfred',
+    username: null,
     question_id: 3,
     user_id: 3,
     title: 'Hey Jude',
@@ -57,18 +57,12 @@ beforeEach((done) => {
 
     // Create testQuestions sequentially in order to set correct id, and call done() when finished
     taskService
-      .questionCreate(
-        testQuestion[0].user_id,
-        testQuestion[0].title,
-        testQuestion[0].content,
-        testQuestion[0].username,
-      )
+      .questionCreate(testQuestion[0].user_id, testQuestion[0].title, testQuestion[0].content)
       .then(() =>
         taskService.questionCreate(
           testQuestion[1].user_id,
           testQuestion[1].title,
           testQuestion[1].content,
-          testQuestion[1].username,
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
@@ -76,7 +70,6 @@ beforeEach((done) => {
           testQuestion[2].user_id,
           testQuestion[2].title,
           testQuestion[2].content,
-          testQuestion[2].username,
         ),
       ) // Create testQuestion[2] after testQuestion[1] has been created
       .then(() => done()); // Call done() after testQuestion[2] has been created
