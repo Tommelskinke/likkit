@@ -27,16 +27,7 @@ export class UserProfile extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          height: '100%',
-          width: '100%',
-        }}
-      >
+      <div className="background">
         <div style={{ margin: '1%', marginLeft: '15%', marginRight: '15%' }}>
           <Card title="" backgroundColor="rgb(90,90,90)">
             <Row>
