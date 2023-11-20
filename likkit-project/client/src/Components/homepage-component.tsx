@@ -218,9 +218,9 @@ export class Home extends Component {
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
                         <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
                         <p>{post.title}</p>
-                        <p style={{ fontSize: '14px', fontWeight: 'normal' }}>
+                        <div style={{ fontSize: '14px', fontWeight: 'normal' }}>
                           <PrettyPreview htmlContent={post.content} maxLength={100} />
-                        </p>
+                        </div>
                       </div>
                     </Button.Post>
                   </Card>

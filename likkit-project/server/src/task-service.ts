@@ -141,11 +141,11 @@ class TaskService {
     });
   }
   //creates a post
-  questionCreate(user_id: number, title: string, content: string, username: string) {
+  questionCreate(user_id: number, title: string, content: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO question SET user_id=?, title=?, content=?, username=?, created_at=?',
-        [user_id, title, content, username, formattedDate],
+        'INSERT INTO question SET user_id=?, title=?, content=?, created_at=?',
+        [user_id, title, content, formattedDate],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
