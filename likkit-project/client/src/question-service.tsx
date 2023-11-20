@@ -11,7 +11,6 @@ export type Question = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
 };
 export type Comment = {
   answer_id: number;
@@ -25,7 +24,6 @@ export type Comment = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
 };
 
 export type Answer = {
@@ -38,7 +36,6 @@ export type Answer = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
 };
 
 export type Tag = {

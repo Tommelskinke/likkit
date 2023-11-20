@@ -63,7 +63,7 @@ export class Menu extends Component {
                   </Row>
                   <Row>
                     <div>likks:</div>
-                  </Row>
+                  </Row> 
                 </Column>
                 <Column width={1} right>
                   <Button.Danger onClick={handleLogout}>Log out</Button.Danger>
@@ -204,7 +204,8 @@ export class Home extends Component {
                         {downLikk}
                       </Button.Vote>
                     </div>
-
+                    
+                    {/*Koden her gir error siden den ikke liker at vi har en knapp og annet innhold inne i en knapp*/}
                     <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
                       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
                         <p style={{ position: 'absolute', top: '0', left: '10' }}></p>

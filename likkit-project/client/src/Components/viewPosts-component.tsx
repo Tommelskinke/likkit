@@ -33,7 +33,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     created_at: '',
     upvotes: 2,
     downvotes: 1,
-    karma: 1,
   };
 
   answer: Answer = {
@@ -46,7 +45,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     created_at: '',
     upvotes: 0,
     downvotes: 0,
-    karma: 0,
   };
   writeComment: string = '';
 
