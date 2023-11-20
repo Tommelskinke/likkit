@@ -47,6 +47,13 @@ router.get('/postsNew', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//gets all unanswered posts
+router.get('/postsUnanswered', (_request, response) => {
+  taskService
+    .questionGetUnanswered()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
 //gets the newest post in the database
 router.get('/createPost/new', (_request, response) => {
   taskService

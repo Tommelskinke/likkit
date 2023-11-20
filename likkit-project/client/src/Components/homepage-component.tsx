@@ -82,6 +82,7 @@ export class Home extends Component {
   posts: Question[] = [];
   postsNew: Question[] = [];
   postsPopular: Question[] = [];
+  postsUnanswered: Question[] = [];
   selectedOption: string = 'popular'; // default selected option
 
   handleSortChange = (event: any) => {
@@ -92,6 +93,8 @@ export class Home extends Component {
       taskService.questionGetThree().then((posts) => (this.posts = posts));
     } else if (selectedOption === 'newest') {
       taskService.questionGetThreeNew().then((posts) => (this.posts = posts));
+    } else if (selectedOption === 'unanswered') {
+      taskService.questionGetUnanswered().then((posts) => (this.posts = posts));
     }
     this.forceUpdate(); // Trigger a re-render
   };
@@ -165,6 +168,7 @@ export class Home extends Component {
                     >
                       <option value="popular">Popular</option>
                       <option value="newest">Newest</option>
+                      <option value="unanswered">Unanswered</option>
                     </select>
                   </div>
                 </Column>
@@ -260,6 +264,9 @@ export class Home extends Component {
   mounted() {
     taskService.questionGetThree().then((posts) => (this.posts = posts));
     taskService.questionGetThreeNew().then((postsNew) => (this.postsNew = postsNew));
+    taskService
+      .questionGetUnanswered()
+      .then((postsUnanswered) => (this.postsUnanswered = this.postsUnanswered));
   }
 }
 

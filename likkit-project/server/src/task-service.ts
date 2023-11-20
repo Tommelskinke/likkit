@@ -140,6 +140,20 @@ class TaskService {
       );
     });
   }
+
+  //gets every unanswered question
+  questionGetUnanswered() {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question q WHERE q.question_id NOT IN (SELECT a.question_id FROM answer a)',
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as Question[]);
+        },
+      );
+    });
+  }
   //creates a post
   questionCreate(user_id: number, title: string, content: string) {
     return new Promise<number>((resolve, reject) => {

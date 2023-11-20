@@ -65,6 +65,10 @@ class TaskService {
     return axios.get<Question[]>('/postsNew').then((response) => response.data);
   }
 
+  //gets every unanswered question
+  questionGetUnanswered() {
+    return axios.get<Question[]>('/postsUnanswered').then((response) => response.data);
+  }
   //gets the newest post in the database
   questionGetNewest() {
     return axios.get<Question>('/createPost/new').then((response) => response.data);
