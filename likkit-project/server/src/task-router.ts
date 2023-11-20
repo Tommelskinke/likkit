@@ -372,4 +372,11 @@ router.post('/favorites/remove', (request, response) => {
     });
 });
 
+router.delete('/tasks/:id', (request, response) => {
+  taskService
+    .postDelete(Number(request.params.id))
+    .then((_result) => response.send())
+    .catch((error) => response.status(500).send(error));
+});
+
 export default router;
