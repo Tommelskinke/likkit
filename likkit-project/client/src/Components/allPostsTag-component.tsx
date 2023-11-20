@@ -6,7 +6,7 @@ import { createHashHistory } from 'history';
 
 const history = createHashHistory();
 
-export class AllPosts extends Component {
+export class AllPostsTag extends Component {
   search: string = '';
   posts: Question[] = [];
   selectedOption: string = 'popular';
@@ -15,10 +15,14 @@ export class AllPosts extends Component {
     const selectedOption = event.target.value;
     this.selectedOption = selectedOption;
 
-    if (selectedOption === 'popular') {
-      taskService.questionGetAll().then((posts) => (this.posts = posts));
-    } else if (selectedOption === 'newest') {
-      taskService.questionGetAllNew().then((posts) => (this.posts = posts));
+    if (selectedOption === '1') {
+      taskService.questionGetAllTag(1).then((posts) => (this.posts = posts));
+    } else if (selectedOption === '2') {
+      taskService.questionGetAllTag(2).then((posts) => (this.posts = posts));
+    } else if (selectedOption === '3') {
+      taskService.questionGetAllTag(3).then((posts) => (this.posts = posts));
+    } else if (selectedOption === '4') {
+      taskService.questionGetAllTag(4).then((posts) => (this.posts = posts));
     }
     this.forceUpdate(); // Trigger a re-render
   };
@@ -65,7 +69,7 @@ export class AllPosts extends Component {
               <div
                 style={{ color: 'white', fontWeight: 'bold', fontSize: '20px', marginLeft: '5px' }}
               >
-                <Column>Sort by:</Column>
+                <Column>Sort by tags:</Column>
                 <Column>
                   <div style={{ marginLeft: '10px' }}>
                     <select
@@ -82,16 +86,15 @@ export class AllPosts extends Component {
                       onChange={this.handleSortChange}
                       value={this.selectedOption}
                     >
-                      <option value="popular">Popular</option>
-                      <option value="newest">Newest</option>
+                      <option value="1">Solved</option>
+                      <option value="2">JavaScript</option>
+                      <option value="3">Rust</option>
+                      <option value="4">Linux</option>
                     </select>
                   </div>
                 </Column>
-              
                 <Column right>
-                  <Button.Light onClick={() => history.push('/tags')}>
-                    Sort by tags
-                  </Button.Light>
+                  <div style={{ marginRight: '5px' }}>Posts with this tag: {this.posts.length}</div>
                 </Column>
               </div>
             </Row>
@@ -140,6 +143,6 @@ export class AllPosts extends Component {
     );
   }
   mounted() {
-    taskService.questionGetAll().then((posts) => (this.posts = posts));
+    taskService.questionGetAllTag(1).then((posts) => (this.posts = posts));
   }
 }

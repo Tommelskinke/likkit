@@ -8,6 +8,7 @@ import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
 import { Login } from './Components/auth-component';
 import { AllPosts } from './Components/allPosts-component';
+import { AllPostsTag } from './Components/allPostsTag-component';
 import { EditPost } from './Components/editPosts-component';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
@@ -32,7 +33,7 @@ if (root) {
             <Alert />
             <Menu />
             <Route exact path="/" component={Home} />
-            <Route exact path="/tags" component={TagList} />
+            <Route exact path="/tags" component={AllPostsTag} />
             <Route exact path="/createPost" component={CreatePost} />
             <Route exact path="/editPost/:id" component={EditPost} />
             <Route exact path="/favorites" component={FavoriteList} />

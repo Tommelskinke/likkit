@@ -226,6 +226,21 @@ class TaskService {
       );
     });
   }
+  //get all posts with a given tag
+  questionGetAllTag(tag_id: number) {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question WHERE question_id IN (SELECT question_id FROM question_tag WHERE tag_id = ?)',
+        [tag_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as Question[]);
+        },
+      );
+    });
+  }
+
   //get comments on a post from the database
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
