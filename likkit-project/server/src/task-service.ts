@@ -44,6 +44,11 @@ export type tag = {
   tag_name: string;
 };
 
+export type Favorites = {
+  question_id: number;
+  answer_id: number | null;
+};
+
 class TaskService {
   //gets a post based on id
   questionGet(question_id: number) {
@@ -355,41 +360,41 @@ class TaskService {
     });
   }
 
-    //Setter et svar som beste
-    bestAnswer(answer_id: number): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
-        pool.query(
-          'UPDATE answer SET best_answer = 1 WHERE answer_id = ?',
-          [answer_id],
-          (error, results: ResultSetHeader) => {
-            if (error) return reject(error);
-            if (results.affectedRows === 0) {
-              reject(new Error('Answer not found'));
-            } else {
-              resolve();
-            }
-          },
-        );
-      });
-    }
+  //Setter et svar som beste
+  bestAnswer(answer_id: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'UPDATE answer SET best_answer = 1 WHERE answer_id = ?',
+        [answer_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows === 0) {
+            reject(new Error('Answer not found'));
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 
-    //Setter et svar som ikke beste
-    notBestAnswer(answer_id: number): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
-        pool.query(
-          'UPDATE answer SET best_answer = 0 WHERE answer_id = ?',
-          [answer_id],
-          (error, results: ResultSetHeader) => {
-            if (error) return reject(error);
-            if (results.affectedRows === 0) {
-              reject(new Error('Answer not found'));
-            } else {
-              resolve();
-            }
-          },
-        );
-      });
-    }       
+  //Setter et svar som ikke beste
+  notBestAnswer(answer_id: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'UPDATE answer SET best_answer = 0 WHERE answer_id = ?',
+        [answer_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows === 0) {
+            reject(new Error('Answer not found'));
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 
   // Henter alle kommentarer som er marker som best av en bruker
   getBestComments(user_id: number) {
@@ -506,6 +511,49 @@ class TaskService {
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
+
+  getUserFavorites(user_id: number) {
+    return new Promise<Favorites[]>((resolve, reject) => {
+      pool.query(
+        'SELECT question_id, answer_id FROM favorites WHERE user_id = ?',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as Favorites[]);
+        },
+      );
+    });
+  }
+
+  addFavorite(user_id: number, question_id: number, answer_id: number | null) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'INSERT INTO favorites SET user_id=?, question_id=?, answer_id=?',
+        [user_id, question_id, answer_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+
+          resolve(results.insertId);
+        },
+      );
+    });
+  }
+
+  removeFavorite(user_id: number, question_id: number, answer_id: number | null) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'DELETE FROM favorites WHERE user_id=? AND question_id=? AND answer_id=?',
+        [user_id, question_id, answer_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          console.log(user_id, question_id, answer_id);
+          console.log(results);
           resolve(results.insertId);
         },
       );

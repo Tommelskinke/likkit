@@ -43,6 +43,11 @@ export type Tag = {
   tag_name: string;
 };
 
+export type Favorites = {
+  question_id: number;
+  answer_id: number | null;
+};
+
 class TaskService {
   //gets a post based on id
   questionGet(question_id: number) {
@@ -150,14 +155,12 @@ class TaskService {
   }
   //Setter svar som best
   bestAnswer(answer_id: number) {
-    return axios.post('/posts/answers/' + answer_id + '/best'), {
-    };
+    return axios.post('/posts/answers/' + answer_id + '/best'), {};
   }
 
   //Setter svar som ikke best
   notBestAnswer(answer_id: number) {
-    return axios.post('/posts/answers/' + answer_id + '/notBest'), {
-    };
+    return axios.post('/posts/answers/' + answer_id + '/notBest'), {};
   }
 
   createCommentReply(
@@ -173,6 +176,26 @@ class TaskService {
         user_id: user_id,
       })
       .then((response) => response.data);
+  }
+
+  getUserFavorites(user_id: number) {
+    return axios
+      .get<Favorites[]>('/favorites', { params: { user_id } })
+      .then((response) => response.data);
+  }
+
+  addFavorite(user_id: number, question_id: number, answer_id: number | null) {
+    return axios
+      .post('/favorites', { user_id, question_id, answer_id })
+      .then((response) => response.data);
+  }
+
+  removeFavorite(user_id: number, question_id: number, answer_id: number | null) {
+    return axios
+      .post<{ id: number }>('/favorites/remove', { user_id, question_id, answer_id })
+      .then((response) => {
+        response.data.id;
+      });
   }
 }
 

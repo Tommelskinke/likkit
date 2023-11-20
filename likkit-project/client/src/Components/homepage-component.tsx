@@ -2,7 +2,7 @@ import React from 'react';
 import { UserContext, UserProvider, handleLogout } from '../authState';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
-import taskService, { Question } from '../question-service';
+import taskService, { Question, Favorites } from '../question-service';
 import { createHashHistory } from 'history';
 import SearchContainer from './searchContainer-component';
 import PrettyPreview from './prettyPreview-component';
@@ -11,6 +11,7 @@ const history = createHashHistory();
 
 export class Menu extends Component {
   search: string = '';
+
   render() {
     return (
       <UserContext.Consumer>
@@ -79,11 +80,17 @@ export class Menu extends Component {
 
 export class Home extends Component {
   search: string = '';
+  user_id: number = Number(sessionStorage.getItem('user_id'));
   posts: Question[] = [];
+  userFavorites: Favorites[] = [];
   postsNew: Question[] = [];
   postsPopular: Question[] = [];
   postsUnanswered: Question[] = [];
   selectedOption: string = 'popular'; // default selected option
+
+  state = {
+    favoriteState: false,
+  };
 
   handleSortChange = (event: any) => {
     const selectedOption = event.target.value;
@@ -242,13 +249,37 @@ export class Home extends Component {
                         </div>
                       </Column>
                       <Column width={2} right>
-                        <img
-                          style={{
-                            cursor: 'pointer',
-                          }}
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                          alt="Empty picture of star used for favorites"
-                        />
+                        <div>
+                          {this.userFavorites.some(
+                            (favorite) => favorite.question_id == post.question_id,
+                          ) ? (
+                            <img
+                              style={{ cursor: 'pointer' }}
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+                              alt="Filled picture of gold star, indicates favorites"
+                              onClick={() => {
+                                taskService
+                                  .removeFavorite(this.user_id, post.question_id, null)
+                                  .then(() => {
+                                    console.log('reeeeee');
+                                  });
+                              }}
+                            />
+                          ) : (
+                            <img
+                              style={{ cursor: 'pointer' }}
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                              alt="Empty picture of star, indicates not favorites"
+                              onClick={() => {
+                                taskService
+                                  .addFavorite(this.user_id, post.question_id, null)
+                                  .then(() => {
+                                    window.location.reload();
+                                  });
+                              }}
+                            />
+                          )}
+                        </div>
                       </Column>
                     </Row>
                   </Card>
@@ -264,6 +295,10 @@ export class Home extends Component {
   mounted() {
     taskService.questionGetThree().then((posts) => (this.posts = posts));
     taskService.questionGetThreeNew().then((postsNew) => (this.postsNew = postsNew));
+    taskService.getUserFavorites(this.user_id).then((userFavorites) => {
+      this.userFavorites = userFavorites;
+      console.log(userFavorites);
+    });
     taskService
       .questionGetUnanswered()
       .then((postsUnanswered) => (this.postsUnanswered = this.postsUnanswered));
@@ -308,7 +343,16 @@ export class CreatePost extends Component {
 
   render() {
     return (
-      <div className="background">
+      <div
+        style={{
+          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          justifyContent: 'center',
+          height: '150vh',
+        }}
+      >
         <div
           style={{
             margin: '1%',
