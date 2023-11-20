@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Tag } from '../question-service';
-import { Card, Row, Column, Form, Button } from '../widgets';
+import { Card, Row, Column, Form, Button, deleteButton } from '../widgets';
 import { createHashHistory } from 'history';
 import EditorComponent from './editor-component';
 
@@ -42,17 +42,33 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
           <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
             <Row marginBottom={3}>
               <Column width={2}>
-                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>Title </div>
+                <div
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: '20px',
+                    textAlign: 'center',
+                  }}
+                >
+                  Title
+                </div>
               </Column>
-              <Column width={7} none>
-                <Form.Input
-                  type="text"
-                  value={this.questionNew.title}
-                  onChange={(event) => (this.questionNew.title = event.currentTarget.value)}
-                  placeholder="Title..."
-                />
+              <Column width={9} none />
+              <Column width={1}>
+                <Button.Vote>{deleteButton}</Button.Vote>
               </Column>
+              <div className="d-flex justify-content-center align-items-center">
+                <Column width={7} none>
+                  <Form.Input
+                    type="text"
+                    value={this.questionNew.title}
+                    onChange={(event) => (this.questionNew.title = event.currentTarget.value)}
+                    placeholder="Title..."
+                  />
+                </Column>
+              </div>
             </Row>
+
             <Row marginBottom={3}>
               <Column width={1}>
                 <div style={{ color: 'white', fontSize: '14px' }}>Solved?</div>

@@ -3,6 +3,12 @@ import { ReactNode, ChangeEvent } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
 
+export const deleteButton = (
+  <img
+    src="https://png.pngtree.com/png-vector/20220816/ourmid/pngtree-long-shadow-flat-design-container-button-with-trash-can-icon-vector-png-image_19524360.png"
+    alt="Hvit søppelkasse med rød bakgrunn"
+  />
+);
 export const upLikk = (
   <img
     src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eo_circle_blue_arrow-up.svg/2048px-Eo_circle_blue_arrow-up.svg.png"
