@@ -71,7 +71,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       this.state.activeButtonId !== comment.answer_id
     ) {
       return (
-        <Column width={4} none>
+        <Column width={8} none>
           <Button.Share
             onClick={() => {
               this.handleButtonClick(comment.answer_id);
@@ -297,7 +297,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 </Card>
               </div>
             </Row>
+
             <Row>{this.rendercommentButton(reply)}</Row>
+
             <Row>{this.rendercommentSection(reply)}</Row>
           </Row>
           {this.mapComments(comments, reply.answer_id, depth + 1)}
