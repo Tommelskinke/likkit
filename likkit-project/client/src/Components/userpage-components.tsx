@@ -217,9 +217,9 @@ export class UserProfile extends Component {
                                 >
                                   <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
                                   <p>{data.title}</p>
-                                  <p style={{ fontSize: '14px', fontWeight: 'normal' }}>
+                                  <div style={{ fontSize: '14px', fontWeight: 'normal' }}>
                                     <PrettyPreview htmlContent={data.content} maxLength={100} />
-                                  </p>
+                                  </div>
                                 </div>
                               </Button.Post>
                             </>
