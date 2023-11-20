@@ -129,7 +129,7 @@ router.get('/posts/tags/:id', (request, response) => {
 router.get('/posts/:id/comments', (request, response) => {
   const id = Number(request.params.id);
   taskService
-    .questionGetAllTag(id)
+    .commentsGet(id)
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });
