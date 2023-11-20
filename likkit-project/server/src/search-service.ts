@@ -6,14 +6,13 @@ export type QuestionSummary = {
   title: string;
   content: string;
   created_at: string;
-  karma: number;
 };
 
 class SearchService {
   searchQuestions(query: string) {
     return new Promise<QuestionSummary[]>((resolve, reject) => {
       pool.query(
-        'SELECT question_id, title, content, created_at, karma FROM question WHERE MATCH(title, content) AGAINST (? IN NATURAL LANGUAGE MODE)',
+        'SELECT question_id, title, content, created_at FROM question WHERE MATCH(title, content) AGAINST (? IN NATURAL LANGUAGE MODE)',
         [query],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);

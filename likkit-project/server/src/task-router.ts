@@ -116,6 +116,15 @@ router.get('/posts/:id/tag', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//get all posts with a given tag
+router.get('/posts/tags/:id', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .questionGetAllTag(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
 //get comments on a post from the database
 router.get('/posts/:id/comments', (request, response) => {
   const id = Number(request.params.id);

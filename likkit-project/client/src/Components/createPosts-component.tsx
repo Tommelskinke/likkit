@@ -23,7 +23,6 @@ export class CreatePost extends Component {
     created_at: '',
     upvotes: 0,
     downvotes: 0,
-    karma: 0,
   };
 
   questionSolved: boolean = false;

@@ -186,34 +186,67 @@ export class Home extends Component {
                     marginBottom={3}
                     key={i}
                   >
-                    <div
-                      style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: '25px',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Button.Vote onClick={() => this.handleUpvote(post.question_id)}>
-                        {upLikk}
-                      </Button.Vote>
-                      <p style={{ margin: '0 10px' }}>{post.upvotes - post.downvotes}</p>
-                      <Button.Vote onClick={() => this.handleDownvote(post.question_id)}>
-                        {downLikk}
-                      </Button.Vote>
-                    </div>
-
-                    <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
-                      <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
-                        <p style={{ position: 'absolute', top: '0', left: '10' }}></p>
-                        <p>{post.title}</p>
-                        <div style={{ fontSize: '14px', fontWeight: 'normal' }}>
-                          <PrettyPreview htmlContent={post.content} maxLength={100} />
+                    <Row>
+                      <Column width={2}>
+                        <div
+                          style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '25px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            alignContent: 'center',
+                          }}
+                        >
+                          <Column width={4}>
+                            <Button.Vote onClick={() => this.handleUpvote(post.question_id)}>
+                              {upLikk}
+                            </Button.Vote>
+                          </Column>
+                          <Column width={4}>
+                            <p style={{ margin: '0 10px' }}>{post.upvotes - post.downvotes}</p>
+                          </Column>
+                          <Column width={4}>
+                            <Button.Vote onClick={() => this.handleDownvote(post.question_id)}>
+                              {downLikk}
+                            </Button.Vote>
+                          </Column>
                         </div>
-                      </div>
-                    </Button.Post>
+                      </Column>
+                      <Column width={8} none>
+                        {/*Koden her gir error siden den ikke liker at vi har en knapp og annet innhold inne i en knapp*/}
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => history.push('/posts/' + post.question_id)}
+                        >
+                          <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
+                            <p style={{ alignItems: 'center', alignContent: 'center' }}>
+                              {post.title}
+                            </p>
+                            <div style={{ fontSize: '14px', fontWeight: 'normal' }}>
+                              <PrettyPreview htmlContent={post.content} maxLength={100} />
+                            </div>
+                          </div>
+                        </div>
+                      </Column>
+                      <Column width={2} right>
+                        <img
+                          style={{
+                            cursor: 'pointer',
+                          }}
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                          alt="Empty picture of star used for favorites"
+                        />
+                      </Column>
+                    </Row>
                   </Card>
                 ))}
               </Row>

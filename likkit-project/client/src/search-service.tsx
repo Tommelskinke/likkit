@@ -7,7 +7,6 @@ export type QuestionSummary = {
   title: string;
   content: string;
   created_at: string;
-  karma: number;
 };
 
 class SearchService {

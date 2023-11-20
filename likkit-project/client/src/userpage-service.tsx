@@ -8,7 +8,6 @@ export type UserComment = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
   title: string;
   question_id: number;
 };

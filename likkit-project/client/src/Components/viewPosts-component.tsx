@@ -33,7 +33,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     created_at: '',
     upvotes: 2,
     downvotes: 1,
-    karma: 1,
   };
 
   answer: Answer = {
@@ -46,7 +45,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     created_at: '',
     upvotes: 0,
     downvotes: 0,
-    karma: 0,
   };
   writeComment: string = '';
 
@@ -264,6 +262,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
                 <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                 {this.renderSocialButtons()}
+                <img
+                  style={{
+                    cursor: 'pointer',
+                  }}
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                  alt="Empty picture of star used for favorites"
+                />
               </div>
               <div
                 style={{
@@ -530,7 +535,15 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
                               <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                               {this.renderSocialButtons()}
+                              <img
+                                style={{
+                                  cursor: 'pointer',
+                                }}
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                                alt="Empty picture of star used for favorites"
+                              />
                             </div>
+
                             <div
                               style={{
                                 color: 'white',

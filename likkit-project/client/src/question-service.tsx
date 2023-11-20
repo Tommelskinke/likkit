@@ -11,7 +11,6 @@ export type Question = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
 };
 export type Comment = {
   answer_id: number;
@@ -25,7 +24,6 @@ export type Comment = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
 };
 
 export type Answer = {
@@ -38,7 +36,6 @@ export type Answer = {
   created_at: string;
   upvotes: number;
   downvotes: number;
-  karma: number;
 };
 
 export type Tag = {
@@ -104,6 +101,10 @@ class TaskService {
   //gets the tags a post have
   questionTagGet(question_id: number) {
     return axios.get<Tag[]>('/posts/' + question_id + '/tag/').then((response) => response.data);
+  }
+  ////get all posts with a given tag
+  questionGetAllTag(tag_id: number) {
+    return axios.get<Question[]>('/posts/tags/' + tag_id).then((response) => response.data);
   }
   //get comments on a post from the database
   commentsGet(question_id: number) {
