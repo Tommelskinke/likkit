@@ -106,6 +106,17 @@ class TaskService {
   questionGetAllTag(tag_id: number) {
     return axios.get<Question[]>('/posts/tags/' + tag_id).then((response) => response.data);
   }
+
+  questionRemove(question_id: number) {
+    return axios.delete('/posts/' + question_id).catch((error) => {
+      // Handle the error here
+      console.error('Error deleting post:', error);
+      throw error; // Rethrow the error to propagate it to the calling code
+    });
+  }
+  postDelete(question_id: number) {
+    return axios.delete('/posts/' + question_id).then((response) => response.data);
+  }
   //get comments on a post from the database
   commentsGet(question_id: number) {
     return axios

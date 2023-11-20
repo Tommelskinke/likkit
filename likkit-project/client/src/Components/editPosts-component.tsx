@@ -29,6 +29,22 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
   questionRust: boolean = false;
   questionLinux: boolean = false;
 
+  handleDelete = () => {
+    const { questionNew } = this;
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      taskService
+        .questionRemove(questionNew.question_id)
+        .then(() => {
+          // Redirect to the post list or homepage after deletion
+          history.push('/'); // Change this to the desired path
+        })
+        .catch((error) => {
+          console.error('Error deleting post:', error);
+          // Handle error as needed
+        });
+    }
+  };
+
   render() {
     return (
       <div className="background">
@@ -55,7 +71,22 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
               </Column>
               <Column width={9} none />
               <Column width={1}>
-                <Button.Vote>{deleteButton}</Button.Vote>
+                <Button.Vote onClick={this.handleDelete}>Delete</Button.Vote>
+                <button
+                  onClick={async () => {
+                    try {
+                      await taskService.questionRemove(this.questionNew.question_id);
+                      // If deletion is successful, update the component state by calling mounted
+                      this.mounted();
+                    } catch (error) {
+                      console.error('Error deleting post:', error);
+                      // Handle error as needed
+                    }
+                  }}
+                >
+                  Slett
+                </button>
+                <Button.Danger onClick={this.delete}>Delete</Button.Danger>
               </Column>
               <div className="d-flex justify-content-center align-items-center">
                 <Column width={7} none>
@@ -205,5 +236,8 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
           }
         });
       });
+  }
+  delete() {
+    taskService.postDelete(this.questionNew.question_id).then(() => history.push('/posts'));
   }
 }

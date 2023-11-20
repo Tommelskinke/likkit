@@ -186,15 +186,33 @@ class TaskService {
       );
     });
   }
-  questionRemove(question_id: number) {
-    return new Promise<Number>((resolve, reject) => {
+  questionRemove(question_id: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       pool.query(
         'DELETE FROM question where question_id=?',
         [question_id],
         (error, results: ResultSetHeader) => {
-          if (error) return reject(error);
+          if (error) {
+            console.error('Error deleting post:', error);
+            reject(error);
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 
-          resolve(results.insertId);
+  postDelete(question_id: number) {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'DELETE FROM question WHERE question_id = ?',
+        [question_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows == 0) return reject(new Error('No row deleted'));
+
+          resolve();
         },
       );
     });
