@@ -39,7 +39,8 @@ CREATE TABLE answer(
 	created_at VARCHAR(20),
 	upvotes INTEGER DEFAULT 0,
 	downvotes INTEGER DEFAULT 0,
-	karma INTEGER DEFAULT 0);
+	karma INTEGER DEFAULT 0,
+    question_id INTEGER DEFAULT 0);
 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk2 FOREIGN KEY(tag_id) REFERENCES tag (tag_id); 

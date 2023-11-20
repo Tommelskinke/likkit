@@ -125,6 +125,15 @@ router.get('/posts/:id/comments', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//get specific comment
+router.get('/posts/:id/comments/:id', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .commentsGet(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
 //creates a comment on a post
 router.post('/posts/:id', (request, response) => {
   const data = request.body;
