@@ -140,6 +140,20 @@ class TaskService {
       );
     });
   }
+
+  //gets every unanswered question
+  questionGetUnanswered() {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question q WHERE q.question_id NOT IN (SELECT a.question_id FROM answer a)',
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as Question[]);
+        },
+      );
+    });
+  }
   //creates a post
   questionCreate(user_id: number, title: string, content: string) {
     return new Promise<number>((resolve, reject) => {
@@ -358,6 +372,42 @@ class TaskService {
       );
     });
   }
+
+    //Setter et svar som beste
+    bestAnswer(answer_id: number): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        pool.query(
+          'UPDATE answer SET best_answer = 1 WHERE answer_id = ?',
+          [answer_id],
+          (error, results: ResultSetHeader) => {
+            if (error) return reject(error);
+            if (results.affectedRows === 0) {
+              reject(new Error('Answer not found'));
+            } else {
+              resolve();
+            }
+          },
+        );
+      });
+    }
+
+    //Setter et svar som ikke beste
+    notBestAnswer(answer_id: number): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        pool.query(
+          'UPDATE answer SET best_answer = 0 WHERE answer_id = ?',
+          [answer_id],
+          (error, results: ResultSetHeader) => {
+            if (error) return reject(error);
+            if (results.affectedRows === 0) {
+              reject(new Error('Answer not found'));
+            } else {
+              resolve();
+            }
+          },
+        );
+      });
+    }       
 
   // Henter alle kommentarer som er marker som best av en bruker
   getBestComments(user_id: number) {

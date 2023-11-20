@@ -46,6 +46,8 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
   };
 
   render() {
+    const currentContent = String(this.questionNew.content)
+    console.log (currentContent)
     return (
       <div className="background">
         <div
@@ -150,6 +152,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
               <Column width={2}></Column>
               <Column width={9} none>
                 <EditorComponent
+                  initialValue= {currentContent}
                   onContentChange={(content: string) => {
                     this.questionNew.content = content;
                   }}
@@ -169,27 +172,19 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
                         )
                         .then(() => {});
 
-                      //gjør dette om til en forEach loop
-                      if (this.questionSolved) {
-                        taskService.questionTagCreate(this.questionNew.question_id, 1);
-                      } else {
-                        taskService.questionTagRemove(this.questionNew.question_id, 1);
-                      }
-                      if (this.questionJS) {
-                        taskService.questionTagCreate(this.questionNew.question_id, 2);
-                      } else {
-                        taskService.questionTagRemove(this.questionNew.question_id, 2);
-                      }
-                      if (this.questionRust) {
-                        taskService.questionTagCreate(this.questionNew.question_id, 3);
-                      } else {
-                        taskService.questionTagRemove(this.questionNew.question_id, 3);
-                      }
-                      if (this.questionLinux) {
-                        taskService.questionTagCreate(this.questionNew.question_id, 4);
-                      } else {
-                        taskService.questionTagRemove(this.questionNew.question_id, 4);
-                      }
+                      const tagsToCheck = [
+                        { condition: this.questionSolved, tagId: 1 },
+                        { condition: this.questionJS, tagId: 2 },
+                        { condition: this.questionRust, tagId: 3 },
+                        { condition: this.questionLinux, tagId: 4 },
+                      ];
+                      tagsToCheck.forEach(({ condition, tagId }) => {
+                        if (condition) {
+                          taskService.questionTagCreate(this.questionNew.question_id, tagId);
+                        } else {
+                          taskService.questionTagRemove(this.questionNew.question_id, tagId);
+                        }
+                      });
                       taskService.questionGetNewest().then(() => {});
                       setTimeout(() => {
                         history.push('/posts/' + this.questionNew.question_id);

@@ -65,6 +65,10 @@ class TaskService {
     return axios.get<Question[]>('/postsNew').then((response) => response.data);
   }
 
+  //gets every unanswered question
+  questionGetUnanswered() {
+    return axios.get<Question[]>('/postsUnanswered').then((response) => response.data);
+  }
   //gets the newest post in the database
   questionGetNewest() {
     return axios.get<Question>('/createPost/new').then((response) => response.data);
@@ -154,6 +158,17 @@ class TaskService {
   //downvoter en kommentar
   downvoteAnswer(answer_id: number) {
     return axios.post('/posts/answers/' + answer_id + '/downvote');
+  }
+  //Setter svar som best
+  bestAnswer(answer_id: number) {
+    return axios.post('/posts/answers/' + answer_id + '/best'), {
+    };
+  }
+
+  //Setter svar som ikke best
+  notBestAnswer(answer_id: number) {
+    return axios.post('/posts/answers/' + answer_id + '/notBest'), {
+    };
   }
 
   createCommentReply(

@@ -181,6 +181,19 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     this.forceUpdate();
   };
 
+  handleBestAnswer = (answer_id: number) => {
+    this.comments.forEach(comment => {
+      if (comment.answer_id == answer_id) {
+        taskService
+          .bestAnswer(answer_id)
+      } else if (comment.best_answer == true) {
+        taskService
+          .notBestAnswer(comment.answer_id)
+      }
+    });
+    window.location.reload() 
+  };
+
   handleUpvoteComment = (answerId: number) => {
     taskService
       .upvoteAnswer(answerId)
@@ -536,6 +549,21 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
                                 alt="Empty picture of star used for favorites"
                               />
+                              {this.user_id === this.question.user_id && (
+                                <div
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={() => this.handleBestAnswer(comment.answer_id)
+                                  }  
+                                >
+                                  <img
+                                    style={{
+                                    cursor: 'pointer',
+                                    }}
+                                    src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg"
+                                    alt="Picture of checkmark used for marking the best answer"
+                                  />
+                                </div>
+                          )}
                             </div>
 
                             <div
@@ -546,8 +574,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 display: 'flex',
                                 flexDirection: 'row',
                                 alignItems: 'stretch',
+                                
                               }}
                             >
+
+                              
                               <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
                                 <div
                                   style={{
@@ -558,6 +589,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                     flexDirection: 'row',
                                     alignItems: 'stretch',
                                     width: '100%',
+                                    backgroundColor: comment.best_answer ? 'rgb(60, 130, 60)' : 'rgb(60,60,60)'
                                   }}
                                 >
                                   <Column>{comment.content}</Column>

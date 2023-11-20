@@ -47,6 +47,13 @@ router.get('/postsNew', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//gets all unanswered posts
+router.get('/postsUnanswered', (_request, response) => {
+  taskService
+    .questionGetUnanswered()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
 //gets the newest post in the database
 router.get('/createPost/new', (_request, response) => {
   taskService
@@ -209,6 +216,36 @@ router.post('/posts/answers/:id/downvote', (request, response) => {
   taskService
     .downvoteAnswer(id)
     .then(() => response.send({ message: 'Downvote successful' }))
+    .catch((error) => {
+      if (error.message === 'Answer not found') {
+        response.status(404).send('Answer not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
+//Setter et svar som beste
+router.post('/posts/answers/:id/best', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .bestAnswer(id)
+    .then(() => response.send({ message: 'Best answer successful' }))
+    .catch((error) => {
+      if (error.message === 'Answer not found') {
+        response.status(404).send('Answer not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
+//Setter et svar som ikke beste
+router.post('/posts/answers/:id/notBest', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .notBestAnswer(id)
+    .then(() => response.send({ message: 'Best answer successful' }))
     .catch((error) => {
       if (error.message === 'Answer not found') {
         response.status(404).send('Answer not found');
