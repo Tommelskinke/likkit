@@ -102,6 +102,10 @@ class TaskService {
   questionTagGet(question_id: number) {
     return axios.get<Tag[]>('/posts/' + question_id + '/tag/').then((response) => response.data);
   }
+  ////get all posts with a given tag
+  questionGetAllTag(tag_id: number) {
+    return axios.get<Question[]>('/posts/tags/' + tag_id).then((response) => response.data);
+  }
   //get comments on a post from the database
   commentsGet(question_id: number) {
     return axios
