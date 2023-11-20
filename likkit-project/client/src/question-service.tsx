@@ -148,6 +148,17 @@ class TaskService {
   downvoteAnswer(answer_id: number) {
     return axios.post('/posts/answers/' + answer_id + '/downvote');
   }
+  //Setter svar som best
+  bestAnswer(answer_id: number) {
+    return axios.post('/posts/answers/' + answer_id + '/best'), {
+    };
+  }
+
+  //Setter svar som ikke best
+  notBestAnswer(answer_id: number) {
+    return axios.post('/posts/answers/' + answer_id + '/notBest'), {
+    };
+  }
 
   createCommentReply(
     question_id: number,

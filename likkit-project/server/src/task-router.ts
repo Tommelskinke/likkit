@@ -225,6 +225,36 @@ router.post('/posts/answers/:id/downvote', (request, response) => {
     });
 });
 
+//Setter et svar som beste
+router.post('/posts/answers/:id/best', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .bestAnswer(id)
+    .then(() => response.send({ message: 'Best answer successful' }))
+    .catch((error) => {
+      if (error.message === 'Answer not found') {
+        response.status(404).send('Answer not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
+//Setter et svar som ikke beste
+router.post('/posts/answers/:id/notBest', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .notBestAnswer(id)
+    .then(() => response.send({ message: 'Best answer successful' }))
+    .catch((error) => {
+      if (error.message === 'Answer not found') {
+        response.status(404).send('Answer not found');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
 //gets best comments
 router.get('/user/bestComment', (request, response) => {
   const user_id = Number(request.query.user_id);
