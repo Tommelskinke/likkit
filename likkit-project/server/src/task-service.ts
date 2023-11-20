@@ -2,7 +2,7 @@ import pool from './mysql-pool';
 import type { RowDataPacket, ResultSetHeader } from 'mysql2';
 
 const date = new Date();
-const formattedDate = date.toISOString().slice(0, -6);
+const formattedDate = date.toISOString().slice(0, -9);
 
 export type Question = {
   username: string;
@@ -26,6 +26,9 @@ export type Comment = {
   upvotes: number;
   downvotes: number;
   karma: number;
+  parent_answer_id: null;
+  question_id: number;
+  user_id: number;
 };
 
 export type UserComment = {
@@ -243,8 +246,8 @@ class TaskService {
   createComment(question_id: number, content: string, user_id: number) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO answer SET question_id=?, content=?, user_id=?',
-        [question_id, content, user_id],
+        'INSERT INTO answer SET question_id=?, content=?, user_id=?, created_at=?',
+        [question_id, content, user_id, formattedDate],
         (error, results: ResultSetHeader) => {
           if (error) return reject(error);
 
