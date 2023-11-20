@@ -32,15 +32,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
 
   render() {
     return (
-      <div
-        style={{
-          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          height: '150vh',
-        }}
-      >
+      <div className="background">
         <div
           style={{
             margin: '1%',

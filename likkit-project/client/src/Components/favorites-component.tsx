@@ -29,15 +29,7 @@ export class FavoriteList extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          height: '100vh', //bør få denne til å scale
-        }}
-      >
+      <div className="background">
         <div
           style={{
             margin: '2%',
