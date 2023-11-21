@@ -35,7 +35,7 @@ export class Menu extends Component {
                 </div>
               </NavBar.Link>
             </Column>
-            <Column width={6} none>
+            <Column width={7} none>
               <div>
                 <SearchContainer />
               </div>
@@ -59,7 +59,7 @@ export class Menu extends Component {
             </Column>
             {userData?.user_id ? (
               <>
-                <Column width={2} none>
+                <Column width={1} none>
                   <Row>
                     <div>
                       Logged in as <b>{userData.username}</b>
@@ -71,7 +71,7 @@ export class Menu extends Component {
                     </div>
                   </Row>
                 </Column>
-                <Column width={1} right>
+                <Column width={1} none>
                   <Button.Danger onClick={handleLogout}>Log out</Button.Danger>
                 </Column>
               </>

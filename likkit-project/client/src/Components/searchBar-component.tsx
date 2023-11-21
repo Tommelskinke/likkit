@@ -31,10 +31,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <form onSubmit={handleSubmit}>
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <div>
-          <input type="text" value={input} onChange={handleInputChange} placeholder="Search..." />
+          <input
+            type="text"
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Search..."
+            style={{ width: '100%' }}
+          />
           {suggestions.length > 0 && (
             <ul>
               {suggestions.map((suggestion, index) => (
