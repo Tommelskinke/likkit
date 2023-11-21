@@ -1,7 +1,7 @@
 import React from 'react';
-import { UserContext, UserProvider, handleLogout } from '../authState';
+import { UserContext, handleLogout } from '../authState';
 import { Component } from 'react-simplified';
-import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
+import { Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
 import userpageService from '../userpage-service';
 import { createHashHistory } from 'history';
@@ -96,7 +96,7 @@ export class Home extends Component {
   postsNew: Question[] = [];
   postsPopular: Question[] = [];
   postsUnanswered: Question[] = [];
-  selectedOption: string = 'popular'; // default selected option
+  selectedOption: string = 'popular'; 
 
   state = {
     favoriteState: false,
@@ -236,7 +236,6 @@ export class Home extends Component {
                         </div>
                       </Column>
                       <Column width={8} none>
-                        {/*Koden her gir error siden den ikke liker at vi har en knapp og annet innhold inne i en knapp*/}
                         <div
                           style={{
                             display: 'flex',

@@ -15,6 +15,7 @@ export type UserComment = {
 };
 
 class UserpageService {
+  //gets the most upvoted comments the user has made
   getBestComments(user_id: number) {
     return axios
       .get<UserComment[]>('/user/bestComment', {
@@ -22,6 +23,8 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //gets all comments a user has made
   getAllUserComments(user_id: number) {
     return axios
       .get<UserComment[]>('/user/allComments', {
@@ -29,6 +32,8 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //gets all posts a user has made
   getAllUserPosts(user_id: number) {
     return axios
       .get<Question[]>('/user/allPosts', {
@@ -36,6 +41,8 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //gets the most upvoted posts a user has made
   getBestPosts(user_id: number) {
     return axios
       .get<Question[]>('/user/bestPosts', {
@@ -43,6 +50,8 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //gets the total amount of upvotes a user has gotten on posts and comments
   getTotalLicks(user_id: number) {
     return axios
       .get<number>('/user/totalLicks', {
@@ -50,12 +59,16 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //lets users update the profile picture
   updateProfilePicture(user_id: number, newpfppath: string) {
     return axios.post('/user/newPfp', {
       user_id,
       newpfppath,
     });
   }
+
+  //gets the users favorit posts
   getUserFavoritesQuestions(user_id: number) {
     return axios
       .get<Question[]>('/user/favPost', {
@@ -63,6 +76,8 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //gets the users favorit comments
   getUserFavoritesAnswers(user_id: number) {
     return axios
       .get<UserComment[]>('/user/favAns', {
@@ -70,6 +85,8 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+
+  //sums the upvotes a user has gotten without subtracting the downvotes
   getTotalUserUpvotes(user_id: number) {
     return axios
       .get<number>('/user/upvotes', {

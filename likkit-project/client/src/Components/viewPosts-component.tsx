@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Answer, Comment, Tag, Favorites } from '../question-service';
 import { createHashHistory } from 'history';
 import {
-  Alert,
   Card,
   Row,
   Column,
@@ -173,7 +171,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
         </>
       );
     }
-    return null; // or any other default content when showButtons is false
+    return null;
   }
 
   handleUpvote = (questionId: number) => {
@@ -390,7 +388,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   fontWeight: 'bold',
                 }}
               >
-                {/* Conditionally render the button based on the user being the author */}
                 {isAuthor && (
                   <Button.Success
                     onClick={() => history.push('/editPost/' + this.question.question_id)}

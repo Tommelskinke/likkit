@@ -10,9 +10,8 @@ export type QuestionSummary = {
 };
 
 class SearchService {
-  /**
-   * Search questions by a query string.
-   */
+  
+  //search questions by a query string
   searchQuestions(input: string) {
     return axios
       .get<QuestionSummary[]>('/search', { params: { term: input } })

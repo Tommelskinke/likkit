@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Tag } from '../question-service';
-import { Card, Row, Column, Form, Button, deleteButton } from '../widgets';
+import { Card, Row, Column, Form, Button } from '../widgets';
 import { createHashHistory } from 'history';
 import EditorComponent from './editor-component';
 
@@ -31,7 +31,6 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
 
   render() {
     const currentContent = String(this.questionNew.content);
-    console.log(currentContent);
     return (
       <div className="background">
         <div
@@ -194,7 +193,6 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
             case 4:
               this.questionLinux = true;
               break;
-            // Add more cases if needed for additional tags
             default:
               break;
           }
@@ -203,8 +201,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
   }
   delete() {
     taskService.questionRemove(this.questionNew.question_id).then(() => {
-      // Redirect to the post list or homepage after deletion
-      history.push('/posts/'); // Change this to the desired path
+      history.push('/posts/'); 
     });
   }
 }

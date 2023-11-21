@@ -3,9 +3,9 @@ import pool from '../src/mysql-pool';
 import app from '../src/app';
 import questionService, { tag } from '../src/service/question-service';
 
-const testTag: tag[] = [
-  { tag_id: 1, tag_name: 'JS' },
-  { tag_id: 2, tag_name: 'Python' },
+const testTag = [
+  { question_id: 1, tag_id: 1, tag_name: 'JS' },
+  { question_id: 2, tag_id: 2, tag_name: 'Python' },
 ];
 
 axios.defaults.baseURL = 'http://localhost:3003/api/v2';

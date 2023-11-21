@@ -8,7 +8,6 @@ interface UserData {
   user_pfp?: string;
 }
 
-// Example using Fetch API in a frontend JavaScript
 fetch('/api/userinfo')
   .then((response) => {
     if (!response.ok) {
@@ -23,8 +22,6 @@ fetch('/api/userinfo')
     sessionStorage.setItem('user_type', userData.user_type);
     sessionStorage.setItem('username', userData.username);
     sessionStorage.setItem('user_pfp', userData.user_pfp);
-    // Now you have user data, including the profile picture URL
-    // You can display this data in your UI
   })
   .catch((error) => console.error(error));
 
@@ -39,12 +36,9 @@ export function handleLogout() {
     })
     .catch((error) => {
       console.error('Logout error: ', error);
-      // Handle error case
     });
 }
 
-// Create a context with an initial empty state
 export const UserContext = React.createContext<UserData | null>(null);
 
-// Export the provider as a separate component for convenience
 export const UserProvider = UserContext.Provider;

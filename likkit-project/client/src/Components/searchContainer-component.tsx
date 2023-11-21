@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SearchBar from './searchBar-component'; // Your existing SearchBar component
-import SearchResults from './searchResults-component'; // The new SearchResults component
-import searchService from '../search-service'; // Adjust path as necessary
+import SearchBar from './searchBar-component'; 
+import SearchResults from './searchResults-component'; 
+import searchService from '../search-service'; 
 import { QuestionSummary } from '../search-service';
 
 const SearchContainer: React.FC = () => {

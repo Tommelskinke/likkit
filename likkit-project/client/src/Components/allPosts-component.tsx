@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
+import { Card, Row, Column, Button, upLikk, downLikk } from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
 import { createHashHistory } from 'history';
 import PrettyPreview from './prettyPreview-component';
@@ -136,7 +136,6 @@ export class AllPosts extends Component {
                         </div>
                       </Column>
                       <Column width={8} none>
-                        {/*Koden her gir error siden den ikke liker at vi har en knapp og annet innhold inne i en knapp*/}
                         <div
                           style={{
                             display: 'flex',

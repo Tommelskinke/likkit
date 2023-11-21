@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { UserContext, UserProvider } from '../authState';
 import { Component } from 'react-simplified';
 import taskService, { Question } from '../question-service';
-import { Alert, Card, Row, Column, Form, Button, NavBar } from '../widgets';
+import { Card, Row, Column, Form, Button } from '../widgets';
 import { createHashHistory } from 'history';
 import EditorComponent from './editor-component';
 
@@ -119,18 +118,19 @@ export class CreatePost extends Component {
                         .questionCreate(this.user_id, this.title, this.content)
                         .then(() => {});
 
-                      //gjør dette om til en forEach loop
-                      if (this.questionSolved) {
-                        taskService.questionTagCreate(this.questionNew.question_id + 1, 1);
-                      }
-                      if (this.questionJS) {
-                        taskService.questionTagCreate(this.questionNew.question_id + 1, 2);
-                      }
-                      if (this.questionRust) {
-                        taskService.questionTagCreate(this.questionNew.question_id + 1, 3);
-                      }
-                      if (this.questionLinux) {
-                        taskService.questionTagCreate(this.questionNew.question_id + 1, 4);
+                      switch (true) {
+                        case this.questionSolved:
+                          taskService.questionTagCreate(this.questionNew.question_id + 1, 1);
+                          break;
+                        case this.questionJS:
+                          taskService.questionTagCreate(this.questionNew.question_id + 1, 2);
+                          break;
+                        case this.questionRust:
+                          taskService.questionTagCreate(this.questionNew.question_id + 1, 3);
+                          break;
+                        case this.questionLinux:
+                          taskService.questionTagCreate(this.questionNew.question_id + 1, 4);
+                          break;
                       }
                       taskService.questionGetNewest().then(() => {});
                       setTimeout(() => {

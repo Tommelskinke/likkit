@@ -1,5 +1,3 @@
-// Component for å utnytte Quill library for text-formatting
-
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -10,7 +8,6 @@ interface EditorComponentProps {
   initialValue?: string;
 }
 
-// Use the props in your component
 class EditorComponent extends React.Component<EditorComponentProps> {
   state = {
     editorHtml: this.props.initialValue || '',
@@ -18,7 +15,7 @@ class EditorComponent extends React.Component<EditorComponentProps> {
 
   handleChange = (html: string) => {
     this.setState({ editorHtml: html });
-    this.props.onContentChange(html); // Call the passed onContentChange function
+    this.props.onContentChange(html); 
   };
 
   componentDidUpdate(prevProps: EditorComponentProps) {

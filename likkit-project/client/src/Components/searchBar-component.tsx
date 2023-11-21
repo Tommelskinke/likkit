@@ -3,7 +3,7 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 
 interface SearchBarProps {
-  onSearch: (query: string) => Promise<void>; // or Promise<void> if it's an async function
+  onSearch: (query: string) => Promise<void>; 
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
@@ -27,7 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSearch(input); // Call the onSearch prop with the input
+    onSearch(input); 
   };
 
   return (

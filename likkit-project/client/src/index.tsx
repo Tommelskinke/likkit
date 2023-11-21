@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Home, Posts, TagPosts, Post, Menu } from './Components/homepage-component';
-import { FavoriteList } from './Components/favorites-component';
-import { TagList } from './Components/tag-component';
+import { Home, TagPosts, Post, Menu } from './Components/homepage-component';
 import { UserProfile } from './Components/userpage-components';
 import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
@@ -10,7 +8,6 @@ import { Login } from './Components/auth-component';
 import { AllPosts } from './Components/allPosts-component';
 import { AllPostsTag } from './Components/allPostsTag-component';
 import { EditPost } from './Components/editPosts-component';
-import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { UserProvider } from './authState';
 import { Alert } from './widgets';
@@ -52,5 +49,3 @@ if (root) {
 
   createRoot(root).render(<App />);
 }
-
-//

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
+import { Card, Row, Column, Form, Button, upLikk, downLikk } from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
 import userpageService, { UserComment } from '../userpage-service';
 import { createHashHistory } from 'history';
-import { UserContext, UserProvider } from '../authState';
+import { UserContext } from '../authState';
 import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();

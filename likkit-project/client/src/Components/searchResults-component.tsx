@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 type QuestionSummary = {
   question_id: number;
   title: string;
-  // Include other properties if needed
 };
 
 type SearchResultsProps = {
@@ -19,7 +18,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   };
 
   if (!results || results.length === 0) {
-    return null; // or some placeholder like "No results found"
+    return null; 
   }
 
   return (
