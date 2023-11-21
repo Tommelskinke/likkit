@@ -417,6 +417,10 @@ export class UserProfile extends Component {
       .getTotalLicks(this.user_id)
       .then((totalLicks) => (this.likkAmount = totalLicks));
 
+    userpageService
+      .getTotalUserUpvotes(this.user_id)
+      .then((totalUpvotes) => (this.upvoteAmount = totalUpvotes));
+
     userpageService.getUserFavoritesQuestions(this.user_id).then((userFavorites) => {
       this.options[4] = userFavorites;
     });

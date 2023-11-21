@@ -70,6 +70,13 @@ class UserpageService {
       })
       .then((response) => response.data);
   }
+  getTotalUserUpvotes(user_id: number) {
+    return axios
+      .get<number>('/user/upvotes', {
+        params: { user_id },
+      })
+      .then((response) => response.data);
+  }
 }
 
 const userpageService = new UserpageService();

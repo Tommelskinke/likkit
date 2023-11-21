@@ -405,7 +405,7 @@ class TaskService {
   getBestComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {
       pool.query(
-        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=? AND a.best_answer = 1',
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id, u.user_pfp FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=? AND a.best_answer = 1',
         [user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
@@ -588,6 +588,19 @@ class TaskService {
           if (error) return reject(error);
 
           resolve(results as UserComment[]);
+        },
+      );
+    });
+  }
+
+  getTotalUserUpvotes(user_id: number) {
+    return new Promise<number>((resolve, reject) => {
+      pool.query(
+        'SELECT SUM(total_votes) AS total_upvotes FROM ( SELECT SUM(upvotes) AS total_votes FROM question WHERE user_id = ? UNION ALL SELECT SUM(upvotes) AS total_votes FROM answer WHERE user_id = ? ) AS combined_votes',
+        [user_id, user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results[0].total_upvotes as number);
         },
       );
     });

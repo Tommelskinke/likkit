@@ -399,4 +399,16 @@ router.get('/user/favAns', (request, response) => {
   else response.status(400).send('Missing user_id');
 });
 
+router.get('/user/upvotes', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getTotalUserUpvotes(user_id)
+      .then((upvotes) => {
+        response.send(upvotes), console.log(upvotes);
+      })
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
 export default router;
