@@ -150,6 +150,12 @@ class TaskService {
       .get<Comment[]>('/posts/' + question_id + '/comments/')
       .then((response) => response.data);
   }
+  //get one comment
+  commentsGetOne(question_id: number) {
+    return axios
+      .get<Comment>('/posts/' + question_id + '/comments/')
+      .then((response) => response.data);
+  }
   //creates a comment on a post
   createComment(question_id: number, content: string, user_id: number) {
     return axios

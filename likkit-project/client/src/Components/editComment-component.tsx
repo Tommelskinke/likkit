@@ -70,4 +70,7 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
       </div>
     );
   }
+  mounted() {
+    taskService.commentsGetOne(this.props.match.params.id).then((answer) => (this.answer = answer));
+  }
 }
