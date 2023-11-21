@@ -55,7 +55,7 @@ router.get('/postsUnanswered', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 //gets the newest post in the database
-router.get('/createPost/new', (_request, response) => {
+router.get('/createPost/:id', (_request, response) => {
   taskService
     .questionGetNewest()
     .then((rows) => response.send(rows))
@@ -370,13 +370,6 @@ router.post('/posts/:id/favorites/remove', (request, response) => {
     .catch((error) => {
       response.status(500).send(error);
     });
-});
-
-router.delete('/tasks/:id', (request, response) => {
-  taskService
-    .postDelete(Number(request.params.id))
-    .then((_result) => response.send())
-    .catch((error) => response.status(500).send(error));
 });
 
 router.get('/user/favPost', (request, response) => {

@@ -207,12 +207,12 @@ class TaskService {
       );
     });
   }
-  questionRemove(question_id: number): Promise<void> {
+  questionRemove(question_id: number) {
     return new Promise<void>((resolve, reject) => {
       pool.query(
         'DELETE FROM question WHERE question_id = ?',
         [question_id],
-        (error, results: ResultSetHeader) => {
+        (error, _results: ResultSetHeader) => {
           if (error) {
             reject(error);
           } else {
