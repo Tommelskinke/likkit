@@ -208,7 +208,7 @@ class TaskService {
   questionRemove(question_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
-        'DELETE FROM question where question_id=?',
+        'DELETE FROM question WHERE question_id = ?',
         [question_id],
         (error, results: ResultSetHeader) => {
           if (error) {
@@ -222,20 +222,6 @@ class TaskService {
     });
   }
 
-  postDelete(question_id: number) {
-    return new Promise<void>((resolve, reject) => {
-      pool.query(
-        'DELETE FROM question WHERE question_id = ?',
-        [question_id],
-        (error, results: ResultSetHeader) => {
-          if (error) return reject(error);
-          if (results.affectedRows == 0) return reject(new Error('No row deleted'));
-
-          resolve();
-        },
-      );
-    });
-  }
   //removes tags for a post
   questionTagRemove(question_id: number, tag_id: number) {
     return new Promise<number>((resolve, reject) => {
