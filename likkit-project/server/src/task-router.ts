@@ -55,7 +55,7 @@ router.get('/postsUnanswered', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 //gets the newest post in the database
-router.get('/createPost/new', (_request, response) => {
+router.get('/createPost/:id', (_request, response) => {
   taskService
     .questionGetNewest()
     .then((rows) => response.send(rows))
