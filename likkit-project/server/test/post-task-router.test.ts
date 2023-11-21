@@ -62,14 +62,14 @@ beforeEach((done) => {
     questionService
       .questionCreate(testQuestion[0].user_id, testQuestion[0].title, testQuestion[0].content)
       .then(() =>
-      questionService.questionCreate(
+        questionService.questionCreate(
           testQuestion[1].user_id,
           testQuestion[1].title,
           testQuestion[1].content,
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
-      questionService.questionCreate(
+        questionService.questionCreate(
           testQuestion[2].user_id,
           testQuestion[2].title,
           testQuestion[2].content,

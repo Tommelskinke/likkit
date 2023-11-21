@@ -19,7 +19,6 @@ export type Comment = {
 };
 
 class CommentService {
-
   //henter svar basert på id
   answerGet(answer_id: number) {
     return new Promise<Comment>((resolve, reject) => {
