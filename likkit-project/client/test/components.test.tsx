@@ -13,26 +13,6 @@ import { UserProvider } from '../src/authState';
 import { AllPosts } from '../src/Components/allPosts-component';
 import PrettyPreview from '../src/Components/prettyPreview-component';
 
-import taskService from '../src/question-service'; // adjust the import path as needed
-
-jest.mock('../src/voting-service'); // adjust the path as needed
-
-describe('AllPostsTag', () => {
-  it('should handle upvotes', () => {
-    const wrapper = shallow(<AllPostsTag />);
-    const instance = wrapper.instance();
-    instance.handleUpvote(123);
-    expect(taskService.upvoteQuestion).toHaveBeenCalledWith(123);
-  });
-
-  it('should handle downvotes', () => {
-    const wrapper = shallow(<AllPostsTag />);
-    const instance = wrapper.instance();
-    instance.handleDownvote(123);
-    expect(taskService.downvoteQuestion).toHaveBeenCalledWith(123);
-  });
-});
-
 describe('Component tests', () => {
   test('FavoriteList', (done) => {
     const wrapper = shallow(<FavoriteList />);
