@@ -519,7 +519,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     <Button.Success
                       onClick={() => {
                         if (this.writeComment.length <= 100000) {
-                          console.log(this.props.match.params.id);
                           taskService
                             .createComment(
                               this.props.match.params.id,

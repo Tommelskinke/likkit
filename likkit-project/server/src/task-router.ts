@@ -398,7 +398,7 @@ router.get('/user/upvotes', (request, response) => {
     taskService
       .getTotalUserUpvotes(user_id)
       .then((upvotes) => {
-        response.send(upvotes), console.log(upvotes);
+        response.send(upvotes);
       })
       .catch((error) => response.status(500).send(error));
   else response.status(400).send('Missing user_id');
