@@ -1,7 +1,7 @@
 import axios from 'axios';
 import pool from '../src/mysql-pool';
 import app from '../src/app';
-import taskService, { tag } from '../src/task-service';
+import questionService, { tag } from '../src/service/question-service';
 
 const testTag: tag[] = [
   { tag_id: 1, tag_name: 'JS' },
@@ -22,10 +22,10 @@ beforeEach((done) => {
     if (error) return done(error);
 
     // Create testQuestions sequentially in order to set correct id, and call done() when finished
-    taskService
+    questionService
       .questionTagCreate(testTag[0]question_id, testTag[0].tag_id)
       .then(() =>
-        taskService.questionCreate(testTag[1].user_id, testTag[1].tag_id),
+        questionService.questionCreate(testTag[1].user_id, testTag[1].tag_id),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() => done()); // Call done() after testQuestion[2] has been created
   });

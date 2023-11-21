@@ -1,9 +1,12 @@
 import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
-import taskRouter from './task-router';
-import searchRouter from './search-router';
-import authRouter from './auth-router';
+import authRouter from './router/auth-router';
+import commentRouter from './router/comment-router';
+import questionRouter from './router/question-router';
+import searchRouter from './router/search-router';
+import userRouter from './router/user-router';
+import votingRouter from './router/voting-router';
 import pool from './mysql-pool';
 import { RowDataPacket } from 'mysql2';
 import { Strategy as GoogleStrategy, VerifyCallback } from 'passport-google-oauth20';
@@ -170,8 +173,11 @@ app.use(passport.session());
 app.use(express.json());
 
 // Since API is not compatible with v1, API version is increased to v2
-app.use('/api/v2', taskRouter);
-app.use('/api/v2/search', searchRouter);
 app.use(authRouter);
+app.use('/api/v2/', commentRouter);
+app.use('/api/v2/', questionRouter);
+app.use('/api/v2/search', searchRouter);
+app.use('/api/v2/', userRouter);
+app.use('/api/v2/', votingRouter);
 
 export default app;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import pool from '../src/mysql-pool';
 import app from '../src/app';
-import taskService, { Comment } from '../src/task-service';
+import commentService, { Comment } from '../src/service/comment-service';
 
 const date = new Date();
 const formattedDate = date.toISOString().slice(0, -9);
@@ -16,6 +16,7 @@ const testComment: Comment[] = [
     created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
+    //@ts-ignore
     karma: 0,
     parent_answer_id: null,
     question_id: 1,
@@ -31,6 +32,7 @@ const testComment: Comment[] = [
     created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
+    //@ts-ignore
     karma: 0,
     parent_answer_id: null,
     question_id: 2,
@@ -46,6 +48,7 @@ const testComment: Comment[] = [
     created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
+    //@ts-ignore
     karma: 0,
     parent_answer_id: null,
     question_id: 3,
@@ -67,17 +70,17 @@ beforeEach((done) => {
     if (error) return done(error);
 
     // Create testQuestions sequentially in order to set correct id, and call done() when finished
-    taskService
+    commentService
       .createComment(testComment[0].question_id, testComment[0].content, testComment[0].user_id)
       .then(() =>
-        taskService.createComment(
+      commentService.createComment(
           testComment[1].question_id,
           testComment[1].content,
           testComment[1].user_id,
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
-        taskService.createComment(
+      commentService.createComment(
           testComment[2].question_id,
           testComment[2].content,
           testComment[2].user_id,

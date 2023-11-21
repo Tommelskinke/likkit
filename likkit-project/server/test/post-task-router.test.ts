@@ -1,13 +1,14 @@
 import axios from 'axios';
 import pool from '../src/mysql-pool';
 import app from '../src/app';
-import taskService, { Question } from '../src/task-service';
+import questionService, { Question } from '../src/service/question-service';
 
 const date = new Date();
 const formattedDate = date.toISOString().slice(0, -9);
 
 const testQuestion: Question[] = [
   {
+    //@ts-ignore
     username: null,
     question_id: 1,
     user_id: 1,
@@ -19,6 +20,7 @@ const testQuestion: Question[] = [
     karma: 0,
   },
   {
+    //@ts-ignore
     username: null,
     question_id: 2,
     user_id: 2,
@@ -30,6 +32,7 @@ const testQuestion: Question[] = [
     karma: 0,
   },
   {
+    //@ts-ignore
     username: null,
     question_id: 3,
     user_id: 3,
@@ -56,17 +59,17 @@ beforeEach((done) => {
     if (error) return done(error);
 
     // Create testQuestions sequentially in order to set correct id, and call done() when finished
-    taskService
+    questionService
       .questionCreate(testQuestion[0].user_id, testQuestion[0].title, testQuestion[0].content)
       .then(() =>
-        taskService.questionCreate(
+      questionService.questionCreate(
           testQuestion[1].user_id,
           testQuestion[1].title,
           testQuestion[1].content,
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
-        taskService.questionCreate(
+      questionService.questionCreate(
           testQuestion[2].user_id,
           testQuestion[2].title,
           testQuestion[2].content,

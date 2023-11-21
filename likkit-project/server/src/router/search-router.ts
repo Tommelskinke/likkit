@@ -1,6 +1,6 @@
 import express from 'express';
-import searchService from './search-service';
-import pool from './mysql-pool';
+import searchService from '../service/search-service';
+import pool from '../mysql-pool';
 
 const router = express.Router();
 

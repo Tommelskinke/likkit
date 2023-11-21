@@ -5,12 +5,12 @@ import WebSocket from 'ws';
 /**
  * Whiteboard server
  */
-export default class WhiteboardServer {
+export default class LikkitServer {
   /**
    * Constructs a WebSocket server that will respond to the given path on webServer.
    */
   constructor(webServer: http.Server | https.Server, path: string) {
-    const server = new WebSocket.Server({ server: webServer, path: path + '/whiteboard' });
+    const server = new WebSocket.Server({ server: webServer, path: path + '/likkit' });
 
     server.on('connection', (connection, _request) => {
       connection.on('message', (message) => {
