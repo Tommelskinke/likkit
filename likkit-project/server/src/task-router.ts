@@ -372,13 +372,6 @@ router.post('/posts/:id/favorites/remove', (request, response) => {
     });
 });
 
-router.delete('/tasks/:id', (request, response) => {
-  taskService
-    .postDelete(Number(request.params.id))
-    .then((_result) => response.send())
-    .catch((error) => response.status(500).send(error));
-});
-
 router.get('/user/favPost', (request, response) => {
   const user_id = Number(request.query.user_id);
   if (user_id != 0)
