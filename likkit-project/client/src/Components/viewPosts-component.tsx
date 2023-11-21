@@ -36,7 +36,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   };
 
   answer: Answer = {
-    answer_id: 0,
+    answer_id: 10,
     question_id: 0,
     parent_answer_id: null,
     user_id: 1,
@@ -683,7 +683,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   />
                                   <Button.Success
                                     onClick={() =>
-                                      history.push('/editPost/' + this.question.question_id)
+                                      history.push('/editComment/' + this.answer.answer_id)
                                     }
                                   >
                                     edit

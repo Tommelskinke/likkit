@@ -36,6 +36,7 @@ if (root) {
             <Route exact path="/tags" component={AllPostsTag} />
             <Route exact path="/createPost" component={CreatePost} />
             <Route exact path="/editPost/:id" component={EditPost} />
+            <Route exact path="/editComment/:id" component={EditPost} />
 
             <Route exact path="/user" component={UserProfile} />
             <Route exact path="/posts" component={AllPosts} />
