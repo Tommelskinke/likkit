@@ -41,6 +41,12 @@ CREATE TABLE answer(
 	downvotes INTEGER DEFAULT 0,
 	karma INTEGER DEFAULT 0);
 
+CREATE TABLE favorites(
+    favorite_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    question_id INTEGER,
+    answer_id INTEGER DEFAULT NULL,
+    user_id INTEGER);
+
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk2 FOREIGN KEY(tag_id) REFERENCES tag (tag_id); 
 
@@ -48,6 +54,11 @@ ALTER TABLE question ADD CONSTRAINT question_fk2 FOREIGN KEY(user_id) REFERENCES
 
 ALTER TABLE answer ADD CONSTRAINT answer_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
 ALTER TABLE answer ADD CONSTRAINT answer_fk2 FOREIGN KEY(user_id) REFERENCES users (user_id);
+
+ALTER TABLE favorites ADD CONSTRAINT favorites_fk1 FOREIGN KEY(question_id) REFERENCES question(question_id);
+ALTER TABLE favorites ADD CONSTRAINT favorites_fk2 FOREIGN KEY(answer_id) REFERENCES answer(answer_id);
+ALTER TABLE favorites ADD CONSTRAINT favorites_fk3 FOREIGN KEY(user_id) REFERENCES users(user_id);
+
 
 INSERT INTO tag VALUES(1, 'solved');
 INSERT INTO tag VALUES(2, 'JS');
