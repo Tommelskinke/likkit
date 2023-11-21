@@ -379,7 +379,41 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 <Row marginBottom={3}>
                   <Column width={1}></Column>
                   <Column>{this.question.title}</Column>
-                  <Column width={1}></Column>
+                  <Column width={1} right>
+                    <div>
+                      {this.userFavorites.some(
+                        (favorite) =>
+                          favorite.question_id == this.props.match.params.id &&
+                          favorite.answer_id == null,
+                      ) ? (
+                        <img
+                          style={{ cursor: 'pointer' }}
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+                          alt="Filled picture of gold star, indicates favorites"
+                          onClick={() => {
+                            taskService
+                              .removeFavorite(this.user_id, this.props.match.params.id, null)
+                              .then(() => {
+                                window.location.reload();
+                              });
+                          }}
+                        />
+                      ) : (
+                        <img
+                          style={{ cursor: 'pointer' }}
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                          alt="Empty picture of star, indicates not favorites"
+                          onClick={() => {
+                            taskService
+                              .addFavorite(this.user_id, this.props.match.params.id, null)
+                              .then(() => {
+                                window.location.reload();
+                              });
+                          }}
+                        />
+                      )}
+                    </div>
+                  </Column>
                 </Row>
               </div>
               <div
@@ -415,7 +449,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       }}
                     />
                   </Column>
-                  <Column width={1}></Column>
+                  <Column width={1} right></Column>
                 </Row>
                 <Row>
                   <Column width={1}></Column>
