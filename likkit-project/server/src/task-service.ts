@@ -99,7 +99,7 @@ class TaskService {
   questionGetThree() {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM question ORDER BY (upvotes - downvotes) DESC LIMIT 3',
+        'SELECT * FROM question ORDER BY (upvotes - downvotes) DESC LIMIT 5',
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
 
@@ -112,7 +112,7 @@ class TaskService {
   questionGetThreeNew() {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM question ORDER BY created_at DESC LIMIT 3',
+        'SELECT * FROM question ORDER BY created_at DESC LIMIT 5',
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
 
@@ -447,7 +447,7 @@ class TaskService {
   getBestUserPosts(user_id: number) {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM question WHERE user_id=? ORDER BY (upvotes - downvotes) DESC LIMIT 3',
+        'SELECT * FROM question WHERE user_id=? ORDER BY (upvotes - downvotes) DESC LIMIT 5',
         [user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
