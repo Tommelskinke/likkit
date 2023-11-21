@@ -1,6 +1,8 @@
 CREATE TABLE users( 
 	user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	user_type VARCHAR(20) DEFAULT 'user',
+	google_id VARCHAR(255) UNIQUE,
+	email VARCHAR(255) UNIQUE,
+	user_type VARCHAR(20) DEFAULT user,
 	username VARCHAR(20) UNIQUE,
 	password VARCHAR(255));
 
@@ -51,14 +53,14 @@ INSERT INTO tag VALUES(2, 'JS');
 INSERT INTO tag VALUES(3, 'Rust');
 INSERT INTO tag VALUES(4, 'Linux');
 
-INSERT INTO users VALUES(DEFAULT,'admin', 'Oscar', 'Password1!');
-INSERT INTO users VALUES(DEFAULT, 'user', 'Vegard', 'Password1!');
-INSERT INTO users VALUES(DEFAULT, 'admin', 'Elias', 'Password1!');
-INSERT INTO users VALUES(DEFAULT, 'user', 'Trygve', 'Password1!');
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT,'admin', 'Oscar', 'Password1!', DEFAULT);
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT, 'user', 'Vegard', 'Password1!', DEFAULT);
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT, 'admin', 'Elias', 'Password1!', DEFAULT);
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT, 'user', 'Trygve', 'Password1!', DEFAULT);
 
 INSERT INTO question VALUES(DEFAULT, 1, 'Hjelp, igjen', 'Jeg trenger hjelp med noe, igjen.', DEFAULT, 0, 0, 0);
 
-INSERT INTO answer VALUES(DEFAULT, NULL, 8, 1, false, 'Her er svaret', DEFAULT, 0, 0, 0);
+INSERT INTO answer VALUES(DEFAULT, 1, 2, 0, 'Her er svaret', DEFAULT, 0, 0, 0);
 
 INSERT INTO question_tag VALUES(8, 1);
 
