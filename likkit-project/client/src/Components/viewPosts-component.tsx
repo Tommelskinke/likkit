@@ -50,9 +50,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
   comments: Comment[] = [];
 
+  newComments: Comment[] = [];
+
   userFavorites: Favorites[] = [];
 
   tags: Tag[] = [];
+
+  selectedOption: string = 'popular';
 
   user_id: number = Number(sessionStorage.getItem('user_id'));
 
@@ -61,6 +65,24 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     showcommentSection: false,
     activeButtonId: null,
     rendercommentButton: true,
+  };
+
+  handleSortChange = (event: any) => {
+    const selectedOption = event.target.value;
+    this.selectedOption = selectedOption;
+
+    if (selectedOption === 'popular') {
+      taskService
+        .commentsGet(this.props.match.params.id)
+        .then((getComments) => (this.comments = getComments));
+      this.forceUpdate();
+    } else if (selectedOption === 'newest') {
+      taskService
+        .getNewestComments(this.props.match.params.id)
+        .then((newComments) => (this.comments = newComments));
+      this.forceUpdate();
+    }
+    this.forceUpdate(); // Trigger a re-render
   };
 
   handleButtonClick = (id: number) => {
@@ -236,7 +258,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
           <Row marginBottom={4}>
             <Row marginBottom={1}>
               <Column>
-                <img src={reply.user_pfp} alt="Green profile picture" />
+                <img src={reply.user_pfp} alt={`${reply.username} profile picture`} />
               </Column>
               <div
                 style={{
@@ -534,9 +556,12 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       borderRadius: '10px',
                       padding: '5px',
                     }}
+                    onChange={this.handleSortChange}
+                    value={this.selectedOption}
                   >
-                    <option value="">Popular</option>
+                    <option value="popular">Popular</option>
                     <option value="best">Best</option>
+                    <option value="newest">Newest</option>
                   </select>
                 </div>
               </Column>
@@ -557,7 +582,10 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                         <Row marginBottom={4}>
                           <Row marginBottom={1}>
                             <Column>
-                              <img src={comment.user_pfp} alt="Green profile picture" />
+                              <img
+                                src={comment.user_pfp}
+                                alt={`${comment.username} profile picture`}
+                              />
                             </Column>
                             <div
                               style={{
@@ -717,5 +745,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
     });
+
+    taskService
+      .getNewestComments(this.props.match.params.id)
+      .then((newComments) => (this.newComments = newComments));
   }
 }

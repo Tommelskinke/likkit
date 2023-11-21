@@ -208,6 +208,12 @@ class TaskService {
         response.data.id;
       });
   }
+
+  getNewestComments(question_id: number) {
+    return axios
+      .get<Comment[]>('/posts/' + question_id + '/NewComments')
+      .then((response) => response.data);
+  }
 }
 
 const taskService = new TaskService();

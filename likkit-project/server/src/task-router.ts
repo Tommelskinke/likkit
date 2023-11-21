@@ -404,4 +404,12 @@ router.get('/user/upvotes', (request, response) => {
   else response.status(400).send('Missing user_id');
 });
 
+router.get('/posts/:id/NewComments', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .commentsGetNewest(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
 export default router;

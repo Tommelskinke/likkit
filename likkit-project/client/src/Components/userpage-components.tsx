@@ -295,7 +295,10 @@ export class UserProfile extends Component {
                                 <Row marginBottom={4}>
                                   <Row marginBottom={1}>
                                     <Column>
-                                      <img src={data.user_pfp} alt="Your profilepicture" />
+                                      <img
+                                        src={data.user_pfp}
+                                        alt={`${data.username} profile picture`}
+                                      />
                                     </Column>
                                     <div
                                       style={{
