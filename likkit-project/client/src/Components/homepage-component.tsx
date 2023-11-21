@@ -3,6 +3,7 @@ import { UserContext, UserProvider, handleLogout } from '../authState';
 import { Component } from 'react-simplified';
 import { Alert, Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
+import userpageService from '../userpage-service';
 import { createHashHistory } from 'history';
 import SearchContainer from './searchContainer-component';
 import PrettyPreview from './prettyPreview-component';
@@ -11,6 +12,8 @@ const history = createHashHistory();
 
 export class Menu extends Component {
   search: string = '';
+  user_id: number = Number(sessionStorage.getItem('user_id'));
+  likkAmount: number = 0;
 
   render() {
     return (
@@ -63,7 +66,9 @@ export class Menu extends Component {
                     </div>
                   </Row>
                   <Row>
-                    <div>likks:</div>
+                    <div>
+                      likks: <b>{this.likkAmount}</b>
+                    </div>
                   </Row>
                 </Column>
                 <Column width={1} right>
@@ -75,6 +80,11 @@ export class Menu extends Component {
         )}
       </UserContext.Consumer>
     );
+  }
+  mounted() {
+    userpageService
+      .getTotalLicks(this.user_id)
+      .then((totalLicks) => (this.likkAmount = totalLicks));
   }
 }
 
