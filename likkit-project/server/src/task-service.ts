@@ -419,7 +419,7 @@ class TaskService {
   getAllUserComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {
       pool.query(
-        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=?',
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id, u.user_pfp FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=?',
         [user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
