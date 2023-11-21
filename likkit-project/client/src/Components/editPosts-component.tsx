@@ -52,7 +52,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
                     textAlign: 'center',
                   }}
                 >
-                  Title
+                  Edit Post
                 </div>
               </Column>
               <Column width={9} none />

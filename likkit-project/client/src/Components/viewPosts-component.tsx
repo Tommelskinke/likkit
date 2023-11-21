@@ -36,7 +36,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   };
 
   answer: Answer = {
-    answer_id: 10,
+    answer_id: 15,
     question_id: 0,
     parent_answer_id: null,
     user_id: 1,

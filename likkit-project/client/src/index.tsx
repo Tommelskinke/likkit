@@ -38,7 +38,6 @@ if (root) {
             <Route exact path="/createPost" component={CreatePost} />
             <Route exact path="/editPost/:id" component={EditPost} />
             <Route exact path="/editComment/:id" component={EditComment} />
-
             <Route exact path="/user" component={UserProfile} />
             <Route exact path="/posts" component={AllPosts} />
             <Route exact path="/posts/:id" component={ViewPost} />
@@ -53,3 +52,5 @@ if (root) {
 
   createRoot(root).render(<App />);
 }
+
+//
