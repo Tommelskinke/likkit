@@ -32,15 +32,14 @@ CREATE TABLE question(
 CREATE TABLE answer( 
 	answer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	parent_answer_id INTEGER DEFAULT null,
-	question_id INTEGER,
+	question_id INTEGER DEFAULT 0,
 	user_id INTEGER,
 	best_answer BOOLEAN DEFAULT false,
 	content MEDIUMTEXT,
 	created_at VARCHAR(20),
 	upvotes INTEGER DEFAULT 0,
 	downvotes INTEGER DEFAULT 0,
-	karma INTEGER DEFAULT 0,
-    question_id INTEGER DEFAULT 0);
+	karma INTEGER DEFAULT 0);
 
 CREATE TABLE favorites(
     favorite_id INTEGER PRIMARY KEY AUTO_INCREMENT,
