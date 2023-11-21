@@ -566,12 +566,12 @@ class TaskService {
   removeFavorite(user_id: number, question_id: number, answer_id: number | null) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'DELETE FROM favorites WHERE user_id=? AND question_id=? AND answer_id=?',
+        'DELETE FROM favorites WHERE user_id=? AND question_id=? AND (answer_id=? OR answer_id IS NULL)',
         [user_id, question_id, answer_id],
         (error, results: ResultSetHeader) => {
-          if (error) return reject(error);
-          console.log(user_id, question_id, answer_id);
-          console.log(results);
+          if (error) {
+            return reject(error);
+          }
           resolve(results.insertId);
         },
       );

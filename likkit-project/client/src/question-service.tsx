@@ -197,13 +197,13 @@ class TaskService {
 
   addFavorite(user_id: number, question_id: number, answer_id: number | null) {
     return axios
-      .post('/favorites', { user_id, question_id, answer_id })
+      .post('/posts/:id/favorites/add', { user_id, question_id, answer_id })
       .then((response) => response.data);
   }
 
   removeFavorite(user_id: number, question_id: number, answer_id: number | null) {
     return axios
-      .post<{ id: number }>('/favorites/remove', { user_id, question_id, answer_id })
+      .post<{ id: number }>('/posts/:id/favorites/remove', { user_id, question_id, answer_id })
       .then((response) => {
         response.data.id;
       });

@@ -349,21 +349,22 @@ router.get('/favorites', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('/favorites', (request, response) => {
+router.post('/posts/:id/favorites/add', (request, response) => {
+  const data = request.body;
+  console.log(data);
   taskService
     .addFavorite(
-      Number(request.body.user_id),
-      Number(request.body.question_id),
-      request.body.answer_id !== null ? Number(request.body.answer_id) : null,
+      Number(data.user_id),
+      Number(data.question_id),
+      data.answer_id !== null ? Number(data.answer_id) : null,
     )
     .then((id) => response.send({ id: id }));
 });
 
-router.post('/favorites/remove', (request, response) => {
+router.post('/posts/:id/favorites/remove', (request, response) => {
   const data = request.body;
-  console.log(data);
   taskService
-    .removeFavorite(data.user_id, data.question_id, data.answer_id)
+    .removeFavorite(data.user_id, Number(data.question_id), data.answer_id)
     .then(() => {
       response.send({ message: 'Favorite removed' });
     })

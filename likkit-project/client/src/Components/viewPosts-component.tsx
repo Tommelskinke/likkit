@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Component } from 'react-simplified';
-import taskService, { Question, Answer, Comment, Tag } from '../question-service';
+import taskService, { Question, Answer, Comment, Tag, Favorites } from '../question-service';
 import { createHashHistory } from 'history';
 import {
   Alert,
@@ -49,6 +49,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   writeComment: string = '';
 
   comments: Comment[] = [];
+
+  userFavorites: Favorites[] = [];
 
   tags: Tag[] = [];
 
@@ -182,16 +184,14 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   };
 
   handleBestAnswer = (answer_id: number) => {
-    this.comments.forEach(comment => {
+    this.comments.forEach((comment) => {
       if (comment.answer_id == answer_id) {
-        taskService
-          .bestAnswer(answer_id)
+        taskService.bestAnswer(answer_id);
       } else if (comment.best_answer == true) {
-        taskService
-          .notBestAnswer(comment.answer_id)
+        taskService.notBestAnswer(comment.answer_id);
       }
     });
-    window.location.reload() 
+    window.location.reload();
   };
 
   handleUpvoteComment = (answerId: number) => {
@@ -275,13 +275,39 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
                 <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                 {this.renderSocialButtons()}
-                <img
-                  style={{
-                    cursor: 'pointer',
-                  }}
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                  alt="Empty picture of star used for favorites"
-                />
+                <div>
+                  {this.userFavorites.some(
+                    (favorite) =>
+                      favorite.question_id == this.props.match.params.id &&
+                      favorite.answer_id == reply.answer_id,
+                  ) ? (
+                    <img
+                      style={{ cursor: 'pointer' }}
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+                      alt="Filled picture of gold star, indicates favorites"
+                      onClick={() => {
+                        taskService
+                          .removeFavorite(this.user_id, this.props.match.params.id, reply.answer_id)
+                          .then(() => {
+                            window.location.reload();
+                          });
+                      }}
+                    />
+                  ) : (
+                    <img
+                      style={{ cursor: 'pointer' }}
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                      alt="Empty picture of star, indicates not favorites"
+                      onClick={() => {
+                        taskService
+                          .addFavorite(this.user_id, this.props.match.params.id, reply.answer_id)
+                          .then(() => {
+                            window.location.reload();
+                          });
+                      }}
+                    />
+                  )}
+                </div>
               </div>
               <div
                 style={{
@@ -542,28 +568,61 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
                               <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                               {this.renderSocialButtons()}
-                              <img
-                                style={{
-                                  cursor: 'pointer',
-                                }}
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                                alt="Empty picture of star used for favorites"
-                              />
+                              <div>
+                                {this.userFavorites.some(
+                                  (favorite) =>
+                                    favorite.question_id == this.props.match.params.id &&
+                                    favorite.answer_id == comment.answer_id,
+                                ) ? (
+                                  <img
+                                    style={{ cursor: 'pointer' }}
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+                                    alt="Filled picture of gold star, indicates favorites"
+                                    onClick={() => {
+                                      taskService
+                                        .removeFavorite(
+                                          this.user_id,
+                                          this.props.match.params.id,
+                                          comment.answer_id,
+                                        )
+                                        .then(() => {
+                                          window.location.reload();
+                                        });
+                                    }}
+                                  />
+                                ) : (
+                                  <img
+                                    style={{ cursor: 'pointer' }}
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                                    alt="Empty picture of star, indicates not favorites"
+                                    onClick={() => {
+                                      taskService
+                                        .addFavorite(
+                                          this.user_id,
+                                          this.props.match.params.id,
+                                          comment.answer_id,
+                                        )
+                                        .then(() => {
+                                          window.location.reload();
+                                        });
+                                    }}
+                                  />
+                                )}
+                              </div>
                               {this.user_id === this.question.user_id && (
                                 <div
                                   style={{ cursor: 'pointer' }}
-                                  onClick={() => this.handleBestAnswer(comment.answer_id)
-                                  }  
+                                  onClick={() => this.handleBestAnswer(comment.answer_id)}
                                 >
                                   <img
                                     style={{
-                                    cursor: 'pointer',
+                                      cursor: 'pointer',
                                     }}
                                     src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg"
                                     alt="Picture of checkmark used for marking the best answer"
                                   />
                                 </div>
-                          )}
+                              )}
                             </div>
 
                             <div
@@ -574,11 +633,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 display: 'flex',
                                 flexDirection: 'row',
                                 alignItems: 'stretch',
-                                
                               }}
                             >
-
-                              
                               <Card title="" width="100%" backgroundColor="rgb(60,60,60)">
                                 <div
                                   style={{
@@ -589,7 +645,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                     flexDirection: 'row',
                                     alignItems: 'stretch',
                                     width: '100%',
-                                    backgroundColor: comment.best_answer ? 'rgb(60, 130, 60)' : 'rgb(60,60,60)'
+                                    backgroundColor: comment.best_answer
+                                      ? 'rgb(60, 130, 60)'
+                                      : 'rgb(60,60,60)',
                                   }}
                                 >
                                   <Column>{comment.content}</Column>
@@ -622,5 +680,10 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       .then((getComments) => (this.comments = getComments));
 
     taskService.questionTagGet(this.props.match.params.id).then((tags) => (this.tags = tags));
+
+    taskService.getUserFavorites(this.user_id).then((userFavorites) => {
+      this.userFavorites = userFavorites;
+      console.log(userFavorites);
+    });
   }
 }

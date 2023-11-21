@@ -261,7 +261,7 @@ export class Home extends Component {
                                 taskService
                                   .removeFavorite(this.user_id, post.question_id, null)
                                   .then(() => {
-                                    console.log('reeeeee');
+                                    window.location.reload();
                                   });
                               }}
                             />
