@@ -14,6 +14,7 @@ import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { UserProvider } from './authState';
 import { Alert } from './widgets';
+import { EditComment } from './Components/editComment-component';
 
 let root = document.getElementById('root');
 if (root) {
@@ -36,7 +37,7 @@ if (root) {
             <Route exact path="/tags" component={AllPostsTag} />
             <Route exact path="/createPost" component={CreatePost} />
             <Route exact path="/editPost/:id" component={EditPost} />
-            <Route exact path="/editComment/:id" component={EditPost} />
+            <Route exact path="/editComment/:id" component={EditComment} />
 
             <Route exact path="/user" component={UserProfile} />
             <Route exact path="/posts" component={AllPosts} />

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import taskService, { Question, Tag } from '../question-service';
+import taskService, { Answer, Question, Tag } from '../question-service';
 import { Card, Row, Column, Form, Button } from '../widgets';
 import { createHashHistory } from 'history';
 import EditorComponent from './editor-component';
 
 const history = createHashHistory();
 
-export class EditPost extends Component<{ match: { params: { id: number } } }> {
+export class EditComment extends Component<{ match: { params: { id: number } } }> {
   title: string = '';
   content: string = '';
   tags: Tag[] = [];
@@ -24,13 +24,25 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
     downvotes: 0,
   };
 
+  answer: Answer = {
+    answer_id: 0,
+    question_id: 0,
+    parent_answer_id: null,
+    user_id: 0,
+    best_answer: false,
+    content: '',
+    created_at: '',
+    upvotes: 0,
+    downvotes: 0,
+  };
+
   questionSolved: boolean = false;
   questionJS: boolean = false;
   questionRust: boolean = false;
   questionLinux: boolean = false;
 
   render() {
-    const currentContent = String(this.questionNew.content);
+    const currentContent = String(this.answer.content);
     console.log(currentContent);
     return (
       <div className="background">
@@ -52,70 +64,17 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
                     textAlign: 'center',
                   }}
                 >
-                  Title
+                  Edit Comment
                 </div>
               </Column>
               <Column width={9} none />
               <Column width={1}>
                 <Button.Danger onClick={this.delete}>Delete</Button.Danger>
               </Column>
-              <div className="d-flex justify-content-center align-items-center">
-                <Column width={7} none>
-                  <Form.Input
-                    type="text"
-                    value={this.questionNew.title}
-                    onChange={(event) => (this.questionNew.title = event.currentTarget.value)}
-                    placeholder="Title..."
-                  />
-                </Column>
-              </div>
             </Row>
 
             <Row marginBottom={3}>
-              <Column width={1}>
-                <div style={{ color: 'white', fontSize: '14px' }}>Solved?</div>
-              </Column>
-              <Column width={2}>
-                <Form.Checkbox
-                  checked={this.questionSolved}
-                  onChange={(event) =>
-                    (this.questionSolved = event.currentTarget.checked ? true : false)
-                  }
-                />
-              </Column>
-              <Column width={1}>
-                <div style={{ color: 'white', fontSize: '14px' }}>JavaScript</div>
-              </Column>
-              <Column width={2}>
-                <Form.Checkbox
-                  checked={this.questionJS}
-                  onChange={(event) =>
-                    (this.questionJS = event.currentTarget.checked ? true : false)
-                  }
-                />
-              </Column>
-              <Column width={1}>
-                <div style={{ color: 'white', fontSize: '14px' }}>Rust</div>
-              </Column>
-              <Column width={2}>
-                <Form.Checkbox
-                  checked={this.questionRust}
-                  onChange={(event) =>
-                    (this.questionRust = event.currentTarget.checked ? true : false)
-                  }
-                />
-              </Column>
-              <Column width={1}>
-                <div style={{ color: 'white', fontSize: '14px' }}>Linux</div>
-              </Column>
-              <Column width={2}>
-                <Form.Checkbox
-                  checked={this.questionLinux}
-                  onChange={(event) =>
-                    (this.questionLinux = event.currentTarget.checked ? true : false)
-                  }
-                />
-              </Column>
+              <Column width={2}></Column>
             </Row>
             <Row marginBottom={5}>
               <Column width={2}></Column>
@@ -136,7 +95,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
                       taskService
                         .questionEdit(
                           this.questionNew.title,
-                          this.questionNew.content,
+                          this.answer.content,
                           this.questionNew.question_id,
                         )
                         .then(() => {});
@@ -158,8 +117,6 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
                       setTimeout(() => {
                         history.push('/posts/' + 80);
                       }, 100);
-                    } else {
-                      alert('The title cant be more than 255 characters!');
                     }
                   }}
                 >
