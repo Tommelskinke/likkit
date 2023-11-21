@@ -43,9 +43,9 @@ CREATE TABLE answer(
 
 CREATE TABLE favorites(
     favorite_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    question_id INTEGER,
+    question_id INTEGER DEFAULT NULL,
     answer_id INTEGER DEFAULT NULL,
-    user_id INTEGER);
+    user_id INTEGER DEFAULT NULL);
 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk1 FOREIGN KEY(question_id) REFERENCES question (question_id); 
 ALTER TABLE question_tag ADD CONSTRAINT question_id_fk2 FOREIGN KEY(tag_id) REFERENCES tag (tag_id); 
