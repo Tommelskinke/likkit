@@ -3,7 +3,7 @@ import type https from 'https';
 import WebSocket from 'ws';
 
 /**
- * Whiteboard server
+ * Likkit server
  */
 export default class LikkitServer {
   /**

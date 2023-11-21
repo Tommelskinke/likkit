@@ -19,21 +19,6 @@ export type Comment = {
 };
 
 class CommentService {
-  //henter svar basert på id
-  answerGet(answer_id: number) {
-    return new Promise<Comment>((resolve, reject) => {
-      pool.query(
-        'SELECT * FROM answer WHERE answer_id = ?',
-        [answer_id],
-        (error, results: RowDataPacket[]) => {
-          if (error) return reject(error);
-
-          resolve(results[0] as Comment);
-        },
-      );
-    });
-  }
-
   //get comments on a post from the database
   commentsGet(question_id: number) {
     return new Promise<Comment[]>((resolve, reject) => {
@@ -63,7 +48,7 @@ class CommentService {
     });
   }
 
-  //Setter et svar som beste
+  //Sets a comment as best
   bestAnswer(answer_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -81,7 +66,7 @@ class CommentService {
     });
   }
 
-  //Setter et svar som ikke beste
+  //Sets a comment as not best
   notBestAnswer(answer_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(

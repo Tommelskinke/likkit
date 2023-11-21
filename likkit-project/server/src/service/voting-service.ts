@@ -2,7 +2,7 @@ import pool from '../mysql-pool';
 import type { ResultSetHeader } from 'mysql2';
 
 class VotingService {
-  //voter opp en post
+  //votes a post up
   upvoteQuestion(question_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -20,7 +20,7 @@ class VotingService {
     });
   }
 
-  //voter ned en post
+  //votes a post down
   downvoteQuestion(question_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -38,7 +38,7 @@ class VotingService {
     });
   }
 
-  //voter opp en kommentar
+  //votes a comment up
   upvoteAnswer(answer_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(
@@ -56,7 +56,7 @@ class VotingService {
     });
   }
 
-  //voter ned en kommentar
+  //voter a comment down
   downvoteAnswer(answer_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       pool.query(

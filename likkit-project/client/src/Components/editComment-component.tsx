@@ -26,7 +26,8 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
 
   render() {
     const currentContent = String(this.answer.content);
-    console.log(currentContent);
+    console.log(currentContent, "current content");
+    console.log(this.answer.content, "this.answear.content");
     return (
       <div className="background">
         <div
