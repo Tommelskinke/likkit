@@ -136,3 +136,4 @@ public/
 # File containing database info
 server/config.ts
 likkit-project/server/config.ts
+likkit-project/client/test/__snapshots__
