@@ -2,7 +2,7 @@ CREATE TABLE users(
 	user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	google_id VARCHAR(255) UNIQUE,
 	email VARCHAR(255) UNIQUE,
-	user_type VARCHAR(20) DEFAULT user,
+	user_type VARCHAR(20) DEFAULT "user",
 	username VARCHAR(20) UNIQUE,
 	password VARCHAR(255),
 	user_pfp TINYTEXT);
@@ -66,14 +66,19 @@ INSERT INTO tag VALUES(2, 'JS');
 INSERT INTO tag VALUES(3, 'Rust');
 INSERT INTO tag VALUES(4, 'Linux');
 
-INSERT INTO users VALUES(DEFAULT,'admin', 'Oscar', 'Password1!');
-INSERT INTO users VALUES(DEFAULT, 'user', 'Vegard', 'Password1!');
-INSERT INTO users VALUES(DEFAULT, 'admin', 'Elias', 'Password1!');
-INSERT INTO users VALUES(DEFAULT, 'user', 'Trygve', 'Password1!');
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT,'admin', 'Oscar', 'Password1!', DEFAULT);
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT, 'user', 'Vegard', 'Password1!', DEFAULT);
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT, 'admin', 'Elias', 'Password1!', DEFAULT);
+INSERT INTO users VALUES(DEFAULT,DEFAULT, DEFAULT, 'user', 'Trygve', 'Password1!', DEFAULT);
 
 INSERT INTO question VALUES(DEFAULT, 1, 'Hjelp, igjen', 'Jeg trenger hjelp med noe, igjen.', DEFAULT, 0, 0, 0);
+INSERT INTO question VALUES(DEFAULT, 2, 'Hjefsaf, igjen', 'Jeg safasf noe, igjen.', DEFAULT, 0, 0, 0);
+INSERT INTO question VALUES(DEFAULT, 3, 'Hjeasdfasf igween', 'Jeggqwigjen.', DEFAULT, 0, 0, 0);
 
-INSERT INTO answer VALUES(DEFAULT, 1, 2, 0, 'Her er svaret', DEFAULT, 0, 0, 0);
+INSERT INTO answer VALUES(DEFAULT, DEFAULT, 1, 1, false, 'Her er svaret', DEFAULT, 0, 0, 0);
+INSERT INTO answer VALUES(DEFAULT, DEFAULT, 1, 2, false, 'Her 1414dfet', DEFAULT, 0, 0, 0);
+INSERT INTO answer VALUES(DEFAULT, DEFAULT, 1, 2, false, 'asgasggret', DEFAULT, 0, 0, 0);
+INSERT INTO answer VALUES(DEFAULT, DEFAULT, 2, 1, false, 'Hesfagas', DEFAULT, 0, 0, 0);
 
 INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1174390821697630279/free-user-icon-3297-thumb2.png?ex=65676baf&is=6554f6af&hm=b0d98cd532daab0a5c7f594eff469328ea1bbbd16526f931d42c2a6c8ace9504&");
 INSERT INTO standard_pfp VALUES(DEFAULT, "https://cdn.discordapp.com/attachments/623523695540830219/1174390822100279296/free-user-icon-3297-thumb11.png?ex=65676baf&is=6554f6af&hm=c05dfd2eb83b042903686cfebb49c97fd786d12b62cb595e23c99f79e871258a&");
