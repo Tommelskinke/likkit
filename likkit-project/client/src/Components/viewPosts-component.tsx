@@ -50,13 +50,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
   comments: Comment[] = [];
 
-  newComments: Comment[] = [];
-
   userFavorites: Favorites[] = [];
 
   tags: Tag[] = [];
 
-  selectedOption: string = 'popular';
+  selectedOption: string = 'best';
 
   user_id: number = Number(sessionStorage.getItem('user_id'));
 
@@ -75,12 +73,14 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       taskService
         .commentsGet(this.props.match.params.id)
         .then((getComments) => (this.comments = getComments));
-      this.forceUpdate();
     } else if (selectedOption === 'newest') {
       taskService
         .getNewestComments(this.props.match.params.id)
         .then((newComments) => (this.comments = newComments));
-      this.forceUpdate();
+    } else if (selectedOption === 'best') {
+      taskService
+        .sortBestComments(this.props.match.params.id)
+        .then((bestComments) => (this.comments = bestComments));
     }
     this.forceUpdate(); // Trigger a re-render
   };
@@ -559,8 +559,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     onChange={this.handleSortChange}
                     value={this.selectedOption}
                   >
-                    <option value="popular">Popular</option>
                     <option value="best">Best</option>
+                    <option value="popular">Popular</option>
                     <option value="newest">Newest</option>
                   </select>
                 </div>
@@ -737,17 +737,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       .then((question) => (this.question = question));
 
     taskService
-      .commentsGet(this.props.match.params.id)
-      .then((getComments) => (this.comments = getComments));
+      .sortBestComments(this.props.match.params.id)
+      .then((bestComments) => (this.comments = bestComments));
 
     taskService.questionTagGet(this.props.match.params.id).then((tags) => (this.tags = tags));
 
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
     });
-
-    taskService
-      .getNewestComments(this.props.match.params.id)
-      .then((newComments) => (this.newComments = newComments));
   }
 }

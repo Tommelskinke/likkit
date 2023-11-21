@@ -618,6 +618,19 @@ class TaskService {
       );
     });
   }
+
+  sortBestComment(question_id: number) {
+    return new Promise<Comment[]>((resolve, reject) => {
+      pool.query(
+        'SELECT u.username, u.user_pfp, a.answer_id, a.parent_answer_id, a.best_answer, a.content, a.created_at, a.upvotes, a.downvotes FROM answer a INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.question_id=? ORDER BY a.best_answer DESC, (a.upvotes - a.downvotes) DESC',
+        [question_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results as Comment[]);
+        },
+      );
+    });
+  }
 }
 
 const taskService = new TaskService();

@@ -412,4 +412,12 @@ router.get('/posts/:id/NewComments', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+router.get('/posts/:id/sortBestComment', (request, response) => {
+  const id = Number(request.params.id);
+  taskService
+    .sortBestComment(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
 export default router;

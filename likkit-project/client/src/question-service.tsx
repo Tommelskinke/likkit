@@ -214,6 +214,12 @@ class TaskService {
       .get<Comment[]>('/posts/' + question_id + '/NewComments')
       .then((response) => response.data);
   }
+
+  sortBestComments(question_id: number) {
+    return axios
+      .get<Comment[]>('/posts/' + question_id + '/sortBestComment')
+      .then((response) => response.data);
+  }
 }
 
 const taskService = new TaskService();
