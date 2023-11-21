@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
-import taskService, { Question } from '../question-service';
+import taskService, { Question, Favorites } from '../question-service';
 import { createHashHistory } from 'history';
+import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();
 
 export class AllPostsTag extends Component {
   search: string = '';
+  user_id: number = Number(sessionStorage.getItem('user_id'));
   posts: Question[] = [];
+  userFavorites: Favorites[] = [];
   selectedOption: string = 'popular';
 
   handleSortChange = (event: any) => {
@@ -106,33 +109,96 @@ export class AllPostsTag extends Component {
                     title=""
                     width="100%"
                     backgroundColor="rgb(60,60,60)"
-                    marginBottom={4}
+                    marginBottom={3}
                     key={i}
                   >
-                    <div
-                      style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: '25px',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Button.Vote onClick={() => this.handleUpvote(post.question_id)}>
-                        {upLikk}
-                      </Button.Vote>
-                      <p style={{ margin: '0 10px' }}>{post.upvotes - post.downvotes}</p>
-                      <Button.Vote onClick={() => this.handleDownvote(post.question_id)}>
-                        {downLikk}
-                      </Button.Vote>
-                    </div>
-
-                    <Button.Post onClick={() => history.push('/posts/' + post.question_id)}>
-                      <div style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>
-                        <p>{post.title}</p>
-                      </div>
-                    </Button.Post>
+                    <Row>
+                      <Column width={2}>
+                        <div
+                          style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '25px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            alignContent: 'center',
+                          }}
+                        >
+                          <Column width={4}>
+                            <Button.Vote onClick={() => this.handleUpvote(post.question_id)}>
+                              {upLikk}
+                            </Button.Vote>
+                          </Column>
+                          <Column width={4}>
+                            <p style={{ margin: '0 10px' }}>{post.upvotes - post.downvotes}</p>
+                          </Column>
+                          <Column width={4}>
+                            <Button.Vote onClick={() => this.handleDownvote(post.question_id)}>
+                              {downLikk}
+                            </Button.Vote>
+                          </Column>
+                        </div>
+                      </Column>
+                      <Column width={8} none>
+                        {/*Koden her gir error siden den ikke liker at vi har en knapp og annet innhold inne i en knapp*/}
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => history.push('/posts/' + post.question_id)}
+                        >
+                          <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px' }}>
+                            <p style={{ alignItems: 'center', alignContent: 'center' }}>
+                              {post.title}
+                            </p>
+                            <div style={{ fontSize: '14px', fontWeight: 'normal' }}>
+                              <PrettyPreview htmlContent={post.content} maxLength={100} />
+                            </div>
+                          </div>
+                        </div>
+                      </Column>
+                      <Column width={2} right>
+                        <div>
+                          {this.userFavorites.some(
+                            (favorite) =>
+                              favorite.question_id == post.question_id &&
+                              favorite.answer_id == null,
+                          ) ? (
+                            <img
+                              style={{ cursor: 'pointer' }}
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+                              alt="Filled picture of gold star, indicates favorites"
+                              onClick={() => {
+                                taskService
+                                  .removeFavorite(this.user_id, post.question_id, null)
+                                  .then(() => {
+                                    window.location.reload();
+                                  });
+                              }}
+                            />
+                          ) : (
+                            <img
+                              style={{ cursor: 'pointer' }}
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                              alt="Empty picture of star, indicates not favorites"
+                              onClick={() => {
+                                taskService
+                                  .addFavorite(this.user_id, post.question_id, null)
+                                  .then(() => {
+                                    window.location.reload();
+                                  });
+                              }}
+                            />
+                          )}
+                        </div>
+                      </Column>
+                    </Row>
                   </Card>
                 ))}
               </Row>
@@ -144,5 +210,8 @@ export class AllPostsTag extends Component {
   }
   mounted() {
     taskService.questionGetAllTag(1).then((posts) => (this.posts = posts));
+    taskService.getUserFavorites(this.user_id).then((userFavorites) => {
+      this.userFavorites = userFavorites;
+    });
   }
 }
