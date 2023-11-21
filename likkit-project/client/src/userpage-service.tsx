@@ -10,6 +10,8 @@ export type UserComment = {
   downvotes: number;
   title: string;
   question_id: number;
+  answer_id: number;
+  user_pfp: string;
 };
 
 class UserpageService {
@@ -53,6 +55,20 @@ class UserpageService {
       user_id,
       newpfppath,
     });
+  }
+  getUserFavoritesQuestions(user_id: number) {
+    return axios
+      .get<Question[]>('/user/favPost', {
+        params: { user_id },
+      })
+      .then((response) => response.data);
+  }
+  getUserFavoritesAnswers(user_id: number) {
+    return axios
+      .get<UserComment[]>('/user/favAns', {
+        params: { user_id },
+      })
+      .then((response) => response.data);
   }
 }
 

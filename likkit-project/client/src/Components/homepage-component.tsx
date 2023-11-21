@@ -251,7 +251,9 @@ export class Home extends Component {
                       <Column width={2} right>
                         <div>
                           {this.userFavorites.some(
-                            (favorite) => favorite.question_id == post.question_id,
+                            (favorite) =>
+                              favorite.question_id == post.question_id &&
+                              favorite.answer_id == null,
                           ) ? (
                             <img
                               style={{ cursor: 'pointer' }}
@@ -297,7 +299,6 @@ export class Home extends Component {
     taskService.questionGetThreeNew().then((postsNew) => (this.postsNew = postsNew));
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
-      console.log(userFavorites);
     });
     taskService
       .questionGetUnanswered()

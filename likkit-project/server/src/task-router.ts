@@ -351,7 +351,6 @@ router.get('/favorites', (request, response) => {
 
 router.post('/posts/:id/favorites/add', (request, response) => {
   const data = request.body;
-  console.log(data);
   taskService
     .addFavorite(
       Number(data.user_id),
@@ -378,6 +377,26 @@ router.delete('/tasks/:id', (request, response) => {
     .postDelete(Number(request.params.id))
     .then((_result) => response.send())
     .catch((error) => response.status(500).send(error));
+});
+
+router.get('/user/favPost', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getUserFavoritesQuestions(user_id)
+      .then((favPost) => response.send(favPost))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
+});
+
+router.get('/user/favAns', (request, response) => {
+  const user_id = Number(request.query.user_id);
+  if (user_id != 0)
+    taskService
+      .getUserFavoritesAnswers(user_id)
+      .then((favAnswer) => response.send(favAnswer))
+      .catch((error) => response.status(500).send(error));
+  else response.status(400).send('Missing user_id');
 });
 
 export default router;

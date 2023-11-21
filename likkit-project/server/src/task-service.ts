@@ -37,6 +37,8 @@ export type UserComment = {
   downvotes: number;
   title: string;
   question_id: number;
+  answer_id: number;
+  user_pfp: string;
 };
 
 export type tag = {
@@ -212,7 +214,6 @@ class TaskService {
         [question_id],
         (error, results: ResultSetHeader) => {
           if (error) {
-            console.error('Error deleting post:', error);
             reject(error);
           } else {
             resolve();
@@ -418,7 +419,7 @@ class TaskService {
   getBestComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {
       pool.query(
-        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=? AND a.best_answer = 1',
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=? AND a.best_answer = 1',
         [user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
@@ -432,7 +433,7 @@ class TaskService {
   getAllUserComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {
       pool.query(
-        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=?',
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.user_id=?',
         [user_id],
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
@@ -573,6 +574,34 @@ class TaskService {
             return reject(error);
           }
           resolve(results.insertId);
+        },
+      );
+    });
+  }
+
+  getUserFavoritesQuestions(user_id: number) {
+    return new Promise<Question[]>((resolve, reject) => {
+      pool.query(
+        'SELECT * FROM question WHERE question_id IN (SELECT question_id FROM favorites WHERE user_id = ? AND answer_id IS NULL)',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as Question[]);
+        },
+      );
+    });
+  }
+
+  getUserFavoritesAnswers(user_id: number) {
+    return new Promise<UserComment[]>((resolve, reject) => {
+      pool.query(
+        'SELECT u.username, a.content, a.created_at, a.upvotes, a.downvotes, q.title, q.question_id, a.answer_id, u.user_pfp FROM answer a INNER JOIN question q ON (q.question_id = a.question_id) INNER JOIN users u ON (u.user_id = a.user_id) WHERE a.answer_id IN (SELECT answer_id FROM favorites WHERE user_id = ?)',
+        [user_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+
+          resolve(results as UserComment[]);
         },
       );
     });

@@ -77,7 +77,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
           <Button.Share
             onClick={() => {
               this.handleButtonClick(comment.answer_id);
-              console.log('test');
               this.setState({ showcommentSection: true, rendercommentButton: false });
             }}
           >
@@ -683,7 +682,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
-      console.log(userFavorites);
     });
   }
 }
