@@ -92,6 +92,13 @@ class TaskService {
       question_id: question_id,
     });
   }
+  //edits a comment
+  commentEdit(content: string, answer_id: number) {
+    return axios.post('/editComment/' + answer_id, {
+      content: content,
+      answer_id: answer_id,
+    });
+  }
   //creates tags for a post
   questionTagCreate(question_id: number, tag_id: number) {
     return axios

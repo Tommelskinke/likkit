@@ -681,6 +681,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                     src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg"
                                     alt="Picture of checkmark used for marking the best answer"
                                   />
+                                  <Button.Success
+                                    onClick={() =>
+                                      history.push('/editPost/' + this.question.question_id)
+                                    }
+                                  >
+                                    edit
+                                  </Button.Success>
                                 </div>
                               )}
                             </div>
