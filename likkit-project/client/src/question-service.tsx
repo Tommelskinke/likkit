@@ -76,7 +76,7 @@ class TaskService {
   }
   //gets the newest post in the database
   questionGetNewest() {
-    return axios.get<Question>('/createPost/new').then((response) => response.data);
+    return axios.get<Question>('/createPost/:id').then((response) => response.data);
   }
   //creates a post
   questionCreate(user_id: number | undefined, title: string, content: string) {
