@@ -84,7 +84,7 @@ class TaskService {
   questionGetNewest() {
     return new Promise<Question>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM answer ORDER BY created_at DESC LIMIT 1',
+        'SELECT * FROM question ORDER BY created_at DESC LIMIT 1',
         (error, results: RowDataPacket[]) => {
           if (error) return reject(error);
 
