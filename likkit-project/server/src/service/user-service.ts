@@ -30,7 +30,7 @@ export type Favorites = {
 };
 
 class UserService {
-  // Henter alle kommentarer som er marker som best av en bruker
+  // gets all comments marked as best the user has made
   getBestComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {
       pool.query(
@@ -44,7 +44,7 @@ class UserService {
     });
   }
 
-  // Henter alle kommentarer som er skrevet av en bruker
+  // gets all the comments the user has made
   getAllUserComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {
       pool.query(
@@ -58,7 +58,7 @@ class UserService {
     });
   }
 
-  // Henter alle poster som er skrevet av en bruker
+  // gets all the posts the user has made
   getAllUserPosts(user_id: number) {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(
@@ -72,7 +72,7 @@ class UserService {
     });
   }
 
-  // Henter alle poster som er skrevet av en bruker sortert etter karma
+  // gets all the posts the user has made sorted by the sum of uvotes - downvotes
   getBestUserPosts(user_id: number) {
     return new Promise<Question[]>((resolve, reject) => {
       pool.query(

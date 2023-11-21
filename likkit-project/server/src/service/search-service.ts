@@ -9,6 +9,7 @@ export type QuestionSummary = {
 };
 
 class SearchService {
+  //serches for posts
   searchQuestions(query: string) {
     return new Promise<QuestionSummary[]>((resolve, reject) => {
       pool.query(

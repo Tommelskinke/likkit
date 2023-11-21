@@ -3,7 +3,7 @@ import votingService from '../service/voting-service';
 
 const router = express.Router();
 
-//upvotes på en post
+//upvotes a post
 router.post('/posts/:id/upvote', (request, response) => {
   const id = Number(request.params.id);
 
@@ -19,7 +19,7 @@ router.post('/posts/:id/upvote', (request, response) => {
     });
 });
 
-//downvotes på en post
+//downvotes a post
 router.post('/posts/:id/downvote', (request, response) => {
   const id = Number(request.params.id);
 
@@ -35,7 +35,7 @@ router.post('/posts/:id/downvote', (request, response) => {
     });
 });
 
-//upvotes på kommentarer
+//upvotes a comment
 router.post('/posts/answers/:id/upvote', (request, response) => {
   const id = Number(request.params.id);
 
@@ -51,7 +51,7 @@ router.post('/posts/answers/:id/upvote', (request, response) => {
     });
 });
 
-//downvotes på kommentar
+//downvotes a comment
 router.post('/posts/answers/:id/downvote', (request, response) => {
   const id = Number(request.params.id);
 

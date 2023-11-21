@@ -32,7 +32,7 @@ router.post('/posts/:id', (request, response) => {
   else response.status(400).send('Missing content');
 });
 
-//Setter et svar som beste
+//sets a comments as best
 router.post('/posts/answers/:id/best', (request, response) => {
   const id = Number(request.params.id);
   commentService
@@ -47,7 +47,7 @@ router.post('/posts/answers/:id/best', (request, response) => {
     });
 });
 
-//Setter et svar som ikke beste
+//sets a comment as not best
 router.post('/posts/answers/:id/notBest', (request, response) => {
   const id = Number(request.params.id);
   commentService
