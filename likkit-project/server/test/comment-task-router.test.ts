@@ -73,14 +73,14 @@ beforeEach((done) => {
     commentService
       .createComment(testComment[0].question_id, testComment[0].content, testComment[0].user_id)
       .then(() =>
-      commentService.createComment(
+        commentService.createComment(
           testComment[1].question_id,
           testComment[1].content,
           testComment[1].user_id,
         ),
       ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
-      commentService.createComment(
+        commentService.createComment(
           testComment[2].question_id,
           testComment[2].content,
           testComment[2].user_id,

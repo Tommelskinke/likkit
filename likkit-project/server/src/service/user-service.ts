@@ -30,7 +30,6 @@ export type Favorites = {
 };
 
 class UserService {
-
   // Henter alle kommentarer som er marker som best av en bruker
   getBestComments(user_id: number) {
     return new Promise<UserComment[]>((resolve, reject) => {

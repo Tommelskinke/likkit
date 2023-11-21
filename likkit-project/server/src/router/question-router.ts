@@ -97,12 +97,11 @@ router.post('/createPost/tag', (request, response) => {
 
 //deletes a post
 router.delete('/posts/:id', (request, response) => {
-    questionService
-      .questionRemove(Number(request.params.id))
-      .then((_result) => response.send())
-      .catch((error) => response.status(500).send(error));
-  });
-  
+  questionService
+    .questionRemove(Number(request.params.id))
+    .then((_result) => response.send())
+    .catch((error) => response.status(500).send(error));
+});
 
 //remove tag from a post
 router.post('/editPost/:id/tag/remove', (request, response) => {

@@ -2,7 +2,6 @@ import pool from '../mysql-pool';
 import type { ResultSetHeader } from 'mysql2';
 
 class VotingService {
-  
   //voter opp en post
   upvoteQuestion(question_id: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {

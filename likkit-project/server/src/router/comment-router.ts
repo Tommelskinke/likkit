@@ -25,14 +25,12 @@ router.get('/posts/:id/comments/:id', (request, response) => {
 router.post('/posts/:id', (request, response) => {
   const data = request.body;
   if (data && data.content && data.content.length != 0)
-  commentService
+    commentService
       .createComment(Number(request.params.id), data.content, data.user_id)
       .then((id) => response.send({ id: id }))
       .catch((error) => response.status(500).send(error));
   else response.status(400).send('Missing content');
 });
-
-
 
 //Setter et svar som beste
 router.post('/posts/answers/:id/best', (request, response) => {
@@ -68,7 +66,7 @@ router.post('/posts/answers/:id/notBest', (request, response) => {
 router.post('/posts/:id/reply', (request, response) => {
   const data = request.body;
   if (data && data.content && data.content.length != 0)
-  commentService
+    commentService
       .createCommentReply(
         Number(request.params.id),
         data.parent_answer_id,
@@ -89,7 +87,7 @@ router.get('/posts/:id/NewComments', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
- //gets the comments sorted by most upvotes
+//gets the comments sorted by most upvotes
 router.get('/posts/:id/sortBestComment', (request, response) => {
   const id = Number(request.params.id);
   commentService
