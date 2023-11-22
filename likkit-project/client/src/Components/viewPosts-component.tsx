@@ -37,17 +37,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     downvotes: 1,
   };
 
-  answer: Answer = {
-    answer_id: 0,
-    question_id: 0,
-    parent_answer_id: null,
-    user_id: 1,
-    best_answer: false,
-    content: '',
-    created_at: '',
-    upvotes: 0,
-    downvotes: 0,
-  };
   writeComment: string = '';
 
   comments: Comment[] = [];
@@ -67,6 +56,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     rendercommentButton: true,
   };
 
+  // Handles state change when selecting from dropdown menu
   handleSortChange = (event: any) => {
     const selectedOption = event.target.value;
     this.selectedOption = selectedOption;
@@ -91,6 +81,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     this.setState({ activeButtonId: id });
   };
 
+  //Renders the reply button correctly
   rendercommentButton = (comment: Comment) => {
     if (
       this.state.rendercommentButton === true ||
