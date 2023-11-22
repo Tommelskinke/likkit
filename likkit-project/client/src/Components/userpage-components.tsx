@@ -127,7 +127,7 @@ export class UserProfile extends Component {
                   style={{
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
-                    margin: '2%',
+                    margin: '5%',
                     width: '100%',
                   }}
                 >
@@ -220,17 +220,13 @@ export class UserProfile extends Component {
                                       alignContent: 'center',
                                     }}
                                   >
-                                    <Column width={4}>
-                                      <Button.Vote onClick={() => {}}>{upLikk}</Button.Vote>
-                                    </Column>
+                                    <Column width={4}></Column>
                                     <Column width={4}>
                                       <p style={{ margin: '0 10px' }}>
                                         {data.upvotes - data.downvotes}
                                       </p>
                                     </Column>
-                                    <Column width={4}>
-                                      <Button.Vote onClick={() => {}}>{downLikk}</Button.Vote>
-                                    </Column>
+                                    <Column width={4}></Column>
                                   </div>
                                 </Column>
                                 <Column width={8} none>
@@ -328,7 +324,6 @@ export class UserProfile extends Component {
                                         alignItems: 'stretch',
                                       }}
                                     >
-                                      <Button.Vote onClick={() => {}}>{upLikk}</Button.Vote>
                                       <p style={{ margin: '0 10px' }}>
                                         {data.upvotes - data.downvotes}
                                       </p>
