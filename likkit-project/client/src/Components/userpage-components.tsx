@@ -159,7 +159,7 @@ export class UserProfile extends Component {
                           this.forceUpdate();
                         }}
                       >
-                        Best Post
+                        Best Posts
                       </Button.Light>
                     </Column>
                     <Column>
