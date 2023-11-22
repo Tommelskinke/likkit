@@ -84,7 +84,7 @@ export class Home extends Component {
   userFavorites: Favorites[] = [];
   postsNew: Question[] = [];
   postsPopular: Question[] = [];
-  selectedOption: string = 'popular'; 
+  selectedOption: string = 'popular';
 
   state = {
     favoriteState: false,
