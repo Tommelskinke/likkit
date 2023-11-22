@@ -10,7 +10,6 @@ export type QuestionSummary = {
 };
 
 class SearchService {
-  
   //search questions by a query string
   searchQuestions(input: string) {
     return axios

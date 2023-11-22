@@ -18,7 +18,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   };
 
   if (!results || results.length === 0) {
-    return null; 
+    return null;
   }
 
   return (

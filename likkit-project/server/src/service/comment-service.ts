@@ -31,37 +31,37 @@ export type Answer = {
 };
 
 class CommentService {
-    //get a comment based on id
-    commentGet(comment_id: number) {
-      return new Promise<Answer>((resolve, reject) => {
-        pool.query(
-          'SELECT * from answer WHERE answer_id = ?',
-          [comment_id],
-          (error, results: RowDataPacket[]) => {
-            if (error) return reject(error);
-            resolve(results[0] as Answer);
-          },
-        );
-      });
-    }
+  //get a comment based on id
+  commentGet(comment_id: number) {
+    return new Promise<Answer>((resolve, reject) => {
+      pool.query(
+        'SELECT * from answer WHERE answer_id = ?',
+        [comment_id],
+        (error, results: RowDataPacket[]) => {
+          if (error) return reject(error);
+          resolve(results[0] as Answer);
+        },
+      );
+    });
+  }
 
-    //Edits a comment
-    commentEdit(content: string, answer_id: number) {
-      return new Promise<void>((resolve, reject) => {
-        pool.query(
-          'UPDATE answer SET content= ? WHERE answer_id= ?',
-          [content, answer_id],
-          (error, results: ResultSetHeader) => {
-            if (error) return reject(error);
-            if (results.affectedRows === 0) {
-              reject(new Error('Failed to edit comment'));
-            } else {
-              resolve();
-            }
-          },
-        );
-      });
-    }
+  //Edits a comment
+  commentEdit(content: string, answer_id: number) {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'UPDATE answer SET content= ? WHERE answer_id= ?',
+        [content, answer_id],
+        (error, results: ResultSetHeader) => {
+          if (error) return reject(error);
+          if (results.affectedRows === 0) {
+            reject(new Error('Failed to edit comment'));
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 
   //get comments on a post from the database
   commentsGet(question_id: number) {

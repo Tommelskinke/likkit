@@ -15,7 +15,7 @@ class EditorComponent extends React.Component<EditorComponentProps> {
 
   handleChange = (html: string) => {
     this.setState({ editorHtml: html });
-    this.props.onContentChange(html); 
+    this.props.onContentChange(html);
   };
 
   componentDidUpdate(prevProps: EditorComponentProps) {

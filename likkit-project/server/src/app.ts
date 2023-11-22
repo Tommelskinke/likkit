@@ -93,7 +93,7 @@ async function createUser(user: {
 function generateUsername(profile: any): string {
   //create a base username using part of the Google profile with a random number sufix
   const baseUsername = `${profile.name.givenName}${Math.floor(Math.random() * 1000)}`;
-  return baseUsername.toLowerCase(); 
+  return baseUsername.toLowerCase();
 }
 
 passport.use(
