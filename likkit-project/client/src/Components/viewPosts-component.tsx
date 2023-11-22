@@ -548,15 +548,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 <div style={{ marginLeft: '10px', color: 'white' }}>
                   <select
                     id="dropdown"
-                    style={{
-                      appearance: 'none',
-                      background: '#5A5A5A',
-                      color: 'white',
-                      cursor: 'pointer',
-                      border: '1px solid #ffffff',
-                      borderRadius: '10px',
-                      padding: '5px',
-                    }}
+                    className="dropdownmenu"
                     onChange={this.handleSortChange}
                     value={this.selectedOption}
                   >

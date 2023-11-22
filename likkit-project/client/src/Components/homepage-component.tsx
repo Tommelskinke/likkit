@@ -163,15 +163,7 @@ export class Home extends Component {
                   <div style={{ marginLeft: '10px' }}>
                     <select
                       id="dropdown"
-                      style={{
-                        appearance: 'none',
-                        background: '#5A5A5A',
-                        color: '#ffffff',
-                        cursor: 'pointer',
-                        border: '1px solid #ffffff',
-                        borderRadius: '10px',
-                        padding: '5px',
-                      }}
+                      className="dropdownmenu"
                       onChange={this.handleSortChange}
                       value={this.selectedOption}
                     >
