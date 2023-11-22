@@ -6,7 +6,11 @@ export class Login extends Component<{ match: { params: { id: number } } }> {
   username = '';
   password = '';
   GoogleLoginButton = () => {
-    return <a href="http://localhost:3000/oauth2/google">Login with Google</a>;
+    return (
+      <a style={{ color: 'white' }} href="http://localhost:3000/oauth2/google">
+        Log in as User
+      </a>
+    );
   };
   render() {
     return (
@@ -28,7 +32,7 @@ export class Login extends Component<{ match: { params: { id: number } } }> {
             fontSize: '20px',
           }}
         >
-          <Card title="Login" width="100%" backgroundColor="rgb(90,90,90)">
+          <Card title="Log in as Admin" width="100%" backgroundColor="rgb(90,90,90)">
             <Row>
               <Column width={9}>
                 <Form.Input
@@ -55,7 +59,6 @@ export class Login extends Component<{ match: { params: { id: number } } }> {
                 <this.GoogleLoginButton />
               </Column>
             </Row>
-            <Row marginBottom={5}>{}</Row>
           </Card>
         </div>
       </div>
