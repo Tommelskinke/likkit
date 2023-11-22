@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import SearchBar from './searchBar-component'; 
-import SearchResults from './searchResults-component'; 
-import searchService from '../search-service'; 
+import SearchBar from './searchBar-component';
+import SearchResults from './searchResults-component';
+import searchService from '../search-service';
 import { QuestionSummary } from '../search-service';
 
 const SearchContainer: React.FC = () => {
-  const [searchResults, setSearchResults] = useState<QuestionSummary[]>([]);
-
-  const handleSearch = async (query: string) => {
-    // Call your search service and update searchResults
-    const results = await searchService.searchQuestions(query);
-    setSearchResults(results);
-  };
+  const [searchResults] = useState<QuestionSummary[]>([]);
 
   return (
-    <div>
-      <SearchBar onSearch={handleSearch} />
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+      }}
+    >
+      <SearchBar />
       <SearchResults results={searchResults} />
     </div>
   );

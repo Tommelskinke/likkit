@@ -29,13 +29,13 @@ export class Menu extends Component {
           >
             <Column width={2}>
               <NavBar.Link to="/">
-                <div>
+                <div style={{ marginTop: '2vh' }}>
                   <h1>likkit</h1>
                 </div>
               </NavBar.Link>
             </Column>
             <Column width={7} none>
-              <div>
+              <div style={{ marginTop: '2vh' }}>
                 <SearchContainer />
               </div>
             </Column>
