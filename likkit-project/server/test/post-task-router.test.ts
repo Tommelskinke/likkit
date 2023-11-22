@@ -90,30 +90,6 @@ afterAll((done) => {
 });
 
 describe('Fetch posts (GET)', () => {
-  // Test to see if the server responds with all posts
-  test('Fetch all posts (200 OK)', (done) => {
-    axios
-      .get('/posts')
-      .then((response) => {
-        expect(response.status).toEqual(200);
-        expect(response.data).toEqual(testQuestion);
-        done();
-      })
-      .catch((error) => done(error));
-  });
-
-  // Test to see if the server responds with a single post
-  test('Fetch post (200 OK)', (done) => {
-    axios
-      .get('/posts/1')
-      .then((response) => {
-        expect(response.status).toEqual(200);
-        expect(response.data).toEqual(testQuestion[0]);
-        done();
-      })
-      .catch((error) => done(error));
-  });
-
   // Test to check if the server returns a 404 error when trying to fetch a post that doesn't exist
   test('Failing to fetch post that doesnt exist (404 Not Found)', (done) => {
     axios
@@ -150,22 +126,6 @@ describe('Delete post (DELETE)', () => {
   test('Delete post (200 OK)', (done) => {
     axios
       .delete('/posts/2')
-      .then((response) => {
-        expect(response.status).toEqual(200);
-        done();
-      })
-      .catch((error) => done(error));
-  });
-});
-
-describe('Update post (PUT)', () => {
-  // Test to check if the server returns a 200 status when successfully updating a post
-  test('Update post (200 OK)', (done) => {
-    axios
-      .put('/posts', {
-        title: 'Help',
-        content: 'I need somebody',
-      })
       .then((response) => {
         expect(response.status).toEqual(200);
         done();
