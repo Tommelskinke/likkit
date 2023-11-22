@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 const SearchBar: React.FC = () => {
   const [input, setInput] = useState<string>('');
-  const [suggestions, setSuggestions] = useState<any[]>([]); // Simplified type for demonstration
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const fetchSuggestions = async (searchInput: string) => {
@@ -14,7 +14,6 @@ const SearchBar: React.FC = () => {
       setSuggestions(response.data || []);
     } catch (error) {
       console.error('Error fetching suggestions:', error);
-      // Handle the error appropriately
     }
   };
 
@@ -103,7 +102,7 @@ const SearchBar: React.FC = () => {
                 style={{
                   padding: '10px',
                   cursor: 'pointer',
-                  borderBottom: '1px solid #ddd', // subtle separator
+                  borderBottom: '1px solid #ddd',
                   backgroundColor: '#fff', // default background color
                   transition: 'background-color 0.2s', // smooth transition for background color
                 }}
