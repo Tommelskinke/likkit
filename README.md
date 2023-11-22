@@ -1,5 +1,5 @@
 # likkit - DCST2002 Webutviklingsprosjekt
-Velkommen til vårt prosjekt
+your nr. 1 tech forum for all your coding needs
 ## Førstegangsoppsett
 1. Clone repository med https://github.com/trygvmk/DCST2002-group-project.git 
    eller
