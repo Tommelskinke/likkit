@@ -22,6 +22,7 @@ import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();
 
+//Menu is the navBar/what you see at the top
 export class Menu extends Component {
   search: string = '';
   user_id: number = Number(sessionStorage.getItem('user_id'));
