@@ -9,15 +9,14 @@ const formattedDate = date.toISOString().slice(0, -9);
 const testComment: Comment[] = [
   {
     username: 'Elias',
-    user_pfp: 'ur mom',
+    user_pfp:
+      'https://ichef.bbci.co.uk/news/1536/cpsprodpb/bc74/live/1b7fa100-2d0c-11ed-b970-ff268dbbad44.jpg',
     answer_id: 1,
     best_answer: false,
     content: 'Beste RB i verden',
     created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
-    //@ts-ignore
-    karma: 0,
     parent_answer_id: null,
     question_id: 1,
     user_id: 1,
@@ -32,8 +31,6 @@ const testComment: Comment[] = [
     created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
-    //@ts-ignore
-    karma: 0,
     parent_answer_id: null,
     question_id: 2,
     user_id: 2,
@@ -48,8 +45,6 @@ const testComment: Comment[] = [
     created_at: formattedDate,
     upvotes: 0,
     downvotes: 0,
-    //@ts-ignore
-    karma: 0,
     parent_answer_id: null,
     question_id: 3,
     user_id: 3,
@@ -65,11 +60,11 @@ beforeAll((done) => {
 });
 
 beforeEach((done) => {
-  //Slett alle questions, og reset id auto-increment startverdi
+  // Empty 'answer'table
   pool.query('TRUNCATE TABLE answer', (error) => {
     if (error) return done(error);
 
-    // Create testQuestions sequentially in order to set correct id, and call done() when finished
+    // Create testComments sequentially in order to set correct id, and call done() when finished
     commentService
       .createComment(testComment[0].question_id, testComment[0].content, testComment[0].user_id)
       .then(() =>
@@ -78,33 +73,143 @@ beforeEach((done) => {
           testComment[1].content,
           testComment[1].user_id,
         ),
-      ) // Create testQuestion[1] after testQuestion[0] has been created
+      ) // Create testQuestion[1] after testQuestion[0] has been created
       .then(() =>
         commentService.createComment(
           testComment[2].question_id,
           testComment[2].content,
           testComment[2].user_id,
         ),
-      ) // Create testQuestion[2] after testQuestion[1] has been created
+      ) // Create testQuestion[2] after testQuestion[1] has been created
       .then(() => done()); // Call done() after testQuestion[2] has been created
   });
 });
 
 // Stop web server and close connection to MySQL server
 afterAll((done) => {
-  if (!webServer) return done(new Error());
-  webServer.close(() => pool.end(() => done()));
+  if (!webServer) {
+    console.error('Web server not initialized');
+    return done(new Error('Web server not initialized'));
+  }
+  webServer.close(() => {
+    pool.end((err) => {
+      if (err) {
+        console.error('Error closing MySQL connection:', err);
+        return done(err);
+      }
+      done();
+    });
+  });
 });
 
 describe('Fetch comments (GET)', () => {
-  // Tester om den kan hente alle kommentarer
-  test('Fetch one comment (200 OK)', (done) => {
-    axios.get('/posts/1/comments').then((response) => {
-      // Update the created_at field to match the received value
+  // Test for fetching a non-existent comment
+  test('Fetch non-existent comment (404 Not Found)', (done) => {
+    axios
+      .get('/posts/1/comments/9999')
+      .then((response) => {
+        expect(response.status).toEqual(404);
+        done();
+      })
+      .catch((error) => {
+        // Handle specific error properties
+        expect(error.response.status).toEqual(404);
+        done();
+      });
+  });
 
-      expect(response.status).toEqual(200);
-      expect(response.data[0]).toEqual(testComment[0]);
-      done();
-    });
+  // Test for fetching all comments
+  test('Fetch all comments (200 OK)', (done) => {
+    axios
+      .get('/posts/1/comments')
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.data).toEqual(testComment);
+        done();
+      })
+      .catch((error) => done(error));
+  });
+
+  // Test for fetching a specific comment
+  test('Fetch specific comment (200 OK)', (done) => {
+    axios
+      .get('/posts/1/comments/1')
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.data).toHaveProperty('username');
+        expect(response.data).toHaveProperty('content');
+        done();
+      })
+      .catch((error) => done(error));
+  });
+});
+
+describe('Create comment (POST)', () => {
+  // Test for creating a comment without content
+  test('Create comment without content (400 Bad Request)', (done) => {
+    axios
+      .post('/posts/1', { content: '', user_id: 1 })
+      .then((response) => {
+        expect(response.status).toEqual(400);
+        done();
+      })
+      .catch((error) => {
+        expect(error.response.status).toEqual(400);
+        done();
+      });
+  });
+
+  // Test for creating a comment successfully
+  test('Create comment (200 OK)', (done) => {
+    axios
+      .post('/posts/1', { content: 'Test comment', user_id: 1 })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        // Additional checks for response data
+        done();
+      })
+      .catch((error) => done(error));
+  });
+});
+
+describe('Delete comment (DELETE)', () => {
+  // Test for deleting a non-existent comment
+  test('Delete non-existent comment (404 Not Found)', (done) => {
+    axios
+      .delete('/posts/1/comments/9999')
+      .then((response) => {
+        expect(response.status).toEqual(404);
+        done();
+      })
+      .catch((error) => {
+        expect(error.response.status).toEqual(404);
+        done();
+      });
+  });
+
+  // Test for successfully deleting a comment
+  test('Delete comment (200 OK)', (done) => {
+    axios
+      .delete('/posts/1/comments/1')
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        done();
+      })
+      .catch((error) => done(error));
+  });
+});
+
+describe('Edge Cases and Error Handling', () => {
+  // Test for fetching a comment with an invalid ID
+  test('Fetch comment with invalid ID (400 Bad Request)', (done) => {
+    axios
+      .get('/posts/1/comments/invalid_id')
+      .then((response) => {
+        done(new Error('Expected to receive a 400 Bad Request error.'));
+      })
+      .catch((error) => {
+        expect(error.response.status).toEqual(400);
+        done();
+      });
   });
 });

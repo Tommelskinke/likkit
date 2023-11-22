@@ -11,7 +11,7 @@ import pool from './mysql-pool';
 import { RowDataPacket } from 'mysql2';
 import { Strategy as GoogleStrategy, VerifyCallback } from 'passport-google-oauth20';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, SESSION_SECRET } from '../config';
-/**
+/*
  * Express application.
  */
 declare global {
@@ -28,6 +28,7 @@ declare global {
     }
   }
 }
+// helper functions for finding users
 async function findUserByEmail(email: string): Promise<Express.User | undefined> {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
@@ -65,7 +66,7 @@ async function findUserByUsername(username: string): Promise<Express.User | unde
     });
   });
 }
-
+// function for creating a user and inserting it into the database
 async function createUser(user: {
   email: string;
   user_type: string;
@@ -90,12 +91,13 @@ async function createUser(user: {
   });
 }
 
+//create a base username using part of the Google profile with a random number sufix
 function generateUsername(profile: any): string {
-  //create a base username using part of the Google profile with a random number sufix
   const baseUsername = `${profile.name.givenName}${Math.floor(Math.random() * 1000)}`;
   return baseUsername.toLowerCase();
 }
 
+// Google OAuth2 strategy for authentication
 passport.use(
   new GoogleStrategy(
     {
@@ -140,7 +142,7 @@ passport.use(
     },
   ),
 );
-
+// serialize and deserialize user for the session
 passport.serializeUser((user: Express.User, done) => {
   console.log('Serializing user...');
   done(null, user.user_id);
@@ -156,8 +158,10 @@ passport.deserializeUser(async (id: number, done) => {
   }
 });
 
+// initialize Express app
 const app = express();
 
+// session management
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -166,6 +170,7 @@ app.use(
   }),
 );
 
+// initialize passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 

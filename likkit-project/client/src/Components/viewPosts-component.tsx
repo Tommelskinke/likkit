@@ -22,6 +22,7 @@ import {
   checkmark,
 } from '../widgets';
 import DOMPurify from 'dompurify';
+import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();
 
@@ -352,7 +353,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       width: '100%',
                     }}
                   >
-                    <Column>{reply.content}</Column>
+                    <PrettyPreview htmlContent={reply.content} />
                   </div>
                 </Card>
               </div>
