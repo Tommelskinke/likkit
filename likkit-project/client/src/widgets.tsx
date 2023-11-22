@@ -5,10 +5,26 @@ import { NavLink } from 'react-router-dom';
 
 export const deleteButton = (
   <img
-    src="https://png.pngtree.com/png-vector/20220816/ourmid/pngtree-long-shadow-flat-design-container-button-with-trash-can-icon-vector-png-image_19524360.png"
+    src="https://icon-library.com/images/trashcan-icon/trashcan-icon-14.jpg"
     alt="Hvit søppelkasse med rød bakgrunn"
   />
 );
+//png.pngtree.com/png-vector/20220816/ourmid/pngtree-long-shadow-flat-design-container-button-with-trash-can-icon-vector-png-image_19524360.png
+
+export const filledStar = (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+    alt="Fylt stjerne"
+  />
+);
+
+export const emptyStar = (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+    alt="Tom stjerne"
+  />
+);
+
 export const upLikk = (
   <img
     src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eo_circle_blue_arrow-up.svg/2048px-Eo_circle_blue_arrow-up.svg.png"

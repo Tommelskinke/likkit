@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import taskService, { Question, Tag } from '../question-service';
-import { Card, Row, Column, Form, Button } from '../widgets';
+import { Card, Row, Column, Form, Button, deleteButton } from '../widgets';
 import { createHashHistory } from 'history';
 import EditorComponent from './editor-component';
 
@@ -56,7 +56,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
               </Column>
               <Column width={9} none />
               <Column width={1}>
-                <Button.Danger onClick={this.delete}>Delete</Button.Danger>
+                <Button.Vote onClick={this.delete}>{deleteButton}</Button.Vote>
               </Column>
               <div className="d-flex justify-content-center align-items-center">
                 <Column width={7} none>
