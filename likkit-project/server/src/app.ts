@@ -24,7 +24,6 @@ declare global {
       username?: string;
       password?: string | null;
       user_pfp?: string;
-      // Include other fields as necessary
     }
   }
 }
