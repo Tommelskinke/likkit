@@ -55,7 +55,7 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
               </Column>
               <div className="d-flex justify-content-center align-items-center">
                 <Column width={7} none>
-                  <div style={{ color: 'white' }}>
+                  <div className="normalwhitefont">
                     <EditorComponent
                       initialValue={currentContent}
                       onContentChange={(content: string) => {

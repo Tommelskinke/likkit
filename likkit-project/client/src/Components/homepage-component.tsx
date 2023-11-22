@@ -300,16 +300,7 @@ export class CreatePost extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          backgroundImage: 'linear-gradient(180deg, rgb(110, 160, 175), rgb(15, 40, 60))',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          justifyContent: 'center',
-          height: '150vh',
-        }}
-      >
+      <div className="bakgrunn">
         <div
           style={{
             margin: '1%',

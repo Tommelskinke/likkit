@@ -219,17 +219,7 @@ export class UserProfile extends Component {
                             <>
                               <Row>
                                 <Column width={2}>
-                                  <div
-                                    style={{
-                                      color: 'white',
-                                      fontWeight: 'bold',
-                                      fontSize: '25px',
-                                      display: 'flex',
-                                      flexDirection: 'row',
-                                      alignItems: 'center',
-                                      alignContent: 'center',
-                                    }}
-                                  >
+                                  <div className="bigboldwhitefont">
                                     <Column width={4}></Column>
                                     <Column width={4}>
                                       <p style={{ margin: '0 10px' }}>

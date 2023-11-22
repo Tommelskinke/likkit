@@ -102,11 +102,14 @@ export class CreatePost extends Component {
             <Row marginBottom={5}>
               <Column width={2}></Column>
               <Column width={9} none>
-                <EditorComponent
-                  onContentChange={(content: string) => {
-                    this.content = content;
-                  }}
-                />
+                <div className="normalwhitefont">
+                  <EditorComponent
+                    initialValue={''}
+                    onContentChange={(content: string) => {
+                      this.content = content;
+                    }}
+                  />
+                </div>
               </Column>
             </Row>
             <Row marginBottom={2}>

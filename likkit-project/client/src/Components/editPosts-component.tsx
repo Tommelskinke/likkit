@@ -119,7 +119,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
             <Row marginBottom={5}>
               <Column width={2}></Column>
               <Column width={9} none>
-                <div style={{ color: 'white' }}>
+                <div className="normalwhitefont">
                   <EditorComponent
                     initialValue={currentContent}
                     onContentChange={(content: string) => {

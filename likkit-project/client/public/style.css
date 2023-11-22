@@ -36,3 +36,14 @@ img {
   border-radius: 10px;
   padding: 5px;
 }
+
+.normalwhitefont {
+  color: #ffffff;
+  font-size: '14px';
+}
+
+.bigboldwhitefont {
+  color: #ffffff;
+  font-size: '25px';
+  font-weight: 'bold';
+}
