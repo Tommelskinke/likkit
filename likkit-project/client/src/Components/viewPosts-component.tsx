@@ -293,8 +293,10 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 </Button.Vote>
 
                 <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
+
                 {this.renderSocialButtons()}
-                <div>
+
+                <div style={{ marginLeft: 'auto' }}>
                   {this.userFavorites.some(
                     (favorite) =>
                       favorite.question_id == this.props.match.params.id &&
@@ -328,7 +330,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   )}
                 </div>
                 {this.user_id === reply.user_id && (
-                  <div>
+                  <div style={{ marginLeft: 'auto' }}>
                     <Button.Success onClick={() => history.push('/editComment/' + reply.answer_id)}>
                       edit
                     </Button.Success>
