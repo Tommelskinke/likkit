@@ -105,6 +105,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
     }
   };
 
+  //Renders the comment section when clicking the reply button
   rendercommentSection = (comment: Comment) => {
     if (this.state.activeButtonId === comment.answer_id) {
       return (
@@ -237,6 +238,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       });
   };
 
+  //Renders comments with a parent id (Comments that is a reply to another comment)
   mapComments(comments: Comment[], parentId: number, depth: number = 1) {
     return comments
       .filter((reply) => reply.parent_answer_id === parentId)
@@ -383,6 +385,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
           }}
         >
           <Card title="" width="100%" backgroundColor="rgb(90,90,90)">
+            {/*Renders the question title and content*/}
             <Card title="" width="100%" backgroundColor="rgb(80,80,80)">
               <div
                 style={{
@@ -483,6 +486,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 </Row>
               </div>
             </Card>
+            {/*Renders reply textarea, and the comments*/}
             <Card title="" width="100%" backgroundColor="rgb(80,80,80)">
               <div
                 style={{
@@ -550,7 +554,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   </select>
                 </div>
               </Column>
-
+              {/*Renders all the comments*/}
               <Card title="" width="100%" backgroundColor="rgb(70,70,70)">
                 {this.comments.map((comment, i) => {
                   if (comment.parent_answer_id === null) {
