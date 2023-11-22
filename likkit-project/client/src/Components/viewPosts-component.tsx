@@ -93,7 +93,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
       this.state.activeButtonId !== comment.answer_id
     ) {
       return (
-        <Column width={8} none>
+        <Column width={10} none>
           <Button.Share
             onClick={() => {
               this.handleButtonClick(comment.answer_id);
@@ -328,16 +328,12 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   )}
                 </div>
                 {this.user_id === reply.user_id && (
-                <div>
-                  <Button.Success
-                    onClick={() =>
-                      history.push('/editComment/' + reply.answer_id)
-                    }
-                  >
-                  edit
-                  </Button.Success>
-                </div>
-              )}
+                  <div>
+                    <Button.Success onClick={() => history.push('/editComment/' + reply.answer_id)}>
+                      edit
+                    </Button.Success>
+                  </div>
+                )}
               </div>
               <div
                 style={{
@@ -484,6 +480,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 <Row>
                   <Column width={1}></Column>
                   <Column>{activeTags}</Column>
+
                   <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
                   {this.renderSocialButtons()}
                 </Row>
@@ -620,21 +617,27 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 alignItems: 'stretch',
                               }}
                             >
-                              <Button.Vote
-                                onClick={() => this.handleUpvoteComment(comment.answer_id)}
-                              >
-                                {upLikk}
-                              </Button.Vote>
+                              <p style={{ margin: '0 10px' }}>
+                                <Button.Vote
+                                  onClick={() => this.handleUpvoteComment(comment.answer_id)}
+                                >
+                                  {upLikk}
+                                </Button.Vote>
+                              </p>
+
                               <p style={{ margin: '0 10px' }}>
                                 {comment.upvotes - comment.downvotes}
                               </p>
-                              <Button.Vote
-                                onClick={() => this.handleDownvoteComment(comment.answer_id)}
-                              >
-                                {downLikk}
-                              </Button.Vote>
-
+                              <p style={{ margin: '0 10px' }}>
+                                <Button.Vote
+                                  onClick={() => this.handleDownvoteComment(comment.answer_id)}
+                                >
+                                  {downLikk}
+                                </Button.Vote>
+                              </p>
+                              <p style={{ margin: '0 10px' }}></p>
                               <Button.Share onClick={this.handleShowButtons}>Share</Button.Share>
+                              <p style={{ margin: '0 10px' }}></p>
                               {this.renderSocialButtons()}
                               <div>
                                 {this.userFavorites.some(
@@ -691,7 +694,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   />
                                 </div>
                               )}
-                               {this.user_id === comment.user_id && (
+                              <p style={{ margin: '0 10px' }}></p>
+                              {this.user_id === comment.user_id && (
                                 <div>
                                   <Button.Success
                                     onClick={() =>
