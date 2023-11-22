@@ -174,9 +174,7 @@ export class Home extends Component {
                   </div>
                 </Column>
                 <Column right>
-                  <Button.Success onClick={() => history.push('/posts')}>
-                    View all posts
-                  </Button.Success>
+                  <Button.Blue onClick={() => history.push('/posts')}>View all posts</Button.Blue>
                 </Column>
               </div>
             </Row>

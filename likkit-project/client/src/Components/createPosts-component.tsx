@@ -111,7 +111,7 @@ export class CreatePost extends Component {
             </Row>
             <Row marginBottom={2}>
               <Column right>
-                <Button.Success
+                <Button.Blue
                   onClick={() => {
                     if (this.title.length <= 255) {
                       taskService
@@ -142,7 +142,7 @@ export class CreatePost extends Component {
                   }}
                 >
                   Post
-                </Button.Success>
+                </Button.Blue>
               </Column>
             </Row>
           </Card>

@@ -3,6 +3,7 @@ import { Component } from 'react-simplified';
 import taskService, { Answer, Tag } from '../question-service';
 import { Card, Row, Column, Form, Button, deleteButton } from '../widgets';
 import { createHashHistory } from 'history';
+import EditorComponent from './editor-component';
 
 const history = createHashHistory();
 
@@ -24,6 +25,7 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
   };
 
   render() {
+    const currentContent = String(this.answer.content);
     return (
       <div className="background">
         <div
@@ -44,24 +46,26 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
                     textAlign: 'center',
                   }}
                 >
-                  Edit Post
+                  Edit Comment
                 </div>
               </Column>
               <Column width={9} none />
               <Column width={1}>
-                <Button.Danger onClick={this.delete}>Delete</Button.Danger>
+                <Button.Vote onClick={this.delete}>{deleteButton}</Button.Vote>
               </Column>
               <div className="d-flex justify-content-center align-items-center">
                 <Column width={7} none>
-                  <Form.Input
-                    type="text"
-                    value={this.answer.content}
-                    onChange={(event) => (this.answer.content = event.currentTarget.value)}
-                    placeholder="content..."
-                  />
+                  <div style={{ color: 'white' }}>
+                    <EditorComponent
+                      initialValue={currentContent}
+                      onContentChange={(content: string) => {
+                        this.answer.content = content;
+                      }}
+                    />
+                  </div>
                 </Column>
                 <Column right>
-                  <Button.Success
+                  <Button.Blue
                     onClick={() => {
                       if (this.answer.content.length <= 255) {
                         taskService
@@ -75,7 +79,7 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
                     }}
                   >
                     Post
-                  </Button.Success>
+                  </Button.Blue>
                 </Column>
               </div>
             </Row>

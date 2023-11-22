@@ -47,13 +47,13 @@ export class Login extends Component<{ match: { params: { id: number } } }> {
                   onChange={(event) => (this.password = event.currentTarget.value)}
                   placeholder="password"
                 />
-                <Button.Success
+                <Button.Blue
                   onClick={() => {
                     console.log(this.username);
                   }}
                 >
                   Login
-                </Button.Success>
+                </Button.Blue>
               </Column>
               <Column width={3}>
                 <this.GoogleLoginButton />

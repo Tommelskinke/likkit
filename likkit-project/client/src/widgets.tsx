@@ -258,6 +258,32 @@ class ButtonSuccess extends Component<{ small?: boolean; onClick: () => void }> 
   }
 }
 
+class ButtonBlue extends Component<{ small?: boolean; onClick: () => void }> {
+  render() {
+    return (
+      <button
+        type="button"
+        className="btn btn-success"
+        style={
+          this.props.small
+            ? {
+                padding: '5px 5px',
+                fontSize: '16px',
+                lineHeight: '0.7',
+                backgroundColor: 'rgb(110, 160, 195)',
+                border: 'none',
+                fontWeight: 'bold',
+              }
+            : { backgroundColor: 'rgb(110, 160, 195)', border: 'none', fontWeight: 'bold' }
+        }
+        onClick={this.props.onClick}
+      >
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
 /**
  * Renders a danger button using Bootstrap styles.
  *
@@ -329,6 +355,7 @@ export class Button {
   static Post = ButtonPost;
   static Vote = ButtonVote;
   static Share = ButtonShare;
+  static Blue = ButtonBlue;
 }
 
 /**

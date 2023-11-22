@@ -119,17 +119,19 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
             <Row marginBottom={5}>
               <Column width={2}></Column>
               <Column width={9} none>
-                <EditorComponent
-                  initialValue={currentContent}
-                  onContentChange={(content: string) => {
-                    this.questionNew.content = content;
-                  }}
-                />
+                <div style={{ color: 'white' }}>
+                  <EditorComponent
+                    initialValue={currentContent}
+                    onContentChange={(content: string) => {
+                      this.questionNew.content = content;
+                    }}
+                  />
+                </div>
               </Column>
             </Row>
             <Row marginBottom={2}>
               <Column right>
-                <Button.Success
+                <Button.Blue
                   onClick={() => {
                     if (this.title.length <= 255) {
                       taskService
@@ -163,7 +165,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
                   }}
                 >
                   Post
-                </Button.Success>
+                </Button.Blue>
               </Column>
             </Row>
           </Card>

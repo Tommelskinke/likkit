@@ -130,7 +130,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
           </Row>
           <Row>
             <Column width={6} right>
-              <Button.Success
+              <Button.Blue
                 onClick={() => {
                   taskService
                     .createCommentReply(
@@ -153,7 +153,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 }}
               >
                 Post
-              </Button.Success>
+              </Button.Blue>
             </Column>
           </Row>
         </>
@@ -333,9 +333,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 </div>
                 {this.user_id === reply.user_id && (
                   <div style={{ marginLeft: 'auto' }}>
-                    <Button.Success onClick={() => history.push('/editComment/' + reply.answer_id)}>
+                    <Button.Blue onClick={() => history.push('/editComment/' + reply.answer_id)}>
                       edit
-                    </Button.Success>
+                    </Button.Blue>
                   </div>
                 )}
               </div>
@@ -400,11 +400,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 }}
               >
                 {isAuthor && (
-                  <Button.Success
+                  <Button.Blue
                     onClick={() => history.push('/editPost/' + this.question.question_id)}
                   >
                     edit
-                  </Button.Success>
+                  </Button.Blue>
                 )}
                 <Row marginBottom={3}>
                   <Column width={1}></Column>
@@ -518,7 +518,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                 </Row>
                 <Row marginBottom={5}>
                   <Column right>
-                    <Button.Success
+                    <Button.Blue
                       onClick={() => {
                         if (this.writeComment.length <= 100000) {
                           taskService
@@ -539,7 +539,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       }}
                     >
                       Post
-                    </Button.Success>
+                    </Button.Blue>
                   </Column>
                 </Row>
                 <Column>Sort by:</Column>
@@ -678,13 +678,13 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                               <p style={{ margin: '0 10px' }}></p>
                               {this.user_id === comment.user_id && (
                                 <div>
-                                  <Button.Success
+                                  <Button.Blue
                                     onClick={() =>
                                       history.push('/editComment/' + comment.answer_id)
                                     }
                                   >
                                     edit
-                                  </Button.Success>
+                                  </Button.Blue>
                                 </div>
                               )}
                             </div>
