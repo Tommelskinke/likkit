@@ -300,7 +300,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
                 {this.renderSocialButtons()}
 
-                <div style={{ marginLeft: 'auto' }}>
+                <div>
                   {this.userFavorites.some(
                     (favorite) =>
                       favorite.question_id == this.props.match.params.id &&
@@ -747,11 +747,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
-    });
-  }
-  delete() {
-    taskService.commentRemove(this.answer.answer_id).then(() => {
-      history.push('/posts/:id/comments');
     });
   }
 }
