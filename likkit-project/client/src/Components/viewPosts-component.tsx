@@ -327,6 +327,18 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                     />
                   )}
                 </div>
+                {this.user_id === reply.user_id && (
+                <div>
+                  <Button.Success
+                    onClick={() =>
+                      history.push('/editComment/' + reply.answer_id)
+                    }
+                  >
+                  edit
+                  </Button.Success>
+                  <Button.Danger onClick={this.delete}>Delete</Button.Danger>
+                </div>
+              )}
               </div>
               <div
                 style={{
@@ -666,7 +678,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   />
                                 )}
                               </div>
-                              {this.user_id === comment.user_id && (
+                              {this.user_id === this.question.user_id && (
                                 <div
                                   style={{ cursor: 'pointer' }}
                                   onClick={() => this.handleBestAnswer(comment.answer_id)}
@@ -678,6 +690,10 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                     src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg"
                                     alt="Picture of checkmark used for marking the best answer"
                                   />
+                                </div>
+                              )}
+                               {this.user_id === comment.user_id && (
+                                <div>
                                   <Button.Success
                                     onClick={() =>
                                       history.push('/editComment/' + comment.answer_id)
@@ -685,7 +701,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   >
                                     edit
                                   </Button.Success>
-
                                   <Button.Danger onClick={this.delete}>Delete</Button.Danger>
                                 </div>
                               )}
