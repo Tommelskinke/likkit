@@ -34,7 +34,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
   };
 
   answer: Answer = {
-    answer_id: 15,
+    answer_id: 0,
     question_id: 0,
     parent_answer_id: null,
     user_id: 1,
@@ -685,6 +685,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   >
                                     edit
                                   </Button.Success>
+
+                                  <Button.Danger onClick={this.delete}>Delete</Button.Danger>
                                 </div>
                               )}
                             </div>
@@ -747,6 +749,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
 
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
+    });
+  }
+  delete() {
+    taskService.commentRemove(this.answer.answer_id).then(() => {
+      history.push('/posts/:id/comments');
     });
   }
 }

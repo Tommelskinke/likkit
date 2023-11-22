@@ -174,6 +174,23 @@ class CommentService {
       );
     });
   }
+
+  //removes a comment
+  commentRemove(answer_id: number) {
+    return new Promise<void>((resolve, reject) => {
+      pool.query(
+        'DELETE FROM answer WHERE answer_id = ?',
+        [answer_id],
+        (error, _results: ResultSetHeader) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  }
 }
 
 const commentService = new CommentService();

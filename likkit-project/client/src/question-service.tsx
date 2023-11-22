@@ -144,10 +144,23 @@ class TaskService {
     });
   }
 
+  commentRemove(answer_id: number) {
+    return axios.delete('/posts/:id/comments/' + answer_id).catch((error) => {
+      console.error('Error deleting comment:', error);
+      throw error;
+    });
+  }
+
   //get comments on a post from the database
   commentsGet(question_id: number) {
     return axios
       .get<Comment[]>('/posts/' + question_id + '/comments/')
+      .then((response) => response.data);
+  }
+  //get one comment
+  commentsGetOne(question_id: number) {
+    return axios
+      .get<Comment>('/posts/' + question_id + '/comments/')
       .then((response) => response.data);
   }
   //creates a comment on a post

@@ -121,4 +121,12 @@ router.get('/posts/:id/sortBestComment', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//deletes a comment
+router.delete('/posts/:id/comments/:id', (request, response) => {
+  commentService
+    .commentRemove(Number(request.params.id))
+    .then((_result) => response.send())
+    .catch((error) => response.status(500).send(error));
+});
+
 export default router;
