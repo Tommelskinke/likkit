@@ -27,6 +27,8 @@ export class UserProfile extends Component {
   upvoteAmount: number = 0;
   commentAmount: number = 0;
   bestCommentAmount: number = 0;
+  /*This saves all the different sort options. It goes from left to right: 
+  BestPost -> BestComment -> AllUserComments -> AllUserPosts -> UserFavoriteQuestions -> UserFavoriteComments*/
   options = [[], [], [], [], [], []] as [
     Question[],
     UserComment[],
@@ -46,6 +48,7 @@ export class UserProfile extends Component {
         <div style={{ margin: '1%', marginLeft: '15%', marginRight: '15%' }}>
           <Card title="" backgroundColor="rgb(90,90,90)">
             <Row>
+              {/*Renders profilepicture and information about the user*/}
               <Column width={2}>
                 <Row marginBottom={2}>
                   <UserContext.Consumer>
@@ -128,6 +131,7 @@ export class UserProfile extends Component {
                   </Column>
                 </Row>
               </Column>
+              {/*Renders sort buttons and the content which is sorted*/}
               <Column width={9}>
                 <div
                   style={{
@@ -202,6 +206,7 @@ export class UserProfile extends Component {
                 </div>
                 <Row>
                   <Card title="" width="100%" backgroundColor="rgb(70,70,70)" marginBottom={-3}>
+                    {/*Renders the sorted posts/comments*/}
                     <Row>
                       {this.options[this.active].map((data, i) => (
                         <Card
