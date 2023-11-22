@@ -3,7 +3,6 @@ import { Component } from 'react-simplified';
 import taskService, { Answer, Tag } from '../question-service';
 import { Card, Row, Column, Form, Button, deleteButton } from '../widgets';
 import { createHashHistory } from 'history';
-import EditorComponent from './editor-component';
 
 const history = createHashHistory();
 
@@ -25,9 +24,6 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
   };
 
   render() {
-    const currentContent = String(this.answer.content);
-    console.log(currentContent, "current content");
-    console.log(this.answer.content, "this.answear.content");
     return (
       <div className="background">
         <div
@@ -64,11 +60,34 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
                     placeholder="content..."
                   />
                 </Column>
+                <Column right>
+                <Button.Success
+                  onClick={() => {
+                    if (this.answer.content.length <= 255) {
+                      taskService
+                        .commentEdit(
+                          this.answer.content,
+                          this.answer.answer_id,
+                        )
+                        .then(() => {history.push('/posts/' + this.answer.question_id)});                 
+                    } else {
+                      alert('The content cant be more than 255 characters!');
+                    }
+                  }}
+                >
+                  Post
+                </Button.Success>
+              </Column>
               </div>
             </Row>
           </Card>
         </div>
       </div>
     );
+  }
+  mounted() {
+    taskService
+      .commentGet(this.props.match.params.id)
+      .then((answer) => (this.answer = answer));
   }
 }

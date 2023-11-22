@@ -666,7 +666,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   />
                                 )}
                               </div>
-                              {this.user_id === this.question.user_id && (
+                              {this.user_id === comment.user_id && (
                                 <div
                                   style={{ cursor: 'pointer' }}
                                   onClick={() => this.handleBestAnswer(comment.answer_id)}
@@ -680,7 +680,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   />
                                   <Button.Success
                                     onClick={() =>
-                                      history.push('/editComment/' + this.answer.answer_id)
+                                      history.push('/editComment/' + comment.answer_id)
                                     }
                                   >
                                     edit

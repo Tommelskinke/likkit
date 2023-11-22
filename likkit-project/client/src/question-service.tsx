@@ -102,7 +102,7 @@ class TaskService {
 
   //edits a comment
   commentEdit(content: string, answer_id: number) {
-    return axios.post('/editComment/' + answer_id, {
+    return axios.post('/commentEdit/' + answer_id, {
       content: content,
       answer_id: answer_id,
     });
@@ -161,8 +161,8 @@ class TaskService {
   }
 
   //gets a answer based on id
-  answerGet(answer_id: number) {
-    return axios.get<Answer>('/posts/' + answer_id).then((response) => response.data);
+  commentGet(comment_id: number) {
+    return axios.get<Answer>('/comment/' + comment_id).then((response) => response.data);
   }
 
   //upvotes a post

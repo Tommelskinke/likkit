@@ -3,6 +3,31 @@ import commentService from '../service/comment-service';
 
 const router = express.Router();
 
+//get a comment based on id
+router.get('/comment/:id/', (request, response) => {
+  const id = Number(request.params.id);
+  commentService
+    .commentGet(id)
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
+//Edits a comment
+router.post('/commentEdit/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const data = request.body;
+  commentService
+    .commentEdit(data.content, id)
+    .then(() => response.send({ message: 'Edit successful' }))
+    .catch((error) => {
+      if (error.message === 'Failed to edit comment') {
+        response.status(404).send('Failed to edit comment');
+      } else {
+        response.status(500).send(error);
+      }
+    });
+});
+
 //get comments on a post from the database
 router.get('/posts/:id/comments', (request, response) => {
   const id = Number(request.params.id);
