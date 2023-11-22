@@ -685,6 +685,8 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   >
                                     edit
                                   </Button.Success>
+
+                                  <Button.Danger>Delete</Button.Danger>
                                 </div>
                               )}
                             </div>
