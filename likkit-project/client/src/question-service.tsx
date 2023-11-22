@@ -144,8 +144,8 @@ class TaskService {
     });
   }
 
-  commentRemove(answer_id: number, question_id: number) {
-    return axios.delete('/posts/' + question_id + '/comments/').catch((error) => {
+  commentRemove(answer_id: number) {
+    return axios.delete('/posts/:id/comments/' + answer_id).catch((error) => {
       console.error('Error deleting comment:', error);
       throw error;
     });
