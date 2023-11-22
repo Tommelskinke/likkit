@@ -19,10 +19,6 @@ import PrettyPreview from './prettyPreview-component';
 
 const history = createHashHistory();
 
-function shrek() {
-  alert('SHREK');
-}
-
 export class UserProfile extends Component {
   user: string = String(sessionStorage.getItem('username'));
   userType: string = String(sessionStorage.getItem('user_type'));
