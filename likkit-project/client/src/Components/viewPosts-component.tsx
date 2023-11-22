@@ -332,7 +332,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   )}
                 </div>
                 {this.user_id === reply.user_id && (
-                  <div style={{ marginLeft: 'auto' }}>
+                  <div style={{ margin: '0 20px', paddingTop: '6px' }}>
                     <Button.Blue onClick={() => history.push('/editComment/' + reply.answer_id)}>
                       edit
                     </Button.Blue>
