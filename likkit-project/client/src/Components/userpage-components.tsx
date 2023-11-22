@@ -1,6 +1,16 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Form, Button, upLikk, downLikk } from '../widgets';
+import {
+  Card,
+  Row,
+  Column,
+  Form,
+  Button,
+  upLikk,
+  downLikk,
+  filledStar,
+  emptyStar,
+} from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
 import userpageService, { UserComment } from '../userpage-service';
 import { createHashHistory } from 'history';
@@ -127,7 +137,7 @@ export class UserProfile extends Component {
                   style={{
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
-                    margin: '2%',
+                    margin: '5%',
                     width: '100%',
                   }}
                 >
@@ -220,17 +230,13 @@ export class UserProfile extends Component {
                                       alignContent: 'center',
                                     }}
                                   >
-                                    <Column width={4}>
-                                      <Button.Vote onClick={() => {}}>{upLikk}</Button.Vote>
-                                    </Column>
+                                    <Column width={4}></Column>
                                     <Column width={4}>
                                       <p style={{ margin: '0 10px' }}>
                                         {data.upvotes - data.downvotes}
                                       </p>
                                     </Column>
-                                    <Column width={4}>
-                                      <Button.Vote onClick={() => {}}>{downLikk}</Button.Vote>
-                                    </Column>
+                                    <Column width={4}></Column>
                                   </div>
                                 </Column>
                                 <Column width={8} none>
@@ -307,7 +313,7 @@ export class UserProfile extends Component {
                                         fontSize: '25px',
                                         display: 'flex',
                                         flexDirection: 'row',
-                                        alignItems: 'stretch',
+                                        alignItems: 'center',
                                       }}
                                     ></div>
 
@@ -325,34 +331,37 @@ export class UserProfile extends Component {
                                         fontSize: '25px',
                                         display: 'flex',
                                         flexDirection: 'row',
-                                        alignItems: 'stretch',
+                                        alignItems: 'center',
+                                        textAlign: 'center',
+                                        cursor: 'pointer',
                                       }}
                                     >
-                                      <Button.Vote onClick={() => {}}>{upLikk}</Button.Vote>
                                       <p style={{ margin: '0 10px' }}>
                                         {data.upvotes - data.downvotes}
                                       </p>
-                                      <Button.Vote onClick={() => {}}>{downLikk}</Button.Vote>
-                                      <div>
-                                        {this.userFavorites.some(
-                                          (favorite) =>
-                                            'answer_id' in favorite &&
-                                            favorite.question_id == data.question_id &&
-                                            favorite.answer_id == data.answer_id,
-                                        ) ? (
-                                          <img
-                                            style={{ cursor: 'pointer' }}
-                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
-                                            alt="Filled picture of gold star, indicates favorites"
-                                          />
-                                        ) : (
-                                          <img
-                                            style={{ cursor: 'pointer' }}
-                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                                            alt="Empty picture of star, indicates not favorites"
-                                          />
-                                        )}
-                                      </div>
+
+                                      <Column width={2} right>
+                                        <div>
+                                          {this.userFavorites.some(
+                                            (favorite) =>
+                                              'answer_id' in favorite &&
+                                              favorite.question_id == data.question_id &&
+                                              favorite.answer_id == data.answer_id,
+                                          ) ? (
+                                            <img
+                                              style={{ cursor: 'pointer' }}
+                                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
+                                              alt="Filled picture of gold star, indicates favorites"
+                                            />
+                                          ) : (
+                                            <img
+                                              style={{ cursor: 'pointer' }}
+                                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
+                                              alt="Empty picture of star, indicates not favorites"
+                                            />
+                                          )}
+                                        </div>
+                                      </Column>
                                     </div>
 
                                     <div

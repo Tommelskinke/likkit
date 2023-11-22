@@ -1,7 +1,19 @@
 import React from 'react';
 import { UserContext, handleLogout } from '../authState';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Form, Button, NavBar, upLikk, downLikk } from '../widgets';
+import {
+  Card,
+  Row,
+  Column,
+  Form,
+  Button,
+  NavBar,
+  upLikk,
+  downLikk,
+  filledStar,
+  emptyStar,
+  logo,
+} from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
 import userpageService from '../userpage-service';
 import { createHashHistory } from 'history';
@@ -18,15 +30,7 @@ export class Menu extends Component {
     return (
       <UserContext.Consumer>
         {(userData) => (
-          <NavBar
-            brand={
-              <img
-                src="https://cdn.discordapp.com/attachments/623523695540830219/1169948601183649832/380254333_641845358065071_8017670276526516197_n.png?ex=6557428b&is=6544cd8b&hm=45e12c97e4c20ea17fc19d8feb50b18def1fa2ad524236098cb95bba40b4a144&"
-                alt="Picture of likkit logo"
-              />
-            }
-            id="test"
-          >
+          <NavBar brand={logo} id="test">
             <Column width={2}>
               <NavBar.Link to="/">
                 <div style={{ marginTop: '2vh' }}>
@@ -252,10 +256,7 @@ export class Home extends Component {
                               favorite.question_id == post.question_id &&
                               favorite.answer_id == null,
                           ) ? (
-                            <img
-                              style={{ cursor: 'pointer' }}
-                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
-                              alt="Filled picture of gold star, indicates favorites"
+                            <Button.Vote
                               onClick={() => {
                                 taskService
                                   .removeFavorite(this.user_id, post.question_id, null)
@@ -263,12 +264,11 @@ export class Home extends Component {
                                     window.location.reload();
                                   });
                               }}
-                            />
+                            >
+                              {filledStar}
+                            </Button.Vote>
                           ) : (
-                            <img
-                              style={{ cursor: 'pointer' }}
-                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                              alt="Empty picture of star, indicates not favorites"
+                            <Button.Vote
                               onClick={() => {
                                 taskService
                                   .addFavorite(this.user_id, post.question_id, null)
@@ -276,7 +276,9 @@ export class Home extends Component {
                                     window.location.reload();
                                   });
                               }}
-                            />
+                            >
+                              {emptyStar}
+                            </Button.Vote>
                           )}
                         </div>
                       </Column>

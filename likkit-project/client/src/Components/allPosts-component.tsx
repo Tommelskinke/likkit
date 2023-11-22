@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, upLikk, downLikk } from '../widgets';
+import { Card, Row, Column, Button, upLikk, downLikk, filledStar, emptyStar } from '../widgets';
 import taskService, { Question, Favorites } from '../question-service';
 import { createHashHistory } from 'history';
 import PrettyPreview from './prettyPreview-component';
@@ -167,10 +167,7 @@ export class AllPosts extends Component {
                               favorite.question_id == post.question_id &&
                               favorite.answer_id == null,
                           ) ? (
-                            <img
-                              style={{ cursor: 'pointer' }}
-                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
-                              alt="Filled picture of gold star, indicates favorites"
+                            <Button.Vote
                               onClick={() => {
                                 taskService
                                   .removeFavorite(this.user_id, post.question_id, null)
@@ -178,12 +175,11 @@ export class AllPosts extends Component {
                                     window.location.reload();
                                   });
                               }}
-                            />
+                            >
+                              {filledStar}
+                            </Button.Vote>
                           ) : (
-                            <img
-                              style={{ cursor: 'pointer' }}
-                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                              alt="Empty picture of star, indicates not favorites"
+                            <Button.Vote
                               onClick={() => {
                                 taskService
                                   .addFavorite(this.user_id, post.question_id, null)
@@ -191,7 +187,9 @@ export class AllPosts extends Component {
                                     window.location.reload();
                                   });
                               }}
-                            />
+                            >
+                              {emptyStar}
+                            </Button.Vote>
                           )}
                         </div>
                       </Column>

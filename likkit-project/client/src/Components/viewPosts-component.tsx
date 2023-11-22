@@ -16,6 +16,10 @@ import {
   SoMeRedditLink,
   SoMeInstaLink,
   SoMeXLink,
+  emptyStar,
+  filledStar,
+  bubble,
+  checkmark,
 } from '../widgets';
 import DOMPurify from 'dompurify';
 
@@ -302,10 +306,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                       favorite.question_id == this.props.match.params.id &&
                       favorite.answer_id == reply.answer_id,
                   ) ? (
-                    <img
-                      style={{ cursor: 'pointer' }}
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
-                      alt="Filled picture of gold star, indicates favorites"
+                    <Button.Vote
                       onClick={() => {
                         taskService
                           .removeFavorite(this.user_id, this.props.match.params.id, reply.answer_id)
@@ -313,12 +314,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                             window.location.reload();
                           });
                       }}
-                    />
+                    >
+                      {filledStar}
+                    </Button.Vote>
                   ) : (
-                    <img
-                      style={{ cursor: 'pointer' }}
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                      alt="Empty picture of star, indicates not favorites"
+                    <Button.Vote
                       onClick={() => {
                         taskService
                           .addFavorite(this.user_id, this.props.match.params.id, reply.answer_id)
@@ -326,7 +326,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                             window.location.reload();
                           });
                       }}
-                    />
+                    >
+                      {emptyStar}
+                    </Button.Vote>
                   )}
                 </div>
                 {this.user_id === reply.user_id && (
@@ -414,10 +416,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                           favorite.question_id == this.props.match.params.id &&
                           favorite.answer_id == null,
                       ) ? (
-                        <img
-                          style={{ cursor: 'pointer' }}
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
-                          alt="Filled picture of gold star, indicates favorites"
+                        <Button.Vote
                           onClick={() => {
                             taskService
                               .removeFavorite(this.user_id, this.props.match.params.id, null)
@@ -425,12 +424,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 window.location.reload();
                               });
                           }}
-                        />
+                        >
+                          {filledStar}
+                        </Button.Vote>
                       ) : (
-                        <img
-                          style={{ cursor: 'pointer' }}
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                          alt="Empty picture of star, indicates not favorites"
+                        <Button.Vote
                           onClick={() => {
                             taskService
                               .addFavorite(this.user_id, this.props.match.params.id, null)
@@ -438,7 +436,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                 window.location.reload();
                               });
                           }}
-                        />
+                        >
+                          {emptyStar}
+                        </Button.Vote>
                       )}
                     </div>
                   </Column>
@@ -500,12 +500,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
               >
                 <Row marginBottom={3}>
                   <Column width={1}></Column>
-                  <Column width={1}>
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/9513/9513587.png"
-                      alt="Picture of comment bouble"
-                    />
-                  </Column>
+                  <Column width={1}>{bubble}</Column>
                   <Column width={2}>Comments: {this.comments.length}</Column>
                 </Row>
 
@@ -647,10 +642,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                     favorite.question_id == this.props.match.params.id &&
                                     favorite.answer_id == comment.answer_id,
                                 ) ? (
-                                  <img
-                                    style={{ cursor: 'pointer' }}
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/1024px-Gold_Star.svg.png"
-                                    alt="Filled picture of gold star, indicates favorites"
+                                  <Button.Vote
                                     onClick={() => {
                                       taskService
                                         .removeFavorite(
@@ -662,12 +654,11 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                           window.location.reload();
                                         });
                                     }}
-                                  />
+                                  >
+                                    {filledStar}
+                                  </Button.Vote>
                                 ) : (
-                                  <img
-                                    style={{ cursor: 'pointer' }}
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png"
-                                    alt="Empty picture of star, indicates not favorites"
+                                  <Button.Vote
                                     onClick={() => {
                                       taskService
                                         .addFavorite(
@@ -679,7 +670,9 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                           window.location.reload();
                                         });
                                     }}
-                                  />
+                                  >
+                                    {emptyStar}
+                                  </Button.Vote>
                                 )}
                               </div>
                               {this.user_id === this.question.user_id && (
@@ -687,13 +680,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   style={{ cursor: 'pointer' }}
                                   onClick={() => this.handleBestAnswer(comment.answer_id)}
                                 >
-                                  <img
-                                    style={{
-                                      cursor: 'pointer',
-                                    }}
-                                    src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg"
-                                    alt="Picture of checkmark used for marking the best answer"
-                                  />
+                                  {checkmark}
                                 </div>
                               )}
                               <p style={{ margin: '0 10px' }}></p>
