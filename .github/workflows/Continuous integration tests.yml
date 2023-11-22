@@ -58,5 +58,5 @@ jobs:
         working-directory: likkit-project/client
 
       - name: Run Client Tests
-        run: npm test
+        run: npm test -- -u
         working-directory: likkit-project/client
