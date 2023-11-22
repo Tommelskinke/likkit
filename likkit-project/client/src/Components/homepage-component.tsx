@@ -13,7 +13,6 @@ const history = createHashHistory();
 export class Menu extends Component {
   search: string = '';
   user_id: number = Number(sessionStorage.getItem('user_id'));
-  likkAmount: number = 0;
 
   render() {
     return (
@@ -65,11 +64,6 @@ export class Menu extends Component {
                       Logged in as <b>{userData.username}</b>
                     </div>
                   </Row>
-                  <Row>
-                    <div>
-                      likks: <b>{this.likkAmount}</b>
-                    </div>
-                  </Row>
                 </Column>
                 <Column width={1} none>
                   <Button.Danger onClick={handleLogout}>Log out</Button.Danger>
@@ -81,11 +75,6 @@ export class Menu extends Component {
       </UserContext.Consumer>
     );
   }
-  mounted() {
-    userpageService
-      .getTotalLicks(this.user_id)
-      .then((totalLicks) => (this.likkAmount = totalLicks));
-  }
 }
 
 export class Home extends Component {
@@ -95,7 +84,6 @@ export class Home extends Component {
   userFavorites: Favorites[] = [];
   postsNew: Question[] = [];
   postsPopular: Question[] = [];
-  postsUnanswered: Question[] = [];
   selectedOption: string = 'popular'; 
 
   state = {
@@ -309,39 +297,6 @@ export class Home extends Component {
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
     });
-    taskService
-      .questionGetUnanswered()
-      .then((postsUnanswered) => (this.postsUnanswered = this.postsUnanswered));
-  }
-}
-
-export class Posts extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Posts</h1>
-      </div>
-    );
-  }
-}
-
-export class TagPosts extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Posts</h1>
-      </div>
-    );
-  }
-}
-
-export class Post extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Post</h1>
-      </div>
-    );
   }
 }
 

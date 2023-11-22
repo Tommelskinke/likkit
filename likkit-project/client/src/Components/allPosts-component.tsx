@@ -12,6 +12,7 @@ export class AllPosts extends Component {
   user_id: number = Number(sessionStorage.getItem('user_id'));
   userFavorites: Favorites[] = [];
   posts: Question[] = [];
+  postsUnanswered: Question[] = [];
   selectedOption: string = 'popular';
 
   handleSortChange = (event: any) => {
@@ -19,9 +20,11 @@ export class AllPosts extends Component {
     this.selectedOption = selectedOption;
 
     if (selectedOption === 'popular') {
-      taskService.questionGetAll().then((posts) => (this.posts = posts));
+      taskService.questionGetThree().then((posts) => (this.posts = posts));
     } else if (selectedOption === 'newest') {
-      taskService.questionGetAllNew().then((posts) => (this.posts = posts));
+      taskService.questionGetThreeNew().then((posts) => (this.posts = posts));
+    } else if (selectedOption === 'unanswered') {
+      taskService.questionGetUnanswered().then((posts) => (this.posts = posts));
     }
     this.forceUpdate(); // Trigger a re-render
   };
@@ -87,6 +90,7 @@ export class AllPosts extends Component {
                     >
                       <option value="popular">Popular</option>
                       <option value="newest">Newest</option>
+                      <option value="unanswered">Unanswered</option>
                     </select>
                   </div>
                 </Column>
@@ -207,5 +211,8 @@ export class AllPosts extends Component {
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
     });
+    taskService
+      .questionGetUnanswered()
+      .then((postsUnanswered) => (this.postsUnanswered = postsUnanswered));
   }
 }

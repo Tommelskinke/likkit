@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Home, TagPosts, Post, Menu } from './Components/homepage-component';
+import { Home, Menu } from './Components/homepage-component';
 import { UserProfile } from './Components/userpage-components';
 import { CreatePost } from './Components/createPosts-component';
 import { ViewPost } from './Components/viewPosts-component';
@@ -38,8 +38,6 @@ if (root) {
             <Route exact path="/user" component={UserProfile} />
             <Route exact path="/posts" component={AllPosts} />
             <Route exact path="/posts/:id" component={ViewPost} />
-            <Route exact path="/posts/tag/:id" component={TagPosts} />
-            <Route exact path="/posts/tag/:id/post/:id" component={Post} />
             <Route exact path="/login" component={Login} />
           </div>
         </HashRouter>
