@@ -12,7 +12,6 @@ export class AllPosts extends Component {
   user_id: number = Number(sessionStorage.getItem('user_id'));
   userFavorites: Favorites[] = [];
   posts: Question[] = [];
-  postsUnanswered: Question[] = [];
   selectedOption: string = 'popular';
 
   handleSortChange = (event: any) => {
@@ -211,8 +210,5 @@ export class AllPosts extends Component {
     taskService.getUserFavorites(this.user_id).then((userFavorites) => {
       this.userFavorites = userFavorites;
     });
-    taskService
-      .questionGetUnanswered()
-      .then((postsUnanswered) => (this.postsUnanswered = postsUnanswered));
   }
 }
