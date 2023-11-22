@@ -336,7 +336,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                   >
                   edit
                   </Button.Success>
-                  <Button.Danger onClick={this.delete}>Delete</Button.Danger>
                 </div>
               )}
               </div>
@@ -701,7 +700,6 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                   >
                                     edit
                                   </Button.Success>
-                                  <Button.Danger onClick={this.delete}>Delete</Button.Danger>
                                 </div>
                               )}
                             </div>
