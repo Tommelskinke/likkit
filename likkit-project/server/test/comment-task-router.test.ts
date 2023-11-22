@@ -95,19 +95,7 @@ afterAll((done) => {
   if (!webServer) return done(new Error());
   webServer.close(() => pool.end(() => done()));
 });
-/*
-describe('Fetch comments (GET)', () => {
-  //Tester om den kan hente alle kommentarer
-  test('Fetch one comment (200 OK)', (done) => {
-    axios.get('/posts/1/comments').then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.data).toEqual(testComment[0]);
-      done();
-    });
-  });
-});
 
-*/
 describe('Fetch comments (GET)', () => {
   // Tester om den kan hente alle kommentarer
   test('Fetch one comment (200 OK)', (done) => {
@@ -120,14 +108,3 @@ describe('Fetch comments (GET)', () => {
     });
   });
 });
-
-/*
-describe('Delete comment (DELETE)', () => {
-  test('Delete post (200 OK)', (done) => {
-    axios.delete('/posts/1/comments/1').then((response) => {
-      expect(response.status).toEqual(200);
-      done();
-    });
-  });
-});
-*/

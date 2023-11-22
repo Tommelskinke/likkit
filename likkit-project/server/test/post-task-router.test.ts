@@ -139,18 +139,3 @@ describe('Delete post (DELETE)', () => {
     });
   });
 });
-/*
-describe('Update post (PUT)', () => {
-  test('Update post (200 OK)', (done) => {
-    axios
-      .put('/posts', {
-        title: 'Help',
-        content: 'I need somebody',
-      })
-      .then((response) => {
-        expect(response.status).toEqual(200);
-        done();
-      });
-  });
-});
-*/
