@@ -25,3 +25,4 @@ npm start
 ```
 
 5. Åpne en web browser og gå til http://localhost:3000/
+6. Logg inn som user
