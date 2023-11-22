@@ -3,15 +3,7 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 import { useHistory } from 'react-router-dom';
 
-<<<<<<< HEAD
-interface SearchBarProps {
-  onSearch: (query: string) => Promise<void>; 
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-=======
 const SearchBar: React.FC = () => {
->>>>>>> e35602e (search bar revamp)
   const [input, setInput] = useState<string>('');
   const [suggestions, setSuggestions] = useState<any[]>([]); // Simplified type for demonstration
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -46,15 +38,9 @@ const SearchBar: React.FC = () => {
     setInput(event.target.value);
   };
 
-<<<<<<< HEAD
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    onSearch(input); 
-=======
   const handleSuggestionClick = (suggestion: any) => {
     setInput('');
     history.push(`/posts/${suggestion.question_id}`);
->>>>>>> e35602e (search bar revamp)
   };
 
   return (
