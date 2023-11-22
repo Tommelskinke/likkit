@@ -230,7 +230,6 @@ export class UserProfile extends Component {
                                   </div>
                                 </Column>
                                 <Column width={8} none>
-                                  {/*Koden her gir error siden den ikke liker at vi har en knapp og annet innhold inne i en knapp*/}
                                   <div
                                     style={{
                                       display: 'flex',
