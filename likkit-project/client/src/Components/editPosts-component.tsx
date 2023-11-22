@@ -201,7 +201,7 @@ export class EditPost extends Component<{ match: { params: { id: number } } }> {
   }
   delete() {
     taskService.questionRemove(this.questionNew.question_id).then(() => {
-      history.push('/posts/'); 
+      history.push('/posts/');
     });
   }
 }

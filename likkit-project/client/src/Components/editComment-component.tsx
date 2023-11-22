@@ -49,7 +49,7 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
               </Column>
               <Column width={9} none />
               <Column width={1}>
-                <Button.Danger>Delete</Button.Danger>
+                <Button.Danger onClick={this.delete}>Delete</Button.Danger>
               </Column>
               <div className="d-flex justify-content-center align-items-center">
                 <Column width={7} none>
@@ -61,23 +61,22 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
                   />
                 </Column>
                 <Column right>
-                <Button.Success
-                  onClick={() => {
-                    if (this.answer.content.length <= 255) {
-                      taskService
-                        .commentEdit(
-                          this.answer.content,
-                          this.answer.answer_id,
-                        )
-                        .then(() => {history.push('/posts/' + this.answer.question_id)});                 
-                    } else {
-                      alert('The content cant be more than 255 characters!');
-                    }
-                  }}
-                >
-                  Post
-                </Button.Success>
-              </Column>
+                  <Button.Success
+                    onClick={() => {
+                      if (this.answer.content.length <= 255) {
+                        taskService
+                          .commentEdit(this.answer.content, this.answer.answer_id)
+                          .then(() => {
+                            history.push('/posts/' + this.answer.question_id);
+                          });
+                      } else {
+                        alert('The content cant be more than 255 characters!');
+                      }
+                    }}
+                  >
+                    Post
+                  </Button.Success>
+                </Column>
               </div>
             </Row>
           </Card>
@@ -86,8 +85,11 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
     );
   }
   mounted() {
-    taskService
-      .commentGet(this.props.match.params.id)
-      .then((answer) => (this.answer = answer));
+    taskService.commentGet(this.props.match.params.id).then((answer) => (this.answer = answer));
+  }
+  delete() {
+    taskService.commentRemove(this.answer.answer_id).then(() => {
+      history.push('/posts/:id');
+    });
   }
 }
