@@ -1,3 +1,6 @@
+// generelt sett bad practice å legge passord og secrets i klartekst i config-filer,
+// men av praktiske årsaker gjør vi det her
+
 const crypto = require('crypto');
 
 process.env.MYSQL_HOST = 'mysql.stud.ntnu.no';
