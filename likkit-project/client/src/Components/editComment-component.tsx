@@ -93,7 +93,7 @@ export class EditComment extends Component<{ match: { params: { id: number } } }
   }
   delete() {
     taskService.commentRemove(this.answer.answer_id).then(() => {
-      history.push('/posts/:id');
+      history.push('/posts/' + this.answer.question_id);
     });
   }
 }
