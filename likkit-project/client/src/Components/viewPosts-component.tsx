@@ -710,7 +710,7 @@ export class ViewPost extends Component<{ match: { params: { id: number } } }> {
                                       : 'rgb(60,60,60)',
                                   }}
                                 >
-                                  <PrettyPreview>{comment.content}</PrettyPreview>
+                                  <PrettyPreview htmlContent={comment.content} />
                                 </div>
                               </Card>
                             </div>
