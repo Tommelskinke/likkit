@@ -376,7 +376,7 @@ export class UserProfile extends Component {
                                             width: '100%',
                                           }}
                                         >
-                                          <Column>{data.content}</Column>
+                                          <PrettyPreview>{data.content}</PrettyPreview>
                                         </div>
                                       </Card>
                                     </div>
